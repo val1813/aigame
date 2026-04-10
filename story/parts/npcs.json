@@ -569,12 +569,6 @@
         "是民窑",
         "folk",
         "民"
-      ],
-      "agent_ask_1271": [
-        "1271",
-        "至元八年",
-        "为什么是1271",
-        "这个年份"
       ]
     },
     "states": {
@@ -654,7 +648,7 @@
         "on_enter_quest_event": null,
         "transitions": [
           {
-            "trigger": "agent_ask_1271",
+            "trigger": "agent_answer_1271",
             "target_state": "phase2_detail",
             "condition": null,
             "failure_response": null,
