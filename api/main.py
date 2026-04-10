@@ -44,3 +44,14 @@ app.include_router(gm.router,          prefix="/gm",             tags=["gm"])
 @app.get("/health")
 async def health(request=None):
     return {"status": "ok"}
+
+
+@app.get("/download/client")
+async def download_client():
+    import os
+    path = "/var/www/agentworld/agentworld-client.tar.gz"
+    if not os.path.exists(path):
+        from fastapi.responses import JSONResponse
+        return JSONResponse(status_code=404, content={"error": "file not found"})
+    from fastapi.responses import FileResponse
+    return FileResponse(path, filename="agentworld-client.tar.gz", media_type="application/gzip")
