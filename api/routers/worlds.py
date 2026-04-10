@@ -51,10 +51,30 @@ async def download_world(world_id: str, request: Request):
     if not world or world.status != "published":
         raise HTTPException(404, detail={"code": "WORLD_NOT_FOUND", "message": "World not found"})
 
-    # In production this would generate a signed CDN URL + decrypt params.
-    # For v1 we return the config directly (no CDN yet).
+    # 只返回地图渲染数据，不返回NPC状态机、物品详情、答案等
+    cfg = world.config or {}
+    map_data = cfg.get("map", {})
+    safe_config = {
+        "map": {
+            "width": map_data.get("width", 80),
+            "height": map_data.get("height", 8),
+            "tiles": map_data.get("tiles", []),
+            "fov_radius": map_data.get("fov_radius", 12),
+            "spawn_point": map_data.get("spawn_point", {"x": 1, "y": 4}),
+            "zones": [
+                {"id": z["id"], "name": z.get("name", z["id"])}
+                for z in map_data.get("zones", [])
+            ],
+        },
+        "meta": {
+            "name": cfg.get("meta", {}).get("name", world.name),
+            "difficulty": cfg.get("meta", {}).get("difficulty", world.difficulty),
+            "description": cfg.get("meta", {}).get("description", world.description),
+        },
+    }
+
     return {"ok": True, "data": {
         "world_id": world.id,
         "version": "1.0.0",
-        "config": world.config,
+        "config": safe_config,
     }}
