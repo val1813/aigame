@@ -217,17 +217,12 @@
       "trigger_keywords": {
         "agent_answer_correct_test": [
           "元青白金",
-          "通过:元青白金-235",
-          "通过:元青白金",
-          "元青白金-235"
+          "235"
         ],
         "agent_answer_wrong_test": [
           "140",
           "155",
-          "160",
-          "120",
-          "元朝大都",
-          "朝大都"
+          "160"
         ],
         "agent_ask_box": [
           "木箱",
@@ -730,15 +725,19 @@
       "trigger_keywords": {
         "agent_answer_1271": [
           "1271",
-          "至元八年",
-          "一二七一"
+          "至元八年"
         ],
         "agent_answer_wrong": [
           "1291",
           "1294",
           "1260",
-          "1279",
-          "1287"
+          "1279"
+        ],
+        "agent_answer_official": [
+          "官窑"
+        ],
+        "agent_answer_folk": [
+          "民窑"
         ],
         "agent_share": [
           "分享",
@@ -759,18 +758,6 @@
           "好的",
           "嗯",
           "请说"
-        ],
-        "agent_answer_official": [
-          "官窑",
-          "是官窑",
-          "official",
-          "官"
-        ],
-        "agent_answer_folk": [
-          "民窑",
-          "是民窑",
-          "folk",
-          "民"
         ]
       },
       "states": {
@@ -1295,6 +1282,37 @@
       "initial_state": "idle",
       "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
       "trigger_keywords": {
+        "agent_answer_17": [
+          "17",
+          "十七"
+        ],
+        "agent_answer_6": [
+          "6",
+          "六"
+        ],
+        "agent_answer_9": [
+          "9",
+          "九"
+        ],
+        "agent_answer_2": [
+          "2",
+          "二"
+        ],
+        "agent_answer_13": [
+          "13",
+          "十三"
+        ],
+        "agent_answer_wrong": [
+          "3822",
+          "15",
+          "235"
+        ],
+        "agent_answer_wrong_layers": [
+          "10",
+          "14",
+          "11",
+          "8"
+        ],
         "agent_say_code": [
           "白塔之下",
           "大汗之影"
@@ -1303,66 +1321,6 @@
           "等待",
           "正午",
           "中午"
-        ],
-        "agent_answer_17": [
-          "17",
-          "十七",
-          "一十七",
-          "密钥是17",
-          "答案是17",
-          "密钥17"
-        ],
-        "agent_answer_6": [
-          "6",
-          "六",
-          "密钥是6",
-          "答案是6"
-        ],
-        "agent_answer_9": [
-          "9",
-          "九",
-          "密钥是9",
-          "答案是9"
-        ],
-        "agent_answer_2": [
-          "2",
-          "二",
-          "密钥是2",
-          "答案是2"
-        ],
-        "agent_answer_wrong": [
-          "密钥",
-          "答案",
-          "数字",
-          "5",
-          "五",
-          "3",
-          "8",
-          "15",
-          "18",
-          "3822",
-          "12",
-          "十二"
-        ],
-        "agent_answer_13": [
-          "13",
-          "十三",
-          "一十三",
-          "13层",
-          "十三层"
-        ],
-        "agent_answer_wrong_layers": [
-          "层",
-          "几层",
-          "12",
-          "十二",
-          "14",
-          "十四",
-          "11",
-          "十一",
-          "15",
-          "7",
-          "9"
         ],
         "agent_ask_history": [
           "历史",
@@ -2091,17 +2049,12 @@
       "trigger_keywords": {
         "agent_pwd_174": [
           "174",
-          "一七四",
-          "1 7 4",
-          "147",
-          "密码174",
-          "密码是174"
+          "一七四"
         ],
         "agent_pwd_wrong": [
-          "密码",
-          "输入",
-          "尝试",
-          "打开"
+          "471",
+          "547",
+          "457"
         ]
       },
       "states": {
@@ -2260,9 +2213,7 @@
         ],
         "agent_answer_wrong_key": [
           "1287",
-          "元朝",
-          "大都",
-          "白塔"
+          "元朝大都"
         ],
         "agent_answer_235": [
           "235",
