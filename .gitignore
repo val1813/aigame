@@ -7,3 +7,8 @@ spec_extracted/
 spec.zip
 story/test_run_*.txt
 .claude/
+spec.zip
+aigame.zip
+page.tsx
+03_Client_CLI_Spec.md
+spec_extracted/
