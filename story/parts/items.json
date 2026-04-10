@@ -772,5 +772,26 @@
       "consume": false,
       "deduct_hp": 0
     }
+  },
+  {
+    "id": "item_cipher_tablet",
+    "name": "密文石板",
+    "type": "inspect",
+    "position": {
+      "x": 57,
+      "y": 2
+    },
+    "short_desc": "暗渠墙壁上嵌着一块石板，上面刻着一串看不懂的西文字母。",
+    "visible_condition": "player.unlocked_info CONTAINS 'info_tunnel_explored'",
+    "on_use": {
+      "description": "石板上刻着一行西文字母，看起来是某种密码：\n\nCQN YJBBFXAM RB XWN OXDA BNENW\n\n字母下方还有一行小字：「此密文以凯撒之法加密。偏移之数，取自入职考核中参与计算之项的数量，再乘以白塔层数之个位。」\n\n这是一段凯撒密码！你需要找到正确的偏移量来解密。\n\n提示：\n- 入职考核代码中，有多少个era为yuan的数据项参与了计算？\n- 白塔共有多少层？取个位数。\n- 两个数字相乘就是偏移量。\n- 凯撒密码解密：每个字母往前移动偏移量位。",
+      "unlock_info": [
+        "info_cipher_found"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
   }
 ]
