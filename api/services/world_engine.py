@@ -100,18 +100,25 @@ class WorldEngine:
 
         description = self._zone_description(zone_id, state)
 
-        # 按节点解锁过滤：只返回当前已解锁的节点信息，防止AI提前获知未解锁剧情
+        # 按节点解锁过滤
         visible_nodes = self._get_visible_nodes(state)
 
+        # 章节跳转提示：检查当前章节是否已完成，提示AI去下一章
+        next_zone_hint = self._get_next_zone_hint(zone_id, state)
+
+        result = {
+            "position": {**pos, "zone": zone_id},
+            "zone_name": zone_name,
+            "description": description,
+            "visible_npcs": visible_npcs,
+            "visible_items": self._get_visible_items(state),
+            "visible_events": visible_nodes,
+        }
+        if next_zone_hint:
+            result["next_step"] = next_zone_hint
+
         return {
-            "result": {
-                "position": {**pos, "zone": zone_id},
-                "zone_name": zone_name,
-                "description": description,
-                "visible_npcs": visible_npcs,
-                "visible_items": self._get_visible_items(state),
-                "visible_events": visible_nodes,
-            },
+            "result": result,
             "world_delta": {},
             "ws_events": [{"event": "observe", "data": {"zone": zone_id}}],
         }
@@ -335,6 +342,16 @@ class WorldEngine:
         if not item_cfg:
             return {"result": {"item_id": item_id, "used": True}, "world_delta": {}, "ws_events": []}
 
+        # 已调查过的inspect物品返回简短提示
+        if is_inspectable:
+            inspected = json.loads(await self.redis.hget(self._state_key, "inspected") or "[]")
+            if item_id in inspected and not item_cfg.get("password_check"):
+                return {"result": {
+                    "item_id": item_id, "used": True,
+                    "description": f"你已经调查过{item_cfg.get('name', item_id)}了，没有新发现。继续推进主线吧。",
+                    "already_inspected": True,
+                }, "world_delta": {}, "ws_events": []}
+
         # 检查使用条件
         use_cond = item_cfg.get("use_condition")
         if use_cond:
@@ -510,10 +527,44 @@ class WorldEngine:
         return "unknown"
 
     def _zone_name(self, zone_id: str) -> str:
-        for zone in self.config.get("map", ).get("zones", []):
+        for zone in self.config.get("map", {}).get("zones", []):
             if zone["id"] == zone_id:
                 return zone.get("name", zone_id)
         return zone_id
+
+    def _get_next_zone_hint(self, current_zone: str, state: dict) -> str:
+        """检查当前章节是否完成，提示AI去下一章"""
+        zone_order = ["zone_ch1", "zone_ch2", "zone_ch3", "zone_ch4", "zone_ch5"]
+        complete_nodes = {
+            "zone_ch1": "node_ch1_complete",
+            "zone_ch2": "node_ch2_complete",
+            "zone_ch3": "node_ch3_complete",
+            "zone_ch4": "node_ch4_complete",
+        }
+        zone_names = {
+            "zone_ch2": "瓷器修复实验室",
+            "zone_ch3": "妙应寺白塔",
+            "zone_ch4": "水关遗址",
+            "zone_ch5": "赵教授的办公室",
+        }
+
+        node_id = complete_nodes.get(current_zone)
+        if not node_id:
+            return ""
+
+        # 检查当前章节的完成节点是否已完成
+        quests = state.get("quests", {})
+        main_quest = quests.get("main_quest", {})
+        nodes = main_quest.get("nodes", {})
+        node_state = nodes.get(node_id, {})
+
+        if node_state.get("complete"):
+            idx = zone_order.index(current_zone) if current_zone in zone_order else -1
+            if idx >= 0 and idx + 1 < len(zone_order):
+                next_zone = zone_order[idx + 1]
+                next_name = zone_names.get(next_zone, next_zone)
+                return f"当前章节已完成！请用 move 前往下一区域：{next_name}（zone_id: {next_zone}）"
+        return ""
 
     def _zone_description(self, zone_id: str, state: dict = None) -> str:
         """返回区域描述，支持 zone config 中的 description 字段和条件描述"""
