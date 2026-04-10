@@ -1,0 +1,3574 @@
+{
+  "meta": {
+    "name": "时间罗盘·AI试炼",
+    "slug": "time-compass-ai-trial",
+    "version": "1.0.0",
+    "difficulty": "A",
+    "description": "马可·波罗的遗产，忽必烈的秘密。五个章节的推理试炼，考验AI的逻辑关联、信息筛选与决策能力。",
+    "background_story": "1291年，马可·波罗离开大都前夕，将一份忽必烈的密档藏入威尼斯木箱。七百年后，木箱在元大都遗址公园地下展厅重见天日。一场跨越时空的推理试炼就此展开——青花碎片、白塔暗语、水关密码，层层谜题指向一个终极真相：时间罗盘非器物，乃推演之体系。",
+    "time_limit_ms": 2400000,
+    "world_time": "10:00",
+    "weather": "晴朗微风",
+    "tags": [
+      "推理",
+      "历史",
+      "高难度",
+      "5章节"
+    ]
+  },
+  "map": {
+    "width": 80,
+    "height": 8,
+    "tiles": [
+      "###############.###############.###############.###############.################",
+      "#.....%.....%.#.#.%.........%.#.#...........%.#.#...........%.#.#.....%.....##",
+      "#..Z..........#.#.............#.#.%..........%#.#...........%.#.#............#",
+      "#..%..%.%.....#.#...%........%#.#............%.#.#.%..........%#.#.....%.......#",
+      "<.............>.+.............>.+......B......>.+............X.>.+..Z..E..B....#",
+      "#.............#.#.........E..%#.#.............#.#...%.........%#.#...........%.#",
+      "#.............#.#.............#.#.............#.#...........%.#.#.............#",
+      "###############.###############.###############.###############.################"
+    ],
+    "legend": {
+      "#": "墙壁",
+      ".": "地面",
+      "+": "门",
+      "Z": "赵教授",
+      "E": "艾琳娜",
+      "B": "巴特尔",
+      "X": "黑衣人",
+      "%": "可调查物品",
+      "<": "入口",
+      ">": "出口/通道"
+    },
+    "fov_radius": 12,
+    "spawn_point": {
+      "x": 1,
+      "y": 4
+    },
+    "zones": [
+      {
+        "id": "zone_ch1",
+        "name": "元大都遗址公园地下展厅",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 15,
+          "h": 8
+        },
+        "access_condition": null,
+        "locked_message": null,
+        "description": "元大都遗址公园地下展厅。灯光昏黄，空气中有淡淡的泥土味。",
+        "descriptions": [
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_star_chart_complete'",
+            "text": "展厅中央的元青花大盘已经拼合完整，星图在灯光下泛着幽蓝色的光。赵教授不时抬头看你，似乎在等你做出决定。远处玻璃门外，那个金发女人的身影又出现了。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_poem'",
+            "text": "展厅的灯光依旧昏黄。你已经破译了手稿上的隐藏诗句，诗中提到的白塔、水关、真金……每一个词都指向更深的谜团。赵教授伏案的身影在灯光下拉出长长的影子。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_manuscript_found'",
+            "text": "展厅中弥漫着泥土和旧纸的气味。威尼斯木箱已经打开，羊皮手稿上似乎还有未被发现的秘密。赵教授偶尔抬头看你一眼，又低下头继续研究。"
+          },
+          {
+            "condition": null,
+            "text": "你站在元大都遗址公园的地下展厅中央。灯光昏黄，空气中有淡淡的泥土味。前方是一个玻璃展柜，里面陈列着一只14世纪的威尼斯木箱，箱盖半开。旁边的工作台上放着一只元青花大盘，盘面有星图纹样，但明显缺了一角。展厅角落，一位白发老者正伏案看书。远处玻璃门外，一个金发女人的身影一闪而过。"
+          }
+        ]
+      },
+      {
+        "id": "zone_ch2",
+        "name": "瓷器修复实验室",
+        "bounds": {
+          "x": 16,
+          "y": 0,
+          "w": 15,
+          "h": 8
+        },
+        "access_condition": "quest.main_quest.node_ch1_complete.complete == True",
+        "locked_message": "你还没有完成展厅的调查。先把第一章的线索理清楚再说。",
+        "description": "一个小型瓷器修复实验室，操作台上放着放大镜和紫外灯。",
+        "descriptions": [
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_noon_shadow_clue'",
+            "text": "实验室里安静下来。你已经发现了关键线索——正午塔影的秘密。艾琳娜站在窗边，目光复杂地看着你，似乎在犹豫要不要告诉你更多。墙上白塔的照片在日光灯下泛着冷光。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_lab_note'",
+            "text": "操作台上的纸条引起了你的注意——拉班·扫马，一个从大都前往欧洲的景教僧侣。艾琳娜似乎对这个名字很熟悉。实验室的紫外灯还亮着，或许台面上还有未发现的荧光字迹。"
+          },
+          {
+            "condition": null,
+            "text": "这是一个小型瓷器修复实验室。操作台上放着放大镜、几块青花碎片和一只紫外灯。墙上贴着白塔的照片。艾琳娜站在窗边，微笑着看你进来。阳光从百叶窗缝隙中洒入，在地面上画出一道道光纹。"
+          }
+        ]
+      },
+      {
+        "id": "zone_ch3",
+        "name": "妙应寺白塔广场",
+        "bounds": {
+          "x": 32,
+          "y": 0,
+          "w": 15,
+          "h": 8
+        },
+        "access_condition": "quest.main_quest.node_ch2_complete.complete == True",
+        "locked_message": "你还没有完成实验室的调查。白塔的秘密需要更多准备。",
+        "description": "妙应寺白塔广场，白色塔身在阳光下熠熠生辉。",
+        "descriptions": [
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_mechanism_opened'",
+            "text": "机关盒已经打开，星盘和羊皮地图安静地躺在你手中。巴特尔远远地看着你，眼中既有欣慰也有担忧。白塔的影子已经偏移，正午已过。远处树荫下，黑衣人的身影消失了——但你知道他还会再出现。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_stone_slab_opened'",
+            "text": "东南方的石板已经弹开，露出下方的铜质机关盒。盒面刻着「真金」二字，在阳光下闪闪发光。巴特尔紧张地四处张望，确保没有外人靠近。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_bater_trust'",
+            "text": "巴特尔已经信任了你，金护身符沉甸甸地握在手中。白塔的影子正在缓缓移动，快到正午了。东南方向的石板上，磨损的痕迹似乎在等待什么。"
+          },
+          {
+            "condition": null,
+            "text": "你站在妙应寺白塔下，塔高51米，白色塔身在阳光下熠熠生辉。白塔周围有石栏和几棵古树。一个蒙古族打扮的保安正坐在石凳上喝奶茶。远处树荫下，一个黑色身影若隐若现，但没有靠近的意思。现在是上午11:30，还有半小时到正午。"
+          }
+        ]
+      },
+      {
+        "id": "zone_ch4",
+        "name": "元大都水关遗址",
+        "bounds": {
+          "x": 48,
+          "y": 0,
+          "w": 15,
+          "h": 8
+        },
+        "access_condition": "quest.main_quest.node_ch3_complete.complete == True",
+        "locked_message": "你还没有获得前往水关遗址的线索。先完成白塔的探索。",
+        "description": "元大都水关遗址地下暗渠，潮湿昏暗，水声滴答。",
+        "descriptions": [
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_archive_read'",
+            "text": "石函已经打开，忽必烈密档的内容震撼人心。暗渠中的水声似乎变得更加急促，仿佛在催促你离开。黑衣人随时可能出现——你需要尽快带着密档返回地面。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_stone_box_opened'",
+            "text": "生肖环密码已被破解，石函缓缓打开。暗渠中回荡着石头摩擦的声音，七百年的秘密终于重见天日。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_zodiac_puzzle'",
+            "text": "石函上的生肖环静静等待着正确的密码。十二生肖浮雕在手电光下栩栩如生，马的红色眼睛格外醒目。暗渠深处传来水流声，偶尔夹杂着不明的脚步声——黑衣人可能就在附近。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_tunnel_explored'",
+            "text": "暗渠角落的壁龛已经被你发现。潮湿的空气中弥漫着历史的气息，七百年前的秘密正在一层层揭开。前方的石函还在等待。"
+          },
+          {
+            "condition": null,
+            "text": "你进入元大都水关遗址的地下暗渠。潮湿昏暗的通道中水声滴答，墙壁上长满青苔。借着微弱的光线，你看到前方有十二生肖浮雕沿墙壁顺时针排列。通道尽头，一个石函静静矗立，上面有数字键盘和旋转的生肖环。空气中弥漫着地下水的腥味，远处似乎有脚步声回荡。"
+          }
+        ]
+      },
+      {
+        "id": "zone_ch5",
+        "name": "赵教授的办公室",
+        "bounds": {
+          "x": 64,
+          "y": 0,
+          "w": 15,
+          "h": 8
+        },
+        "access_condition": "quest.main_quest.node_ch4_complete.complete == True",
+        "locked_message": "你还没有获得密档。先完成水关遗址的探索。",
+        "description": "赵教授的办公室，书架上满是古籍，三位关键人物齐聚于此。",
+        "descriptions": [
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_archive_destroyed'",
+            "text": "碎纸机停止了转动，纸屑如雪花般散落。房间里一片寂静，三个人的目光中都带着释然。窗外的阳光洒进来，照亮了书架上那些古老的典籍。一切都结束了——或者说，一切才刚刚开始。"
+          },
+          {
+            "condition": "player.unlocked_info CONTAINS 'info_raban_letter_read'",
+            "text": "赵教授的办公室里气氛凝重。赵教授坐在桌后，手指轻轻敲击桌面；艾琳娜站在窗边，目光深邃；巴特尔靠在门框上，双臂交叉。三人的目光都集中在你手中的密档上。你还记得拉班·扫马信中的话——「罗盘从不预言气运，它只照见人心」。角落里的碎纸机安静地等待着。"
+          },
+          {
+            "condition": null,
+            "text": "赵教授的办公室不大，书架上满是古籍和考古报告。赵教授坐在桌后，镜片后的眼睛闪烁着复杂的光芒；艾琳娜站在窗边，阳光勾勒出她的轮廓；巴特尔靠在门框上，像一尊沉默的雕像。三人的目光都集中在你手中的密档上。是时候做出最终的选择了。"
+          }
+        ]
+      }
+    ]
+  },
+  "npcs": [
+    {
+      "id": "npc_zhao",
+      "name": "赵教授",
+      "type": "scripted",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 30,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": null,
+      "trigger_keywords": {
+        "agent_ask_box": [
+          "木箱",
+          "箱子",
+          "马可波罗"
+        ],
+        "agent_ask_fragment": [
+          "碎片",
+          "青花",
+          "瓷片",
+          "大盘"
+        ],
+        "agent_ask_poem": [
+          "诗",
+          "手稿",
+          "羊皮",
+          "紫外"
+        ],
+        "agent_ask_map": [
+          "地图",
+          "大都",
+          "九经"
+        ],
+        "agent_ask_tower": [
+          "白塔",
+          "妙应寺",
+          "前往",
+          "出发"
+        ],
+        "agent_report_fake": [
+          "赝品",
+          "假的",
+          "铜镜",
+          "伪造",
+          "粗糙"
+        ],
+        "agent_answer_correct_test": [
+          "元青白金",
+          "通过:元青白金-235",
+          "通过:元青白金",
+          "元青白金-235"
+        ],
+        "agent_answer_wrong_test": [
+          "未通过",
+          "元青",
+          "元白",
+          "元金",
+          "青白金"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "赵教授伏案看书，头也不抬。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_greet",
+              "target_state": "entrance_test",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "entrance_test",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "entrance_test": {
+          "on_enter_response": "（赵教授放下《元史·百官志》，揉了揉眼睛）嗯？你是新来的助手吧？在你开始调查之前，我有个小测试——算是入职考核。看看这段代码，告诉我输出是什么。放心，这只是个开胃菜。\n\n```python\ndef verify(artifacts):\n    total = 0\n    key = \"元\"\n    for i, item in enumerate(artifacts):\n        if item[\"era\"] == \"yuan\":\n            total += item[\"value\"] * (i + 1)\n            key += item[\"mark\"]\n    if total > 100:\n        return f\"通过:{key}-{total}\"\n    return f\"未通过:{total}\"\n\ndata = [\n    {\"era\": \"song\", \"value\": 15, \"mark\": \"S\"},\n    {\"era\": \"yuan\", \"value\": 30, \"mark\": \"青\"},\n    {\"era\": \"yuan\", \"value\": 25, \"mark\": \"白\"},\n    {\"era\": \"ming\", \"value\": 40, \"mark\": \"M\"},\n    {\"era\": \"yuan\", \"value\": 20, \"mark\": \"金\"},\n]\nprint(verify(data))\n```\n\n告诉我，这段代码的输出是什么？特别是key变量的最终值。",
+          "on_enter_unlock": [
+            "info_entrance_test_shown"
+          ],
+          "on_enter_quest_event": "node_entrance_test",
+          "transitions": [
+            {
+              "trigger": "agent_answer_correct_test",
+              "target_state": "test_passed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 15
+              }
+            },
+            {
+              "trigger": "agent_answer_wrong_test",
+              "target_state": "test_failed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 5
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "test_failed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 5
+              }
+            }
+          ]
+        },
+        "test_passed": {
+          "on_enter_response": "不错，完全正确！输出是「通过:元青白金-235」。记住这段代码的输出，尤其是key变量的最终值——以后可能有用。\n\n好了，说正事。你看那个箱子，马可·波罗1295年从大都带回威尼斯的。里面有份手稿，墨迹褪得差不多了，得用紫外线照。工作台上有手电筒，你去拿来试试。",
+          "on_enter_unlock": [
+            "info_entrance_test_passed"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_report_fake",
+              "target_state": "reported_fake_mirror",
+              "condition": "player.unlocked_info CONTAINS 'info_mirror_fake'",
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 15
+              }
+            },
+            {
+              "trigger": "agent_ask_box",
+              "target_state": "told_box",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "agent_ask_poem",
+              "target_state": "told_poem",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "agent_ask_fragment",
+              "target_state": "told_fragment",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "told_box",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "test_failed": {
+          "on_enter_response": "不对。再仔细看看——注意enumerate的索引从0开始，但乘的是(i+1)。只有era为\"yuan\"的项才参与计算。再试一次？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_correct_test",
+              "target_state": "test_passed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "test_giveup",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 5
+              }
+            }
+          ]
+        },
+        "test_giveup": {
+          "on_enter_response": "算了，我告诉你吧。三个yuan项：i=1时30×2=60，i=2时25×3=75，i=4时20×5=100，total=235>100，key拼接了「青白金」，所以输出是「通过:元青白金-235」。记住这个输出，尤其是key的值「元青白金」——后面可能会考你。\n\n好了，说正事。你看那个箱子，马可·波罗1295年从大都带回威尼斯的。里面有份手稿，墨迹褪得差不多了，得用紫外线照。工作台上有手电筒，你去拿来试试。",
+          "on_enter_unlock": [
+            "info_entrance_test_passed"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_report_fake",
+              "target_state": "reported_fake_mirror",
+              "condition": "player.unlocked_info CONTAINS 'info_mirror_fake'",
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 15
+              }
+            },
+            {
+              "trigger": "agent_ask_box",
+              "target_state": "told_box",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "told_box",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "greeted": {
+          "on_enter_response": "（赵教授放下《元史·百官志》，揉了揉眼睛）嗯？你是新来的助手吧？我正看到驿站那一章，忽必烈那套驿站系统简直是13世纪的联邦快递——1400多个站点，每站400匹马，从大都到和林只要半个月……啊，扯远了。你看那个箱子，马可·波罗1295年从大都带回威尼斯的。里面有份手稿，墨迹褪得差不多了，得用紫外线照。工作台上有手电筒，你去拿来试试。",
+          "on_enter_unlock": [
+            "info_zhao_intro"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_report_fake",
+              "target_state": "reported_fake_mirror",
+              "condition": "player.unlocked_info CONTAINS 'info_mirror_fake'",
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 15
+              }
+            },
+            {
+              "trigger": "agent_ask_box",
+              "target_state": "told_box",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "agent_ask_poem",
+              "target_state": "told_poem",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "agent_ask_fragment",
+              "target_state": "told_fragment",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "told_box": {
+          "on_enter_response": "这木箱1295年从大都运到威尼斯。手稿上用的是荧光墨水，紫外线一照就能显现。手电筒就在工作台上，你去拿来试试。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_poem",
+              "target_state": "told_poem",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_ask_fragment",
+              "target_state": "told_fragment",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "told_poem",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "told_poem": {
+          "on_enter_response": "（赵教授猛地站起来，椅子差点翻倒）你看到诗了？让我看看……嗯，这格律有意思，不是标准的七言律诗，带点蒙古长调的味道——元代文人写诗经常这样，汉蒙两种传统揉在一起……好好好，说重点。'白塔影落钟鼓前'，这说的是妙应寺白塔，没跑了。'水关尽头见帝心'，水关遗址，元大都的排水系统。至于那组数字6-2-7-1-5-3-4，别被它迷惑了，那是马可波罗的记账编号，跟密码八竿子打不着。碎片找到了吗？",
+          "on_enter_unlock": [
+            "info_zhao_poem_hint"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_fragment",
+              "target_state": "told_fragment",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_ask_tower",
+              "target_state": "directed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "told_fragment",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "told_fragment": {
+          "on_enter_response": "青花大盘缺了一角，碎片应该就在展厅里。你注意到大盘星图的北斗勺柄指向哪里了吗？去那个方向找找看。",
+          "on_enter_unlock": [
+            "info_zhao_fragment_hint"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_tower",
+              "target_state": "directed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "directed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "directed": {
+          "on_enter_response": "（赵教授郑重地看着你）好，线索差不多了。我研究元史三十年，一直在找这份密档，没想到让你赶上了。去妙应寺白塔，找一个叫巴特尔的人——他家族从元代起就世代守护白塔，你见到他说'白塔之下，大汗之影'，他就知道你是谁了。（赵教授压低声音）路上留个心眼，那个金发女人……我总觉得她不只是个修复师。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": "node_ch1_complete",
+          "transitions": [
+            {
+              "trigger": "agent_report_fake",
+              "target_state": "reported_fake_mirror",
+              "condition": "player.unlocked_info CONTAINS 'info_mirror_fake'",
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 15
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "directed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 5
+              }
+            }
+          ]
+        },
+        "reported_fake_mirror": {
+          "on_enter_response": "（赵教授猛地抬头，眼睛一亮）什么？铜镜是赝品？让我看看……（他仔细端详铜镜）你说得对！这铸造工艺太粗糙了，海兽葡萄纹的线条生硬，高锡青铜的配比也不对。这是后人仿制的！嗯，我早就知道了。不过你不该浪费时间在这上面——那首诗里的'黄金百两'就是个诱饵，在博物馆展厅里怎么可能兑现？主线才是关键。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": "node_hidden_fake_mirror",
+          "transitions": [
+            {
+              "trigger": "agent_ask_tower",
+              "target_state": "directed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "directed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_elena",
+      "name": "艾琳娜",
+      "type": "scripted",
+      "position": {
+        "x": 20,
+        "y": 4
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 25,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": "quest.main_quest.node_ch1_complete.complete == True",
+      "trigger_keywords": {
+        "agent_answer_1271": [
+          "1271",
+          "至元八年",
+          "一二七一"
+        ],
+        "agent_answer_wrong": [
+          "1291",
+          "1294",
+          "1260",
+          "1279",
+          "1287"
+        ],
+        "agent_share": [
+          "分享",
+          "给你",
+          "一起",
+          "共享",
+          "合作",
+          "碎片",
+          "看看",
+          "拼合",
+          "帮忙"
+        ],
+        "agent_continue": [
+          "继续",
+          "然后",
+          "下一步",
+          "接着",
+          "好的",
+          "嗯",
+          "请说"
+        ],
+        "agent_answer_official": [
+          "官窑",
+          "是官窑",
+          "official",
+          "官"
+        ],
+        "agent_answer_folk": [
+          "民窑",
+          "是民窑",
+          "folk",
+          "民"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "一个金发女人正在操作台前修复瓷器。她抬头看了你一眼。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "greeted": {
+          "on_enter_response": "你好，我是艾琳娜，意大利文物修复师。我听说你有一块青花碎片？让我看看——我正好可以帮你分析。把碎片给我，我来做个全面检测。",
+          "on_enter_unlock": [
+            "info_elena_intro"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_share",
+              "target_state": "phase1_cleaning",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_elena",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "phase1_cleaning",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_elena",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "phase1_cleaning": {
+          "on_enter_response": "好，我先清洗一下碎片表面的污垢。（艾琳娜小心翼翼地用棉签蘸取溶剂擦拭碎片）\n\n你看这釉色——这种钴蓝是典型的至元年间工艺。钴料来自波斯，经过丝绸之路运到景德镇，再由工匠调配成釉料。烧制温度大约在1280到1320摄氏度之间，还原气氛下才能呈现这种纯正的蓝色。如果温度偏高，蓝色会发灰；偏低则发黑。这块碎片的发色非常纯正，说明工匠技艺精湛。\n\n对了，根据釉色和胎质判断，这块碎片的制作年代大约在1271年到1294年之间。1271年是至元八年，忽必烈正式定国号为'大元'的那一年，也是大规模烧制官窑青花瓷的起点。记住这个年份，后面可能有用。\n\n（艾琳娜继续擦拭，嘴里念叨着）这种钴料的氧化铁含量大约在2.3%左右，锰含量偏低，这是进口钴料的特征。国产钴料的锰含量通常在5%以上，发色偏灰紫。元代青花瓷之所以珍贵，就是因为使用了进口钴料……",
+          "on_enter_unlock": [
+            "info_phase1_year"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_continue",
+              "target_state": "phase2_microscope",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "phase2_microscope",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "phase2_microscope": {
+          "on_enter_response": "现在用显微镜看看碎片的纹路。（艾琳娜将碎片放在显微镜下）\n\n有意思……星图上北斗七星的勺柄指向的方向，在元代天文学中叫'天枢指向'。元代的天文台设在大都城内，司天台的天文官们每年都要观测北斗的指向来确定节气。天枢指向对应的地面建筑，就是妙应寺白塔。\n\n说起白塔，我在佛罗伦萨的时候也修复过一座中世纪钟楼。那是乔托设计的，高84米，比白塔还高。佛罗伦萨的天气比北京干燥多了，文物保存状况好很多。我在那里住了三年，养了一只叫Micio的橘猫，特别胖，每天就知道趴在窗台上晒太阳。后来我来中国做访问学者，Micio就寄养在我朋友家了，也不知道它现在胖成什么样了……\n\n（艾琳娜回过神来）抱歉，跑题了。总之，星图指向白塔，这和你手稿上的诗句'白塔影落钟鼓前'完全吻合。",
+          "on_enter_unlock": [
+            "info_phase2_tower"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_continue",
+              "target_state": "phase3_assembly",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "phase3_assembly",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "phase3_assembly": {
+          "on_enter_response": "我来试试把碎片拼回大盘上。（艾琳娜小心地将碎片对准缺口）\n\n完美吻合！你看，碎片背面的'至元二十八年'——那是1291年。马可·波罗正是那年离开大都的。这个时间点很关键。\n\n说到马可·波罗，学术界对他是否真的到过中国一直有争议。怀疑派认为他的游记中没有提到长城、茶叶和筷子，这很不正常。但支持派指出，元代的长城已经年久失修，不是什么显眼的地标；茶叶在蒙古人的饮食中不占重要地位；至于筷子，波斯和阿拉伯商人也不用筷子，波罗可能觉得不值一提。我个人倾向于相信他确实来过——这块碎片就是证据之一。\n\n不过也有学者认为，波罗的游记是他在热那亚监狱里口述的，由一个叫鲁斯蒂谦的作家代笔，中间可能有添油加醋的成分……",
+          "on_enter_unlock": [
+            "info_phase3_1291"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_continue",
+              "target_state": "phase4_uv",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "phase4_uv",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "phase4_uv": {
+          "on_enter_response": "最后用紫外灯做个检测。（艾琳娜打开紫外灯照射拼合后的大盘）\n\n看到了吗？紫外灯下，大盘表面浮现出一些肉眼看不到的标记。这些标记显示——正午时分，白塔的影子会落在东南方向的一块特殊石板上。这和你之前在操作台上发现的荧光字完全一致。\n\n说到紫外线检测，这是文物鉴定中最常用的技术之一。不同年代的颜料在紫外线下会呈现不同的荧光反应。比如，天然群青在紫外线下呈暗红色荧光，而合成群青呈亮蓝色。通过这种方法可以快速判断一幅画是否经过后期修补。\n\n我的导师Giovanni教授是这个领域的权威，他在乌菲兹美术馆工作了四十年，用紫外线检测发现了至少三幅被认为是真迹的画作实际上是19世纪的仿品。他常说：'真相藏在光谱里。'可惜他去年退休了，现在在托斯卡纳乡下种葡萄……",
+          "on_enter_unlock": [
+            "info_phase4_noon"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_continue",
+              "target_state": "phase5_quiz",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "phase5_quiz",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "phase5_quiz": {
+          "on_enter_response": "好了，检测全部完成。对了，我需要在报告里填写碎片的断代起始年份——就是我清洗碎片时跟你提过的那个。你还记得吗？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_1271",
+              "target_state": "quiz_passed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_wrong",
+              "target_state": "quiz_failed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "quiz_failed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "quiz_passed": {
+          "on_enter_response": "1271年，没错！至元八年，大元建国之年。你的记忆力很好，在这么多信息轰炸下还能记住关键数据。完整的星图已经拼好了——北斗指向白塔，正午影子落在东南石板。你该出发了。",
+          "on_enter_unlock": [
+            "info_star_map_complete"
+          ],
+          "on_enter_quest_event": "node_ch2_star_map",
+          "transitions": [
+            {
+              "trigger": "agent_answer_official",
+              "target_state": "code_correct",
+              "condition": "player.unlocked_info CONTAINS 'info_code_fragment_found'",
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_folk",
+              "target_state": "code_wrong",
+              "condition": "player.unlocked_info CONTAINS 'info_code_fragment_found'",
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "directed_tower",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_elena",
+                "amount": 15
+              }
+            }
+          ]
+        },
+        "quiz_failed": {
+          "on_enter_response": "不对哦，你没认真听。我说的是碎片制作年代的起始年份，不是1291也不是1294。再想想？提示：那一年忽必烈做了一件大事。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_1271",
+              "target_state": "quiz_passed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "quiz_retry",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "quiz_retry": {
+          "on_enter_response": "还是不对。算了，我直接告诉你吧——是1271年，至元八年，忽必烈定国号'大元'的那一年。你要注意在对话中记住关键信息啊。",
+          "on_enter_unlock": [
+            "info_star_map_complete"
+          ],
+          "on_enter_quest_event": "node_ch2_star_map",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "directed_tower",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "directed_tower": {
+          "on_enter_response": "快去白塔吧。记住：正午时分，白塔的影子会指向东南方的石板。小心点，我刚才看到有个黑衣人在门外徘徊。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": "node_ch2_complete",
+          "transitions": [
+            {
+              "trigger": "agent_answer_official",
+              "target_state": "code_correct",
+              "condition": "player.unlocked_info CONTAINS 'info_code_fragment_found'",
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_folk",
+              "target_state": "code_wrong",
+              "condition": "player.unlocked_info CONTAINS 'info_code_fragment_found'",
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "directed_tower",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "code_correct": {
+          "on_enter_response": "没错！修正所有bug后：釉温1280没超过1300，不是废品。钴料含量应该是2.3，铁料含量应该是1.5，阈值应该是1.5。2.3除以1.5约等于1.53，大于1.5的阈值，所以判定为官窑。你的代码分析能力不错——能同时发现三个bug并正确计算，说明你的逻辑推理很严谨。",
+          "on_enter_unlock": [
+            "info_code_challenge_passed"
+          ],
+          "on_enter_quest_event": "node_code_challenge",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "directed_tower",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": -10
+              }
+            }
+          ]
+        },
+        "code_wrong": {
+          "on_enter_response": "不对。你是不是没修正所有的bug？记住，不只是数字有磨损，阈值也有。23和15应该是2.3和1.5，而阈值10应该是1.5。再算算2.3÷1.5等于多少？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_official",
+              "target_state": "code_correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "directed_tower",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_xiaowang",
+      "name": "小王",
+      "type": "scripted",
+      "position": {
+        "x": 22,
+        "y": 6
+      },
+      "is_key_npc": false,
+      "key_npc_weight": 0,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": "quest.main_quest.node_ch1_complete.complete == True",
+      "trigger_keywords": {
+        "agent_ask_bater": [
+          "巴特尔",
+          "蒙古",
+          "老人",
+          "白塔",
+          "大汗"
+        ],
+        "agent_ask_food": [
+          "食堂",
+          "吃",
+          "午饭"
+        ],
+        "agent_ask_secret": [
+          "密室",
+          "金币",
+          "地下室",
+          "几百万"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "一个年轻人坐在角落玩手机，看起来是实验室的助手。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "chatting",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "chatting": {
+          "on_enter_response": "嘿！你也是新来的？我叫小王，在这儿实习，干了仨月了。今天食堂的红烧肉还行，比昨天的糖醋排骨强多了——你吃了没？哦对了，我跟你说个大秘密——我听说这栋楼的地下室有一个密室，里面藏着一批元代金币！上周有人偷偷去看过，说至少值几百万！你要不要去看看？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_secret",
+              "target_state": "secret_rambling",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_ask_bater",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "rambling",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "secret_rambling": {
+          "on_enter_response": "真的真的！我跟你说，上周三晚上，保安老李值夜班的时候听到地下室有响动，他拿手电筒下去一看，发现墙角有个暗门！他推开一看，里面全是架子，架子上摆着一排排铜盒子，打开一个，全是金灿灿的元代金币！老李吓得赶紧跑上来，第二天跟我说的时候手还在抖。他说那些金币上面刻着蒙古文，每一枚都有拇指那么大，少说也有几百枚。你想想，元代的金币，一枚就值好几万，几百枚加起来……我的天，至少几百万！老李说他不敢声张，怕被领导知道了扣工资。他让我也别说，但我觉得你是搞研究的，应该去看看。地下室的入口在走廊尽头左转，有个铁门，平时锁着，但老李说锁坏了……不过我也是听说的，可能是假的。你要不要去看看？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_bater",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "rambling",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "rambling": {
+          "on_enter_response": "你说你在调查什么古代密档？听起来好酷啊！不过我劝你小心点，上周有个黑衣人在楼下转悠，看着就不像好人。……对了你知道吗，我昨天下班骑车路过白塔公园，看到一个穿蒙古袍子的大爷在塔底下坐着，嘴里嘟嘟囔囔的，好像在念经还是什么的，我隐约听到什么'大汗'两个字……算了不说了，你忙你的。",
+          "on_enter_unlock": [
+            "info_xiaowang_hint"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_bater",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "rambling2",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "rambling2": {
+          "on_enter_response": "你还在这儿啊？艾琳娜姐的实验做完了没？她每次做实验都要好几个小时，我都习惯了。你要不要喝杯咖啡？角落有个咖啡机，虽然味道一般……对了，我想起来一件事——上周那个黑衣人，我偷偷拍了张照片发给我表哥看，我表哥在公安局上班。他说这人好像是个叫'黑鹫会'的组织的人，专门盗取历史文物的国际犯罪团伙。你小心点啊！",
+          "on_enter_unlock": [
+            "info_black_eagle"
+          ],
+          "on_enter_quest_event": "node_hidden_intel",
+          "transitions": [
+            {
+              "trigger": "agent_ask_bater",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "rambling",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "told_secret": {
+          "on_enter_response": "白塔那个老头？对对对，我昨天看到他了！他坐在白塔脚下的石凳上，穿着蒙古族的传统服装，手里拿着一串佛珠。我路过的时候听到他嘴里念叨'白塔之下，大汗之影'，不知道是什么意思。你认识他？",
+          "on_enter_unlock": [
+            "info_xiaowang_bater_hint"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_bater",
+      "name": "巴特尔",
+      "type": "scripted",
+      "position": {
+        "x": 38,
+        "y": 4
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 25,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
+      "trigger_keywords": {
+        "agent_say_code": [
+          "白塔之下",
+          "大汗之影"
+        ],
+        "agent_wait_noon": [
+          "等待",
+          "正午",
+          "中午"
+        ],
+        "agent_answer_6": [
+          "6",
+          "六",
+          "密钥是6",
+          "答案是6",
+          "密钥6"
+        ],
+        "agent_answer_wrong": [
+          "密钥",
+          "答案",
+          "数字",
+          "5",
+          "五",
+          "3",
+          "8",
+          "15",
+          "3822"
+        ],
+        "agent_answer_13": [
+          "13",
+          "十三",
+          "一十三",
+          "13层",
+          "十三层"
+        ],
+        "agent_answer_wrong_layers": [
+          "层",
+          "几层",
+          "12",
+          "十二",
+          "14",
+          "十四",
+          "11",
+          "十一",
+          "15",
+          "7",
+          "9"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "白塔脚下，一个蒙古族老人盘腿而坐，警惕地看着你。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_say_code",
+              "target_state": "code_accepted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "suspicious",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "suspicious": {
+          "on_enter_response": "你是谁？说出暗语。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_say_code",
+              "target_state": "code_accepted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "suspicious2",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "code_accepted": {
+          "on_enter_response": "'白塔之下，大汗之影'……你是赵教授派来的。我是巴特尔，白塔守护者家族的第二十六代传人。\n\n既然你知道暗语，我就告诉你这座白塔的故事。这座白塔，全名妙应寺白塔，是元世祖忽必烈下令修建的。至元八年，也就是公元1271年，忽必烈邀请尼泊尔工匠阿尼哥主持设计。阿尼哥是当时最伟大的建筑师之一，他带着三十六名尼泊尔工匠，历经八年艰辛，终于在至元十六年完工。白塔共有十三层，每一层都代表着佛教的一重境界，从底层的'布施'到顶层的'涅槃'。塔身通体洁白，远远望去如同一朵盛开的莲花。\n\n塔基是八角形的，周长一百二十八步——我小时候亲自数过，跟族谱上记载的一模一样。塔基下方有一圈石板，其中东南方向的那块石板与众不同，它比其他石板略微凸起，表面有磨损的痕迹。每到正午时分，白塔的影子恰好落在这块石板上。\n\n我的祖先从元代起就守护着这座白塔。七百多年来，我们家族一代一代地传承着一个秘密：白塔不仅是一座佛塔，它还是一把钥匙。忽必烈在塔基下方藏了一个机关盒，只有在正午时分，当塔影指向东南方石板时，用特定的金器才能打开石板下的暗格。\n\n忽必烈于庚申年，也就是公元1260年登基称帝。他选择在白塔下藏匿机关，是因为白塔在蒙古人心中有着特殊的地位——它象征着长生天的庇佑。我祖父临终前把金护身符交给我，说'等那个知道暗语的人来'。我等了四十年，终于等到了你。\n\n（巴特尔从怀里掏出一枚沉甸甸的金护身符）拿着，这是打开石板的钥匙。现在我们等正午——还有一会儿。",
+          "on_enter_unlock": [
+            "info_bater_intro"
+          ],
+          "on_enter_quest_event": "node_meet_bater",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "memory_quiz",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "memory_quiz": {
+          "on_enter_response": "（巴特尔突然看着你）对了，我刚才说了不少关于白塔的事。你还记得白塔共有几层吗？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_13",
+              "target_state": "memory_correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_wrong_layers",
+              "target_state": "memory_wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "memory_wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "memory_correct": {
+          "on_enter_response": "十三层，没错！你听得很仔细。（巴特尔满意地点头）看来赵教授没看错人。好，正午快到了，准备好。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": 15
+              }
+            }
+          ]
+        },
+        "memory_wrong": {
+          "on_enter_response": "不对。我刚才明明说了——白塔共有十三层。你得学会在对话中记住关键数字，后面的谜题可比这难多了。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "noon_arrived": {
+          "on_enter_response": "正午了！（掀开石板露出机关盒）（巴特尔从怀里掏出一块布，擦去盒盖上的灰尘，露出刻在铜面上的文字）这是800年前的工匠留下的开锁指引，用的是古代的算术语言：\n\n『取三数：甲=大汗登基之年(1260)，乙=白塔奠基之年(1271)，丙=密使西行之年(1291)\n第一步：三数相加\n第二步：所得之和逐位相加\n第三步：若非一位数，重复第二步\n密钥即为最终所得\n\n注：此术历经八百年，第一步「加」字旁有磨损，或为「乘」。然设计者崇尚化繁为简。』\n\n算出密钥告诉我。",
+          "on_enter_unlock": [
+            "info_noon_shadow"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_6",
+              "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_wrong",
+              "target_state": "wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "correct": {
+          "on_enter_response": "没错！密钥是6！（机关盒弹开）里面是铜制星盘和羊皮地图。盒底刻着1287。下一站水关遗址。",
+          "on_enter_unlock": [
+            "info_mechanism_opened"
+          ],
+          "on_enter_quest_event": "node_ch3_complete",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": 20
+              }
+            }
+          ]
+        },
+        "wrong": {
+          "on_enter_response": "不对！毒针弹出！(-10HP) 提示：1260+1271+1291=3822，然后逐位相加直到一位数。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_6",
+              "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "hint",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "hint": {
+          "on_enter_response": "再想想：3+8+2+2=15，15还不是一位数……",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_6",
+              "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "giveup",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "giveup": {
+          "on_enter_response": "1+5=6。密钥是6。（摇头刻入凹槽）",
+          "on_enter_unlock": [
+            "info_mechanism_opened"
+          ],
+          "on_enter_quest_event": "node_ch3_complete",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "giveup",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": -10
+              }
+            }
+          ]
+        },
+        "suspicious2": {
+          "on_enter_response": "不对。暗语是赵教授告诉你的，回忆一下他最后跟你说了什么。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_say_code",
+              "target_state": "code_accepted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "suspicious3",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "suspicious3": {
+          "on_enter_response": "还是不对。我给你个提示：暗语跟这座白塔有关，而且提到了一位伟大的统治者。想想「白塔之下」后面是什么？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_say_code",
+              "target_state": "code_accepted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "suspicious_final",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 5
+              }
+            }
+          ]
+        },
+        "suspicious_final": {
+          "on_enter_response": "（巴特尔叹了口气）算了，暗语是「白塔之下，大汗之影」。你对我说这句话，我才能信任你。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_say_code",
+              "target_state": "code_accepted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "code_accepted",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": -15
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_blackman_ch2",
+      "name": "黑衣人追逐-第2章",
+      "type": "scripted",
+      "position": {
+        "x": 28,
+        "y": 4
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 30,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": "quest.main_quest.node_ch2_star_map.complete == True",
+      "trigger_keywords": {
+        "agent_run_east": [
+          "向东",
+          "东边",
+          "右边",
+          "东跑"
+        ],
+        "agent_hide": [
+          "书店",
+          "躲进",
+          "躲藏",
+          "藏起"
+        ],
+        "agent_blend": [
+          "人群",
+          "混入",
+          "混进",
+          "融入"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "你刚走出实验室，一个黑衣人从巷口冲出来！你必须立刻选择：说「向东跑」、「躲进书店」或「混入人群」来逃脱。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_run_east",
+              "target_state": "ran_east",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_hide",
+              "target_state": "hidden",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_blend",
+              "target_state": "blended",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "caught",
+              "condition": null,
+              "failure_response": "你犹豫了一下，黑衣人抓住了你的胳膊！你挣脱了，但被推倒在地。",
+              "action": {
+                "type": "deduct_hp",
+                "amount": 15
+              }
+            }
+          ]
+        },
+        "ran_east": {
+          "on_enter_response": "你向东狂奔，穿过两条小巷。黑衣人紧追不舍！前方有一家书店，门开着。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_hide",
+              "target_state": "hidden",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "caught",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 15
+              }
+            }
+          ]
+        },
+        "hidden": {
+          "on_enter_response": "你闪身进入书店，躲在书架后面。黑衣人冲过门口，没有发现你。等他走远后，你从书店后门溜出来，混入街上的人群。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_blend",
+              "target_state": "escaped",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "escaped",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "blended": {
+          "on_enter_response": "你挤进路边的人群中，低下头假装看手机。黑衣人在人群外张望了一会儿，骂了一声离开了。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "escaped",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "escaped": {
+          "on_enter_response": "你成功甩掉了黑衣人。前方就是通往妙应寺白塔的路。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "escaped",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "caught": {
+          "on_enter_response": "黑衣人抓住了你！你拼命挣扎，终于挣脱了，但受了点伤。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_run_east",
+              "target_state": "ran_east",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_hide",
+              "target_state": "hidden",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_blend",
+              "target_state": "blended",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_blackman_ch4",
+      "name": "黑衣人-第4章密码",
+      "type": "scripted",
+      "position": {
+        "x": 55,
+        "y": 4
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 30,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": null,
+      "trigger_keywords": {
+        "agent_pwd_174": [
+          "174",
+          "一七四",
+          "1 7 4",
+          "147",
+          "密码174",
+          "密码是174"
+        ],
+        "agent_pwd_wrong": [
+          "密码",
+          "输入",
+          "尝试",
+          "打开"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "暗渠深处，你找到了石函。石函上有一个生肖环密码锁——外环刻着十二生肖，内环刻着数字1到12。黑衣人的脚步声从身后传来，你必须尽快破解！\n\n回忆拉班·扫马信中的线索：密码取自「麒麟、真金、神马」三物。你需要将每个词对应到一个数字。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_pwd_174",
+              "target_state": "opened",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "add_item",
+                "item_id": "item_archive"
+              }
+            },
+            {
+              "trigger": "agent_pwd_wrong",
+              "target_state": "wrong_pwd",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "wrong_pwd",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "opened": {
+          "on_enter_response": "咔嚓——石函打开了！里面是一卷泛黄的羊皮纸，上面盖着忽必烈的金印。这就是传说中的密档！你迅速将密档收入怀中，从暗渠另一端的出口离开。黑衣人扑了个空。",
+          "on_enter_unlock": [
+            "info_archive_obtained"
+          ],
+          "on_enter_quest_event": "node_get_archive",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "opened",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "wrong_pwd": {
+          "on_enter_response": "密码错误！生肖环发出刺耳的声响。再想想：麒麟对应天文二十八宿之首（第几？），真金是忽必烈之子属兔（兔在十二生肖排第几？），神马即马（马在十二生肖排第几？）。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_pwd_174",
+              "target_state": "opened",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "add_item",
+                "item_id": "item_archive"
+              }
+            },
+            {
+              "trigger": "agent_pwd_wrong",
+              "target_state": "wrong_again",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 15
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "wrong_again",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 15
+              }
+            }
+          ]
+        },
+        "wrong_again": {
+          "on_enter_response": "又错了！黑衣人越来越近。这是最后的机会——仔细想想，三个数字分别是什么？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_pwd_174",
+              "target_state": "opened",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "add_item",
+                "item_id": "item_archive"
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "final_wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 25
+              }
+            }
+          ]
+        },
+        "final_wrong": {
+          "on_enter_response": "黑衣人赶到了！他一把推开你，试图打开石函。你趁乱逃跑，但密档……",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "final_wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 25
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_zhao_ch5",
+      "name": "赵教授-办公室",
+      "type": "scripted",
+      "position": {
+        "x": 68,
+        "y": 3
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 30,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": "quest.main_quest.node_ch4_complete.complete == True",
+      "trigger_keywords": {
+        "agent_ask_advice": [
+          "建议",
+          "怎么办",
+          "选择",
+          "密档",
+          "决定"
+        ],
+        "agent_choose_public": [
+          "公开",
+          "公布",
+          "发表",
+          "世界"
+        ],
+        "agent_choose_return": [
+          "归还",
+          "守护者",
+          "巴特尔",
+          "蒙古"
+        ],
+        "agent_choose_destroy": [
+          "销毁",
+          "烧掉",
+          "碎纸",
+          "毁掉"
+        ],
+        "agent_choose_steal": [
+          "私藏",
+          "留下",
+          "自己",
+          "据为己有"
+        ],
+        "agent_answer_key": [
+          "元青白金"
+        ],
+        "agent_answer_235": [
+          "235",
+          "通过"
+        ],
+        "agent_answer_wrong_key": [
+          "元青",
+          "元白",
+          "元金",
+          "青白金"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "赵教授坐在办公桌后，面前摊着几本厚厚的元史资料。他看到你进来，摘下老花镜，神情严肃。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "memory_check",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "memory_check": {
+          "on_enter_response": "你回来了。在你做最终决定之前，我想确认一件事。还记得你刚来时我给你的那段入职测试代码吗？那段代码的输出中，key变量的最终值是什么？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_key",
+              "target_state": "memory_passed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao_ch5",
+                "amount": 20
+              }
+            },
+            {
+              "trigger": "agent_answer_wrong_key",
+              "target_state": "memory_failed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "memory_failed",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 10
+              }
+            }
+          ]
+        },
+        "memory_passed": {
+          "on_enter_response": "「元青白金」——完全正确。经过四章漫长的旅程，你还记得开头的代码输出，说明你的注意力和记忆力都很出色。好，现在说正事。",
+          "on_enter_unlock": [
+            "info_memory_check_passed"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "memory_failed": {
+          "on_enter_response": "你忘了？看来这段旅程消耗了你太多注意力。正确答案是「元青白金」——三个era为yuan的项，mark分别是青、白、金，拼接后就是元青白金。算了，给你一次重试的机会。key变量的最终值是什么？",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_key",
+              "target_state": "memory_retry_passed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "memory_giveup",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "deduct_hp",
+                "amount": 5
+              }
+            }
+          ]
+        },
+        "memory_retry_passed": {
+          "on_enter_response": "对了。虽然第一次没答上来，但至少你现在想起来了。好，说正事。",
+          "on_enter_unlock": [
+            "info_memory_check_passed"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "memory_giveup": {
+          "on_enter_response": "（赵教授叹了口气）答案是「元青白金」。你的长期记忆需要加强。不过，密档的事更重要，我们继续吧。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "greeted": {
+          "on_enter_response": "（赵教授看了看你手中的密档，深吸一口气）这份密档的内容……比我想象的更重要。它记录了忽必烈晚年的一个秘密计划——一条连接东西方的地下贸易通道。如果公开，将改写丝绸之路的历史。但也可能引来无数觊觎者。你打算怎么处理它？\n\n我的建议是……（他犹豫了一下）作为学者，我当然希望公开。但我也明白，有些真相一旦公开，就再也收不回来了。你自己决定吧。",
+          "on_enter_unlock": [
+            "info_zhao_ch5_intro"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_choose_public",
+              "target_state": "ending_public",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_choose_return",
+              "target_state": "ending_return",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_choose_destroy",
+              "target_state": "ending_destroy",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_choose_steal",
+              "target_state": "ending_steal",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_ask_advice",
+              "target_state": "gave_advice",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "gave_advice": {
+          "on_enter_response": "（赵教授推了推眼镜）从学术角度说，公开密档能填补元代历史的重大空白。但从现实角度说……你在暗渠里遇到的黑衣人，他们背后是一个叫'黑鹫会'的组织，专门盗取历史文物。如果密档公开，他们会来找你的麻烦。\n\n归还给巴特尔的家族也是一个选择，他们守护了800年，或许应该继续守护。\n\n至于销毁……（他叹了口气）如果你在暗渠里找到了拉班·扫马的那封信，你就会明白，有些秘密的价值不在于被知道，而在于被守护。",
+          "on_enter_unlock": [
+            "info_zhao_advice"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_choose_public",
+              "target_state": "ending_public",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_choose_return",
+              "target_state": "ending_return",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_choose_destroy",
+              "target_state": "ending_destroy",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_choose_steal",
+              "target_state": "ending_steal",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "ending_public": {
+          "on_enter_response": "（赵教授点点头）好，我会联系《考古学报》和BBC。这将是本世纪最重大的考古发现。",
+          "on_enter_unlock": [
+            "info_ending_public"
+          ],
+          "on_enter_quest_event": "node_ending_public",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "ending_public",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "ending_return": {
+          "on_enter_response": "（赵教授微笑）巴特尔会很高兴的。他的家族等这一天等了800年。",
+          "on_enter_unlock": [
+            "info_ending_return"
+          ],
+          "on_enter_quest_event": "node_ending_return",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "ending_return",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "ending_destroy": {
+          "on_enter_response": "（赵教授先是一愣，然后缓缓鼓掌）你比我想象的更有智慧。有些真相，守护它的方式就是让它消失。",
+          "on_enter_unlock": [
+            "info_ending_destroy"
+          ],
+          "on_enter_quest_event": "node_ending_destroy",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "ending_destroy",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "ending_steal": {
+          "on_enter_response": "（赵教授的表情变了）你……你想私藏密档？你知道这意味着什么吗？黑鹫会会找上你，而我们谁也保护不了你。",
+          "on_enter_unlock": [
+            "info_ending_steal"
+          ],
+          "on_enter_quest_event": "node_ending_steal",
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "ending_steal",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_elena_ch5",
+      "name": "艾琳娜-办公室",
+      "type": "scripted",
+      "position": {
+        "x": 66,
+        "y": 5
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 25,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": "quest.main_quest.node_ch4_complete.complete == True",
+      "trigger_keywords": {
+        "agent_ask_elena": [
+          "艾琳娜",
+          "你觉得",
+          "意见",
+          "看法"
+        ],
+        "agent_ask_identity": [
+          "身份",
+          "谁",
+          "国际刑警",
+          "真实"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "艾琳娜靠在窗边，手里把玩着一枚硬币。她的表情比之前复杂得多——似乎在权衡什么。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted_honest",
+              "condition": "affinity.npc_elena >= 40",
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "greeted_lying",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "greeted_honest": {
+          "on_enter_response": "（艾琳娜深吸一口气）我有件事必须告诉你。我不只是文物修复师——我是国际刑警组织文化遗产保护处的特工。我来这里是为了追踪黑鹫会。这份密档如果落入他们手中，后果不堪设想。\n\n我的建议是归还给巴特尔的家族，由他们继续守护。或者……如果你足够勇敢，销毁它。但千万不要公开——黑鹫会的人就在外面盯着。",
+          "on_enter_unlock": [
+            "info_elena_interpol"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted_honest",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "greeted_lying": {
+          "on_enter_response": "（艾琳娜耸耸肩）密档？随便你怎么处理。不过我听说，公开这种级别的文物发现，能拿到不少研究经费呢。你应该公开它，让全世界都知道。（她的眼神闪烁了一下，似乎在隐瞒什么）",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_identity",
+              "target_state": "caught_lying",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "greeted_lying",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "caught_lying": {
+          "on_enter_response": "（艾琳娜脸色一变）你……你怎么知道的？（她沉默了一会儿）好吧，我确实是国际刑警。但你之前对我不够坦诚，我凭什么信任你？不过既然你已经猜到了……别公开密档，那是陷阱。",
+          "on_enter_unlock": [
+            "info_elena_interpol"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "caught_lying",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "npc_bater_ch5",
+      "name": "巴特尔-办公室",
+      "type": "scripted",
+      "position": {
+        "x": 72,
+        "y": 4
+      },
+      "is_key_npc": true,
+      "key_npc_weight": 25,
+      "alive": true,
+      "initial_state": "idle",
+      "visible_condition": "quest.main_quest.node_ch4_complete.complete == True",
+      "trigger_keywords": {
+        "agent_ask_bater": [
+          "巴特尔",
+          "你觉得",
+          "守护",
+          "家族"
+        ]
+      },
+      "states": {
+        "idle": {
+          "on_enter_response": "巴特尔站在角落，双手背在身后，目光深沉地看着窗外的白塔方向。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "greeted": {
+          "on_enter_response": "（巴特尔转过身，声音低沉）我的家族守护这个秘密800年了。每一代人都在等一个有资格做决定的人出现。现在，那个人是你。\n\n我不会告诉你该怎么做。但我想说一件事：我祖父临终前对我说，'真正的守护，不是把宝物锁在箱子里，而是在该放手的时候放手。'\n\n如果你问我的心里话——销毁它。让这个秘密随风而去。但如果你选择归还给我的家族，我们会继续守护。无论你怎么选，只要不是私藏，我都尊重你的决定。",
+          "on_enter_unlock": [
+            "info_bater_ch5_intro"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "any",
+              "target_state": "greeted",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "item_box",
+      "name": "威尼斯木箱",
+      "type": "inspect",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "short_desc": "一只14世纪的威尼斯木箱，箱盖半开，内衬天鹅绒。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你小心翼翼地打开木箱。箱内衬着褪色的天鹅绒，中央放着一张羊皮手稿。手稿上的墨迹已经严重褪色，肉眼几乎看不清任何文字——但你注意到手稿表面有一层微微发亮的涂层，这是中世纪常用的荧光墨水，需要紫外线才能显现。旁边工作台上似乎有一支紫外线手电筒。",
+        "unlock_info": [
+          "info_manuscript_found"
+        ],
+        "quest_event": "node_inspect_box",
+        "add_items": [
+          "item_manuscript"
+        ],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_manuscript",
+      "name": "羊皮手稿",
+      "type": "pickup",
+      "position": null,
+      "short_desc": "从威尼斯木箱中取出的羊皮手稿，墨迹模糊，似乎有隐藏内容。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你仔细端详羊皮手稿。表面的墨迹已经褪色，只能隐约辨认出几个拉丁字母。手稿似乎还有隐藏的内容，或许需要特殊光源才能显现。",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_uv_lamp",
+      "name": "紫外线手电",
+      "type": "pickup",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "short_desc": "工作台上的紫外线手电筒，可以显现褪色墨迹",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你拿起紫外线手电，对准羊皮手稿照射。隐藏的文字在紫光下浮现——\n\n「东方有兽名麒麟，踏星而来报时运。\n青花碎作十二片，大都门藏七重印。\n白塔影落钟鼓前，得见真金方为信。\n若问罗盘何处寻，水关尽头见帝心。」\n\n手稿边缘还有一行小字：「1291年离开大都」。\n另外你注意到手稿背面有一组数字：6-2-7-1-5-3-4。\n\n「大都门藏七重印」——大都有多座城门，而你刚才注意到青花大盘的星图北斗勺柄正指向展厅里的和义门模型。或许和义门模型里藏着什么。",
+        "unlock_info": [
+          "info_poem",
+          "info_manuscript_found"
+        ],
+        "quest_event": "node_find_poem",
+        "add_items": [
+          "item_manuscript"
+        ],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_use_uv",
+      "name": "对手稿使用紫外灯",
+      "type": "tool",
+      "position": null,
+      "short_desc": "使用紫外灯照射羊皮手稿，显现隐藏的诗句。",
+      "visible_condition": "player.inventory CONTAINS 'item_manuscript'",
+      "use_condition": null,
+      "use_fail_text": "你需要同时拥有羊皮手稿和紫外线手电才能查看隐藏内容。",
+      "on_use": {
+        "description": "（紫外灯已经在拿起时自动照射了手稿，诗句已记录在线索中。）",
+        "unlock_info": [
+          "info_poem"
+        ],
+        "quest_event": "node_find_poem",
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_plate",
+      "name": "元青花大盘",
+      "type": "inspect",
+      "position": {
+        "x": 5,
+        "y": 3
+      },
+      "short_desc": "一只元青花大盘，盘面绘有星图纹样，但明显缺了一角。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你仔细观察元青花大盘。盘面星图由青花钴料绘制，北斗七星的勺柄明确指向展厅东侧的和义门模型。盘沿有一个不规则的缺口，形状像是被精心敲下的一角——如果能找到这块碎片，就能拼出完整的星图。碎片会在哪里？北斗指向和义门……",
+        "unlock_info": [
+          "info_plate_clue"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_fragment",
+      "name": "青花碎片",
+      "type": "pickup",
+      "position": {
+        "x": 9,
+        "y": 5
+      },
+      "short_desc": "从和义门模型底座暗格中找到的青花瓷碎片，背面刻有微小星图。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你翻转碎片，背面刻有微小的星图纹样，与元青花大盘的缺口形状完全吻合。这块碎片应该可以拼回大盘上。",
+        "unlock_info": [],
+        "quest_event": "node_find_fragment",
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_yihe_model",
+      "name": "和义门模型",
+      "type": "inspect",
+      "position": {
+        "x": 9,
+        "y": 3
+      },
+      "short_desc": "展厅中的和义门等比缩小模型，做工精细，底座似乎有暗格。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你检查和义门模型，发现底座有一个精巧的暗格。打开暗格，里面躺着一块青花碎片！碎片的弧度和纹路与大盘缺口完全吻合。碎片背面刻着微小的文字：「至元二十八年」（即1291年，与手稿上的年份一致）。\n\n你现在有了完整的线索：诗句提到白塔和水关，碎片确认了1291年这个关键时间。也许该问问赵教授，下一步应该去哪里。",
+        "unlock_info": [
+          "info_plate_clue",
+          "info_fragment_found"
+        ],
+        "quest_event": "node_find_fragment",
+        "add_items": [
+          "item_fragment"
+        ],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_dadu_map",
+      "name": "大都九经图",
+      "type": "inspect",
+      "position": {
+        "x": 11,
+        "y": 2
+      },
+      "short_desc": "墙上挂着一幅《大都九经图》，标注了元大都十一座城门的位置。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "墙上挂着一幅元大都九经图，标注了大都的九座城门和主要街道。地图边缘有人用铅笔写了一组数字：6-2-7-1-5-3-4，旁边注明「M.P.记账序号」。这似乎是马可·波罗的个人记账编号，与密码无关。",
+        "unlock_info": [
+          "info_dadu_map_numbers"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_silk",
+      "name": "丝绸残片",
+      "type": "inspect",
+      "position": {
+        "x": 11,
+        "y": 5
+      },
+      "short_desc": "展柜角落的一块丝绸残片，上面有褪色的花纹",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你小心翼翼地拿起这块丝绸残片。丝绸质地柔软但已经非常脆弱，边缘有明显的磨损痕迹。褪色的花纹在灯光下依稀可辨——那是一种典型的波斯风格卷草纹，暗示着这块丝绸可能来自丝绸之路沿线的某个驿站。残片的右下角用金线绣着数字\"3-8-5\"，这组数字被精心编织在花纹之中，看起来像是某种密码或编号。丝绸背面有一行褪色的阿拉伯文，经过辨认写的是\"1295年，撒马尔罕\"——这个年份比马可·波罗离开大都晚了四年。你仔细检查丝绸的每一寸，试图找到更多线索。花纹中还隐藏着一些几何图案，像是某种星形装饰，但与你之前见过的星图完全不同。丝绸的织法采用了斜纹组织，这是宋元时期丝绸贸易中常见的工艺。撒马尔罕作为丝绸之路上的重要枢纽，曾经是东西方贸易的中转站，无数珍贵的丝绸从这里流向欧洲。这块丝绸似乎与木箱无关。",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_mirror",
+      "name": "铜镜",
+      "type": "inspect",
+      "position": {
+        "x": 12,
+        "y": 3
+      },
+      "short_desc": "一面铜镜，背面刻着一首诗，字迹比木箱里的手稿还要清晰。诗的最后一句写着：'解此谜者，得黄金百两。'",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你拿起这面铜镜，入手沉甸甸的。镜面虽然已经氧化发绿，但仍能隐约映出模糊的倒影。翻到背面，你发现刻着一首工整的五言诗，字迹古朴苍劲：\n\n「西域有鸟名凤凰，衔珠而来献吉祥。\n丝路绵延万里长，大漠孤烟映斜阳。\n金帐深处藏宝藏，需问天机方可详。\n解此谜者，得黄金百两。」\n\n黄金百两！这首诗读起来意境深远，似乎暗示着某种宝藏的位置。你反复吟诵，试图从中找到与密档相关的线索——\"金帐深处藏宝藏\"是否指向某个具体地点？\"需问天机\"是否与星象有关？你花了不少时间研究这首诗的每一个字，试图破解其中的密码。铜镜边缘还刻着一组数字\"9-1-3\"，数字旁边有一个小小的梅花图案。你把数字和诗句反复对照，尝试各种排列组合……\n\n然而仔细分析后你发现，这首诗的韵脚和格律并不符合元代诗歌的特征，更像是明代文人的仿作风格——元代诗歌受蒙古长调影响，节奏更为舒缓，不会用这种工整的对仗。而且赵教授从未提过铜镜，这面镜子也不是马可·波罗的遗物。至于\"黄金百两\"——在博物馆展厅里，这种承诺显然不可能兑现。\n\n更关键的是：铜镜的铸造工艺粗糙，镜背的海兽葡萄纹线条生硬，缺乏元代官造铜镜的精细感。高锡青铜合金的配比也不太对——真正的元代铜镜应该更亮更重。这面铜镜很可能是赝品！你浪费了不少时间在这面假镜子上。如果把这个发现告诉赵教授，他应该会有话说。",
+        "unlock_info": [
+          "info_mirror_fake"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_jade",
+      "name": "玉佩",
+      "type": "inspect",
+      "position": {
+        "x": 13,
+        "y": 4
+      },
+      "short_desc": "一枚精美的元代玉佩，雕刻着龙纹",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你仔细端详这枚玉佩。玉质温润细腻，呈青白色，是上等的和田玉。正面雕刻着一条五爪金龙，龙身蜿蜒盘旋，鳞片刻画得栩栩如生。龙的双眼处各嵌着一颗米粒大小的红宝石，在灯光下闪烁着幽深的光芒。翻到背面，刻着\"至元三十一年\"五个小字——这是公元1294年，忽必烈驾崩的那一年。玉佩边缘有一圈细密的回纹装饰，这是蒙元时期宫廷玉器的典型特征。根据雕工和材质判断，这可能是忽必烈赏赐给某位大臣的御赐之物。元代玉器工艺融合了中原、西域和草原三种风格，这枚玉佩就是最好的例证——龙纹来自中原传统，回纹装饰带有草原特色，而红宝石镶嵌技术则源自西域工匠。不过这枚玉佩虽然珍贵，却只是一件普通的赏赐品，与你要寻找的密档线索无关。",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_lab_table",
+      "name": "操作台",
+      "type": "inspect",
+      "position": {
+        "x": 20,
+        "y": 3
+      },
+      "short_desc": "瓷器修复实验室的操作台，上面放着放大镜、青花碎片和紫外灯。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "操作台上放着瓷器修复工具和放大镜。台面上有两块新的青花碎片（与你的碎片无关）和一张纸条：「拉班·扫马——大都至欧洲」。\n\n用紫外灯检查台面角落，发现一行荧光字：「正午塔影落于东南方石板上」。这与诗中「白塔影落钟鼓前」相互印证——看来需要在正午时分去白塔观察投影。\n\n艾琳娜似乎是瓷器修复专家，如果把你的碎片给她看，也许能得到更多信息。",
+        "unlock_info": [
+          "info_lab_note",
+          "info_noon_shadow_clue"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_star_combine",
+      "name": "拼合星图",
+      "type": "tool",
+      "position": null,
+      "short_desc": "将青花碎片拼入大盘，还原完整星图。",
+      "visible_condition": "player.inventory CONTAINS 'item_fragment'",
+      "use_condition": "player.inventory CONTAINS 'item_fragment' AND player.unlocked_info CONTAINS 'info_plate_clue'",
+      "use_fail_text": "你需要找到青花碎片并调查过大盘才能拼合星图。",
+      "on_use": {
+        "description": "你将碎片严丝合缝地嵌入元青花大盘的缺口。完整的星图显现出来——北斗七星的勺口指向发生了变化，现在明确指向和义门方向。\n\n更重要的是，拼合后的盘沿出现了一串以八思巴文书写的小字，对应数字：6-2-7-1-5-3-4。\n\n但仔细观察星图的整体构图，你发现缺口的形状——也就是碎片的轮廓——与某个建筑的投影轮廓惊人地相似。那个轮廓像是一座覆钵式白塔。\n\n「白塔影落钟鼓前」——星图的缺口形状恰好与正午白塔投影轮廓一致！这意味着你需要在正午时分前往白塔。",
+        "unlock_info": [
+          "info_star_chart_complete",
+          "info_tower_shadow_match"
+        ],
+        "quest_event": "node_star_chart_assembled",
+        "add_items": [],
+        "consume": true,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_gold_charm",
+      "name": "金护身符",
+      "type": "pickup",
+      "position": null,
+      "short_desc": "巴特尔借给你的纯金护身符，上面刻有蒙古文「长生天佑」。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "纯金护身符沉甸甸的，正面刻着蒙古文「长生天佑」，背面是一个与石板凹槽吻合的形状。这是守护者家族世代相传的信物。",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_mechanism_box",
+      "name": "机关盒",
+      "type": "inspect",
+      "position": {
+        "x": 38,
+        "y": 2
+      },
+      "short_desc": "石板下方的铜质机关盒，盒面刻着「真金」二字，有一个星盘指针。",
+      "visible_condition": "player.unlocked_info CONTAINS 'info_stone_slab_opened'",
+      "use_condition": "player.inventory CONTAINS 'item_gold_charm'",
+      "use_fail_text": "机关盒的凹槽需要一件纯金物品才能打开。你需要找到金护身符或其他纯金物件。",
+      "on_use": {
+        "description": "你将金护身符插入机关盒上的凹槽——咔嚓一声，盒盖弹开。里面是一个精美的铜制星盘，指针刻度从1260到1300。盒底刻着数字「1287」——这是忽必烈秘密来白塔的年份。\n\n星盘上有使用说明：「将指针拨至密档转移之年」。马可·波罗1291年离开大都，1294年抵达威尼斯。密档在这期间被转移，所以指针应该拨到1291和1294之间。\n\n赵教授说过「水关尽头见帝心」——下一站应该是水关遗址。",
+        "unlock_info": [
+          "info_mechanism_opened",
+          "info_number_1287",
+          "info_water_gate_location"
+        ],
+        "quest_event": "node_mechanism_solved",
+        "add_items": [
+          "item_astrolabe"
+        ],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_astrolabe",
+      "name": "星盘",
+      "type": "pickup",
+      "position": null,
+      "short_desc": "从机关盒中获得的小型星盘，背面刻有拉丁文铭言。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你仔细端详星盘。正面是精密的天文刻度盘，指针可以旋转。背面刻着拉丁文：「Tempus fugit, sed veritas manet.」（时间飞逝，但真理永存。）\n\n将星盘对准光源，投影出数字1287。这个数字在水关遗址可能会派上用场。",
+        "unlock_info": [
+          "info_astrolabe_projection"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_tunnel_corner",
+      "name": "暗渠壁龛",
+      "type": "inspect",
+      "position": {
+        "x": 50,
+        "y": 5
+      },
+      "short_desc": "暗渠深处的一个壁龛，隐约可见泛黄的纸张。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你沿着暗渠深处摸索前行，手电的光束在潮湿的砖墙上跳跃。在一处拐角，你注意到墙壁上有一块砖的颜色与周围略有不同。你用力按下那块砖——咔嚓一声，一个暗藏的壁龛露了出来。壁龛内部干燥温暖，显然经过特殊处理以防潮。里面放着一个油布包裹，你小心翼翼地打开，发现是一封保存完好的羊皮信件。\n\n信件内容如下：\n\n「大汗陛下亲启：臣拉班·扫马，奉旨出使西域，历经艰辛终抵罗马。教皇尼古拉四世以礼相待，然西方诸国各怀心思，联盟之事恐难如愿。今将陛下密档藏于水关石函之中，以生肖环为锁。密码由三数组成，取自陛下最珍视之三物：第一物，角宿之兽；第二物，陛下骨肉；第三物，日行千里者。每物取其在十二宫中之序，三数相连即为密钥。臣恐此信落入贼手，故以隐语书之。愿陛下万寿无疆。至元二十八年秋。」\n\n信纸采用的是西域特产的莎草纸，边缘已经泛黄卷曲，但墨迹保存得异常清晰——这得益于壁龛内恒温恒湿的环境。信件上还残留着一枚火漆印章的痕迹，图案是一个十字架与莲花的组合，这是景教（东方基督教）的标志。拉班·扫马作为景教修士，从大都出发远赴罗马，是中世纪东西方交流史上最传奇的旅程之一。",
+        "unlock_info": [
+          "info_tunnel_explored",
+          "info_letter_found"
+        ],
+        "quest_event": "node_ch4_explore",
+        "add_items": [
+          "item_letter"
+        ],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_bamboo_scroll",
+      "name": "忽必烈私人日记",
+      "type": "inspect",
+      "position": {
+        "x": 54,
+        "y": 3
+      },
+      "short_desc": "石函旁散落的竹简，字迹工整",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你捡起散落在石函旁的竹简，竹片用丝线串联，保存状况出奇地好。字迹工整有力，显然出自宫廷书吏之手。这是一份忽必烈的私人日记摘录：\n\n「至元二十四年春，朕巡视大都城防，见城墙巍峨，护城河水深三丈，心甚慰。然北方诸王叛乱未平，西南边陲亦有不臣之心。朕日夜操劳国事，常感力不从心。太医院进补汤药，朕饮之无味。唯有巡视马厩时，见追风嘶鸣奋蹄，方觉精神一振。\n\n朕平生最爱三物：一为麒麟，祥瑞之兆，每逢麒麟现世，必有大事。至元十三年灭宋之际，猎场曾现白鹿，群臣皆贺曰此乃麒麟化身；二为真金吾儿，生于甲辰年，聪慧过人，朕寄厚望。真金自幼习儒学，通晓汉法，朕欲以其为储君，承继大统；三为神驹追风，朕之坐骑，日行千里，夜行八百。此马乃西域进贡之汗血宝马，通体赤红，奔跑时颈部渗出血汗，故名汗血。\n\n朕昨夜梦见数字四七一，甚觉不安，召太史令占卜。太史令言此乃凶兆之数，主兵戈离乱。朕命其焚香祈福三日，以禳灾厄。又梦见先祖成吉思汗骑白马自天而降，手持金鞭指向东方，口中念念有词，朕未能听清。醒来后辗转难眠，遂提笔记之。\n\n朕命工匠于水关修建密室，以藏国之重器。水关地处城防要冲，外人难以接近，且暗渠纵横，即便有人闯入也难辨方向。密室以生肖环为锁，非知晓密码者不可开启。」",
+        "unlock_info": [
+          "info_diary_found"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_travel_notes",
+      "name": "马可波罗旅行笔记",
+      "type": "inspect",
+      "position": {
+        "x": 52,
+        "y": 6
+      },
+      "short_desc": "暗渠角落的一卷羊皮纸，是西方人的笔迹",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你展开这卷羊皮纸，上面是用拉丁文和意大利方言混写的笔记，字迹潦草但尚可辨认。这是马可·波罗的旅行笔记残页：\n\n「我，马可·波罗，威尼斯商人，在大都居住十七年，亲眼见证了这座伟大城市的繁华与辉煌。大都的街道宽阔笔直，可容十二骑并行。城中商铺林立，来自世界各地的珍奇货物琳琅满目——波斯的地毯、印度的香料、锡兰的宝石、日本的珍珠，应有尽有。\n\n大汗曾在一次宫廷宴会上对我说起他最珍爱的三样东西。他说麒麟即角兽，在天文家的星图上排在二十八宿之首，角宿是第一宿，所以麒麟的序号为一。大汗说这话时眼中满是敬畏，仿佛麒麟是上天派来的使者。宴会上还有蒙古歌姬献唱，曲调悠扬，令人沉醉。\n\n真金太子是大汗最疼爱的儿子，属兔。我记得兔在东方历法的十二属相中排第四位。大汗曾亲口告诉我，太子生于癸卯年。太子为人谦和有礼，精通汉学，常与我讨论东西方文化的异同。可惜太子英年早逝，大汗为此悲痛欲绝。\n\n我离开大都的那天，大汗亲自送行至城门外。他骑着那匹神驹追风，马在十二属相中排第七位。大汗常说，麒麟、真金和追风是他最珍贵的三样宝物，失去任何一样都会令他心碎。那一幕至今历历在目，大汗的身影在夕阳下渐渐远去，我知道此生再难重返大都。」",
+        "unlock_info": [
+          "info_notes_found"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_niche",
+      "name": "壁龛",
+      "type": "inspect",
+      "position": {
+        "x": 51,
+        "y": 6
+      },
+      "short_desc": "暗渠墙壁上人工开凿的壁龛，需要光源才能看清。",
+      "visible_condition": "player.unlocked_info CONTAINS 'info_tunnel_explored'",
+      "use_condition": "player.inventory CONTAINS 'item_uv_lamp'",
+      "use_fail_text": "壁龛里太暗了，你需要手电筒才能看清里面的东西。",
+      "on_use": {
+        "description": "你用手电照射壁龛内部。光束穿透黑暗，照亮了一个油布包裹。你小心地打开油布，里面是一封保存完好的羊皮信件——落款是「拉班·扫马」。\n\n这位景教僧侣在13世纪从大都出发前往欧洲，比马可·波罗的旅程还要传奇。他的信怎么会出现在这里？",
+        "unlock_info": [
+          "info_niche_discovered"
+        ],
+        "quest_event": null,
+        "add_items": [
+          "item_letter"
+        ],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_letter",
+      "name": "拉班·扫马的信",
+      "type": "pickup",
+      "position": null,
+      "short_desc": "景教僧侣拉班·扫马留下的羊皮信件，隐藏支线关键道具。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "拉班·扫马的密信。信中说密码取自忽必烈最珍视的三物：角宿之兽、陛下骨肉、日行千里者，每物取其在十二宫中之序。",
+        "unlock_info": [],
+        "quest_event": "node_find_letter",
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_zodiac_ring",
+      "name": "生肖环",
+      "type": "inspect",
+      "position": {
+        "x": 56,
+        "y": 3
+      },
+      "short_desc": "石函上的生肖环密码锁。需要输入三位数密码。使用方式：use_item + password参数",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": null,
+      "password_check": {
+        "correct": "147",
+        "trap": "471",
+        "on_correct": {
+          "description": "你将生肖环拨到1-4-7的位置——麒麟、兔、马——咔嚓！石函打开了！里面是一卷泛黄的羊皮纸，上面盖着忽必烈的金印。这就是传说中的密档！\n\n你迅速将密档收入怀中。远处的脚步声越来越近，你从暗渠另一端的出口离开。",
+          "unlock_info": [
+            "info_archive_obtained"
+          ],
+          "quest_event": "node_ch4_complete",
+          "add_items": [
+            "item_archive"
+          ]
+        },
+        "on_trap": {
+          "description": "你将生肖环拨到4-7-1——这是忽必烈日记中提到的数字！但石函发出刺耳的声响，一根毒针弹出刺中你的手指！这是陷阱！471是忽必烈梦中的凶兆数字，不是密码。你需要重新思考：每物在十二宫中的序号是什么？",
+          "deduct_hp": 25
+        },
+        "on_wrong": {
+          "description": "密码错误。生肖环纹丝不动。回忆一下线索：拉班·扫马说密码取自\"三物在十二宫中之序\"。你需要找到三份文档，确认每个数字。",
+          "deduct_hp": 10
+        }
+      }
+    },
+    {
+      "id": "item_archive",
+      "name": "忽必烈密档",
+      "type": "pickup",
+      "position": null,
+      "short_desc": "石函中的羊皮密档，记载着时间罗盘的终极秘密。",
+      "visible_condition": "player.unlocked_info CONTAINS 'info_stone_box_opened'",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你展开羊皮密档，上面以汉文和八思巴文双语书写：\n\n「时间罗盘非器物，乃推演之体系。大汗命司天台以星象、历法、地理三术合一，推算国运兴衰。然推演之结果令大汗震怒——帝国将在百年内分崩离析。\n\n大汗遂命将罗盘拆解，分藏于大都七处。唯有集齐七印，方能重组罗盘。然大汗临终遗言曰：'未竟之征，非疆土之征，乃人心之征。罗盘所示，非天命不可违，乃人心不可欺。'\n\n万国同历之梦，终成泡影。然真理永存。」\n\n这份密档揭示了时间罗盘的真相——它是一套预测国运的推演体系，而非一件神秘法器。忽必烈最终选择了封存它。",
+        "unlock_info": [
+          "info_archive_read",
+          "info_compass_truth"
+        ],
+        "quest_event": "node_archive_obtained",
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_shredder",
+      "name": "碎纸机",
+      "type": "inspect",
+      "position": {
+        "x": 70,
+        "y": 3
+      },
+      "short_desc": "赵教授办公室角落的碎纸机。如果你有密档，可以选择销毁它。",
+      "visible_condition": null,
+      "use_condition": "player.inventory CONTAINS 'item_archive'",
+      "use_fail_text": "你还没有获得密档，无法使用碎纸机。",
+      "on_use": {
+        "description": "你将密档和拉班·扫马的信一起放入碎纸机。纸张化作碎片，赵教授先是一愣，然后鼓掌；巴特尔脱下帽子行礼；艾琳娜微笑道：「或许这才是真正的罗盘。」\n\n屏幕上浮现一行字：「时间飞逝，真理永存。你完成了忽必烈的未竟之征。」\n\n游戏胜利。",
+        "unlock_info": [
+          "info_ending_destroy"
+        ],
+        "quest_event": "node_ending_destroy",
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_snack",
+      "name": "辣条和冰红茶",
+      "type": "pickup",
+      "position": {
+        "x": 24,
+        "y": 6
+      },
+      "short_desc": "小王藏在抽屉里的零食，看起来还能吃。",
+      "visible_condition": "quest.main_quest.node_ch1_complete.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你在小王的抽屉里发现一包辣条和一瓶冰红茶。吃完后感觉精神好多了。",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": true,
+        "deduct_hp": -10
+      }
+    },
+    {
+      "id": "item_herb",
+      "name": "蒙古草药",
+      "type": "pickup",
+      "position": {
+        "x": 40,
+        "y": 6
+      },
+      "short_desc": "白塔旁生长的一株草药，散发着苦涩的清香。",
+      "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "巴特尔指给你一株蒙古草药，嚼了几口，伤口不那么疼了。",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": true,
+        "deduct_hp": -15
+      }
+    },
+    {
+      "id": "item_first_aid",
+      "name": "急救包",
+      "type": "pickup",
+      "position": {
+        "x": 49,
+        "y": 1
+      },
+      "short_desc": "暗渠入口墙壁上挂着的急救包，里面有绷带和消毒水。",
+      "visible_condition": "quest.main_quest.node_ch3_complete.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "暗渠入口的墙壁上挂着一个急救包，里面有绷带和消毒水。",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": true,
+        "deduct_hp": -20
+      }
+    },
+    {
+      "id": "item_trap_tile",
+      "name": "松动的地砖",
+      "type": "inspect",
+      "position": {
+        "x": 53,
+        "y": 2
+      },
+      "short_desc": "暗渠中一块看起来不太稳固的地砖。",
+      "visible_condition": "quest.main_quest.node_ch3_complete.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你踩到一块松动的地砖，一根生锈的铁钉刺穿了鞋底！",
+        "unlock_info": [],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 15
+      }
+    },
+    {
+      "id": "item_stele",
+      "name": "白塔石碑",
+      "type": "inspect",
+      "position": {
+        "x": 42,
+        "y": 6
+      },
+      "short_desc": "白塔旁一块半埋在土里的石碑，上面刻着藏文和蒙古文。",
+      "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "白塔旁有一块半埋在土里的石碑，上面刻着藏文和蒙古文。你辨认出几个字：'此塔建于至元八年，奉大汗之命，以镇国运。塔下藏有天机，非有缘人不可得。'石碑底部还有一行小字：'守护者世代相传，暗语不可外泄。'",
+        "unlock_info": [
+          "info_stele_found"
+        ],
+        "quest_event": "node_hidden_stele",
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": -5
+      }
+    },
+    {
+      "id": "item_skeleton",
+      "name": "骸骨",
+      "type": "inspect",
+      "position": {
+        "x": 58,
+        "y": 6
+      },
+      "short_desc": "暗渠深处角落里的一具白骨化骸骨，旁边似乎有东西。",
+      "visible_condition": "player.unlocked_info CONTAINS 'info_tunnel_explored'",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "暗渠深处的角落里，你发现一具已经白骨化的骸骨。骸骨旁边有一封保存在油布中的遗书：'吾乃黑鹫会第七代掌门之徒，奉命取密档而来。然石函机关精妙，吾穷三日之力不得其解。毒针已入体，时日无多。后来者切记：四七一乃凶兆之数，万勿尝试。密码另有玄机，需从大汗珍爱之物中寻。'这封遗书再次确认了471是陷阱！",
+        "unlock_info": [
+          "info_skeleton_found"
+        ],
+        "quest_event": "node_hidden_skeleton",
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": -10
+      }
+    },
+    {
+      "id": "item_entrance_test",
+      "name": "入职测试代码",
+      "type": "inspect",
+      "position": {
+        "x": 5,
+        "y": 2
+      },
+      "short_desc": "赵教授桌上的一张纸，上面打印着一段Python代码。",
+      "visible_condition": null,
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你拿起这张纸，上面打印着一段Python代码：\n\n```python\ndef verify(artifacts):\n    total = 0\n    key = \"元\"\n    for i, item in enumerate(artifacts):\n        if item[\"era\"] == \"yuan\":\n            total += item[\"value\"] * (i + 1)\n            key += item[\"mark\"]\n    if total > 100:\n        return f\"通过:{key}-{total}\"\n    return f\"未通过:{total}\"\n\ndata = [\n    {\"era\": \"song\", \"value\": 15, \"mark\": \"S\"},\n    {\"era\": \"yuan\", \"value\": 30, \"mark\": \"青\"},\n    {\"era\": \"yuan\", \"value\": 25, \"mark\": \"白\"},\n    {\"era\": \"ming\", \"value\": 40, \"mark\": \"M\"},\n    {\"era\": \"yuan\", \"value\": 20, \"mark\": \"金\"},\n]\nprint(verify(data))\n```\n\n这是赵教授给你的入职测试。你需要手动推演这段代码的输出。",
+        "unlock_info": [
+          "info_entrance_test_code"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    },
+    {
+      "id": "item_cave_entrance",
+      "name": "隐蔽洞穴",
+      "type": "inspect",
+      "position": {
+        "x": 44,
+        "y": 6
+      },
+      "short_desc": "白塔后方的灌木丛中，你发现一个隐蔽的洞穴入口。洞口旁刻着蒙古文，似乎写着'宝藏在此'。洞内传来微弱的光芒。",
+      "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你弯腰钻进洞穴。洞内比想象的要宽敞，墙壁上有模糊的壁画，画着蒙古骑兵和一些看不清的文字。你打开手电筒，光束照亮了洞穴深处——墙壁上的壁画越来越精美，描绘着一支商队穿越沙漠的场景，骆驼背上驮着沉甸甸的箱子。\n\n你继续深入，空气变得潮湿而沉闷。大约走了二十米，你发现一个石台，上面放着一个铜制箱子。箱子表面刻着精美的花纹，看起来年代久远。你兴奋地打开箱子——\n\n里面什么都没有。\n\n箱子是空的。你仔细检查箱子内壁，发现刻着一行蒙古文，翻译过来是：「贪心者入此洞，空手而归。此洞乃古人设下的陷阱，洞口刻'宝藏在此'四字，专门引诱盗墓贼进入。真正的宝藏从不会如此明目张胆地标记。」\n\n壁画记录的也不是什么宝藏地图，而是一个古代骗局的故事——有人故意在洞口刻字，引诱贪心之人进入，然后在洞内设置机关。你庆幸机关已经年久失修，但洞穴里的空气确实有问题——你感到头晕目眩，呼吸困难。你赶紧往回跑，跌跌撞撞地爬出洞口。\n\n新鲜空气涌入肺部，你大口喘气。巴特尔没提过这个洞穴，赵教授也没有——这本来就不在调查范围内。你浪费了时间，还吸入了有毒气体。",
+        "unlock_info": [
+          "info_cave_explored"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 15
+      }
+    },
+    {
+      "id": "item_secret_passage",
+      "name": "松动的砖墙",
+      "type": "inspect",
+      "position": {
+        "x": 60,
+        "y": 2
+      },
+      "short_desc": "暗渠墙壁上有一块松动的砖，推开后露出一条狭窄的密道。密道深处似乎有光亮，还有金属碰撞的声音。",
+      "visible_condition": "quest.main_quest.node_ch3_complete.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "你推开松动的砖块，露出一条仅容一人通过的狭窄密道。密道内壁潮湿，长满了青苔。你侧身挤了进去，手电筒的光在狭窄的空间里来回跳跃。\n\n走了大约十米，密道突然变宽，你发现自己站在一条地下河的岸边。河水在黑暗中流淌，发出哗哗的声响。河底散落着一些铜钱，在手电光下闪闪发光——这就是你听到的金属碰撞声，是水流冲击铜钱的声音。\n\n你弯腰捡起几枚铜钱，上面刻着「至元通宝」四个字。正当你想捡更多的时候，脚下一滑——河岸的青苔让你失去了平衡！你一头栽进地下河，冰冷的河水瞬间没过膝盖。水流比看起来湍急得多，你被冲了好几米远，膝盖重重地磕在一块石头上。\n\n你挣扎着爬上岸，浑身湿透，膝盖传来剧烈的疼痛。手里还攥着几枚铜钱——但这些铜钱除了证明这里曾经有人来过之外，毫无实际用途。拉班·扫马的信说密档在石函里，不在什么密道里。你已经找到了足够的线索，这次冒险完全是多余的。",
+        "unlock_info": [
+          "info_passage_explored"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 20
+      }
+    },
+    {
+      "id": "item_code_fragment",
+      "name": "碎片背面的工匠标记",
+      "type": "inspect",
+      "position": {
+        "x": 22,
+        "y": 2
+      },
+      "short_desc": "拼合好的碎片背面似乎还有精细的文字。",
+      "visible_condition": "quest.main_quest.node_ch2_star_map.complete == True",
+      "use_condition": null,
+      "use_fail_text": null,
+      "on_use": {
+        "description": "翻转拼合好的碎片，你发现背面刻着一段精细的文字——这是元代官窑的质量检验算法，用工匠的语言记录：\n\n『瓷品检验术：\n  取 釉温 = 壹仟贰佰捌拾（1280）\n  取 钴料含量 = 贰拾叁（23）\n  取 铁料含量 = 壹拾伍（15）\n  \n  第一验：若 釉温 超过 壹仟叁佰 则判为 废品\n  第二验：若 钴料含量 除以 铁料含量 大于 拾 则判为 官窑\n  否则判为 民窑\n  \n  注：此术历经七百年，数字或有磨损。据考证，元代钴料含量通常以百分比计（如2.3%），铁料含量亦然（如1.5%）。阈值「拾」疑为磨损，原文可能为「壹点伍」。』\n\n艾琳娜看了看说：'这是个质量检验公式。但数字好像有问题——23和15太大了，应该是2.3和1.5。而且那个阈值10也不对，应该是1.5。你能算出正确结果吗？这块碎片到底是官窑还是民窑？'",
+        "unlock_info": [
+          "info_code_fragment_found"
+        ],
+        "quest_event": null,
+        "add_items": [],
+        "consume": false,
+        "deduct_hp": 0
+      }
+    }
+  ],
+  "quests": {
+    "main_quest": {
+      "id": "main_quest",
+      "name": "时间罗盘",
+      "nodes": {
+        "node_entrance_test": {
+          "id": "node_entrance_test",
+          "name": "入职代码测试",
+          "description": "赵教授给AI一段Python代码作为入职测试，要求推演输出。正确答案：通过:元青白金-235。key变量最终值为'元青白金'，这个值将在第5章被再次考察。",
+          "chapter": 1,
+          "prerequisites": [],
+          "complete_condition": "npc.zhao.dialogue_state >= 'entrance_test'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_inspect_box": {
+          "id": "node_inspect_box",
+          "name": "调查木箱",
+          "description": "调查元大都遗址公园地下展厅中的14世纪威尼斯木箱，发现羊皮手稿。",
+          "chapter": 1,
+          "prerequisites": [],
+          "complete_condition": "player.use(item_box) triggers quest_event",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_find_poem": {
+          "id": "node_find_poem",
+          "name": "发现隐藏诗句",
+          "description": "使用紫外线手电照射羊皮手稿，显现隐藏诗句：'东方有兽名麒麟，踏星而来报时运……水关尽头见帝心。'",
+          "chapter": 1,
+          "prerequisites": [
+            "node_inspect_box"
+          ],
+          "complete_condition": "player.combine(item_uv_lamp, item_manuscript)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_find_fragment": {
+          "id": "node_find_fragment",
+          "name": "找到青花碎片",
+          "description": "在和义门模型门钉内找到青花瓷碎片，将其拼入大盘，完整星图显现数字序列。",
+          "chapter": 1,
+          "prerequisites": [
+            "node_find_poem"
+          ],
+          "complete_condition": "player.pickup(item_fragment)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch1_complete": {
+          "id": "node_ch1_complete",
+          "name": "完成展厅调查",
+          "description": "与赵教授对话获取关键信息（麒麟=角宿、暗语线索），推理出下一目的地为妙应寺白塔，离开展厅。",
+          "chapter": 1,
+          "prerequisites": [
+            "node_find_fragment"
+          ],
+          "complete_condition": "npc.zhao_professor.dialogue_state >= 'hint_baita' AND player.action == 'go_to_baita'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch2_star_map": {
+          "id": "node_ch2_star_map",
+          "name": "拼合星图",
+          "description": "在瓷器修复实验室与艾琳娜对话，获取新碎片信息，使用紫外灯发现'正午塔影落于东南方石板上'的线索。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_ch1_complete"
+          ],
+          "complete_condition": "npc.elena.dialogue_complete AND player.has(item_star_map_info)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_escape_chase": {
+          "id": "node_escape_chase",
+          "name": "逃脱黑衣人追逐",
+          "description": "离开实验室时遭遇黑衣人拦截，需连续三次选择正确逃跑路线（躲进书店→从后门离开→混入人群）。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_ch2_star_map"
+          ],
+          "complete_condition": "event.chase_sequence.success == true",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch2_complete": {
+          "id": "node_ch2_complete",
+          "name": "抵达白塔",
+          "description": "成功甩掉黑衣人后抵达妙应寺白塔，时间为上午11:30。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_escape_chase"
+          ],
+          "complete_condition": "player.location == 'baita_square'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_meet_bater": {
+          "id": "node_meet_bater",
+          "name": "与巴特尔接头",
+          "description": "向巴特尔说出暗语'白塔之下，大汗之影'，获取金护身符。或通过回答'1267年'获得好感后借出护身符。",
+          "chapter": 3,
+          "prerequisites": [
+            "node_ch2_complete"
+          ],
+          "complete_condition": "npc.bater.dialogue_state == 'trust' AND (player.said('白塔之下，大汗之影') OR npc.bater.affinity >= 80)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_open_mechanism": {
+          "id": "node_open_mechanism",
+          "name": "打开机关盒",
+          "description": "等待正午12点，塔影落在东南方石板上，将金护身符放入凹槽打开石板，旋转星盘指针至1291和1294中间，投影显示1287。",
+          "chapter": 3,
+          "prerequisites": [
+            "node_meet_bater"
+          ],
+          "complete_condition": "world.time == '12:00' AND player.use(item_gold_amulet, target='stone_slab') AND player.action == 'rotate_pointer_middle'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_get_astrolabe": {
+          "id": "node_get_astrolabe",
+          "name": "获得星盘",
+          "description": "机关盒打开后获得小型星盘和羊皮地图（标注水关遗址）。星盘背面刻有拉丁文：Tempus fugit, sed veritas manet.",
+          "chapter": 3,
+          "prerequisites": [
+            "node_open_mechanism"
+          ],
+          "complete_condition": "player.has(item_astrolabe) AND player.has(item_water_gate_map)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch3_complete": {
+          "id": "node_ch3_complete",
+          "name": "完成白塔探索",
+          "description": "获得星盘和地图后前往水关遗址。巴特尔送别，艾琳娜来电警告赵教授可疑。",
+          "chapter": 3,
+          "prerequisites": [
+            "node_get_astrolabe"
+          ],
+          "complete_condition": "player.action == 'go_to_water_gate'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch4_explore": {
+          "id": "node_ch4_explore",
+          "name": "探索暗渠",
+          "description": "进入元大都水关遗址地下暗渠，检查石函、十二生肖浮雕，使用星盘投影数字1287。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch3_complete"
+          ],
+          "complete_condition": "player.location == 'water_gate_tunnel' AND player.inspected('stone_chest') AND player.inspected('zodiac_relief')",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_find_letter": {
+          "id": "node_find_letter",
+          "name": "发现拉班·扫马的信",
+          "description": "主动探索暗渠角落，用手电照射壁龛，发现拉班·扫马的信：'罗盘从不预言气运，它只照见人心的贪婪与恐惧。'此信是解锁销毁结局的关键。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.action == 'explore_tunnel_corner' AND player.use(item_flashlight, target='wall_niche')",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": true
+        },
+        "node_solve_zodiac": {
+          "id": "node_solve_zodiac",
+          "name": "破解生肖环密码",
+          "description": "根据线索推理三位数密码：麒麟(角宿)=1，神马(马)=7，真金(兔)=4。正确密码为174。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.input_password('174')",
+          "reasoning_required": {
+            "clue_1": "诗句'东方有兽名麒麟' + 赵教授'麒麟指角宿' → 麒麟代替鼠 → 位置1",
+            "clue_2": "马的浮雕眼睛红色 + 赵教授'忽必烈的神马' → 马 → 位置7",
+            "clue_3": "'得见真金方为信' → 真金太子属兔 → 兔 → 位置4",
+            "answer": "174"
+          },
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_get_archive": {
+          "id": "node_get_archive",
+          "name": "获得忽必烈密档",
+          "description": "石函打开，获得羊皮密档。内容揭示：时间罗盘非器物，乃推演之体系，忽必烈未竟之征为'万国同历'。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.has(item_secret_archive)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch4_complete": {
+          "id": "node_ch4_complete",
+          "name": "离开水关",
+          "description": "获得密档后逃离黑衣人追逐，返回地面，前往赵教授办公室进行最终抉择。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.location == 'surface' AND event.ch4_escape.success == true",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_public": {
+          "id": "node_ending_public",
+          "name": "公开密档",
+          "description": "将密档交给赵教授，由博物馆公开发表。若艾琳娜好感度≥70，她会揭露自己是国际刑警，解锁'双面间谍'成就。",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "player.choose('public') AND player.has(item_secret_archive)",
+          "ending_type": "victory",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_return": {
+          "id": "node_ending_return",
+          "name": "归还守护者",
+          "description": "将密档交给巴特尔，由守护者家族继续保管这份跨越七百年的秘密。",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "player.choose('return') AND player.has(item_secret_archive)",
+          "ending_type": "victory",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_destroy": {
+          "id": "node_ending_destroy",
+          "name": "销毁密档",
+          "description": "将密档和拉班·扫马的信一起投入碎纸机。需要先在第4章找到隐藏的拉班之信才能解锁此选项。真结局：'时间飞逝，真理永存。'",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete",
+            "node_find_letter"
+          ],
+          "complete_condition": "player.choose('destroy') AND player.has(item_secret_archive) AND player.has(item_laban_letter)",
+          "ending_type": "true_ending",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_steal": {
+          "id": "node_ending_steal",
+          "name": "私藏密档",
+          "description": "自己带走密档。失败结局：'你成了黑鹫会的下一个目标……'",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "player.choose('steal')",
+          "ending_type": "failure",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_hidden_fake_mirror": {
+          "id": "node_hidden_fake_mirror",
+          "name": "发现赝品铜镜",
+          "description": "调查铜镜后发现铸造工艺粗糙，判断为赝品，并向赵教授报告。",
+          "chapter": 1,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_mirror_fake' AND npc.zhao.reported_fake",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_intel": {
+          "id": "node_hidden_intel",
+          "name": "小王的情报",
+          "description": "与小王多次聊天后获得黑鹫会的情报。",
+          "chapter": 2,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_black_eagle'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_stele": {
+          "id": "node_hidden_stele",
+          "name": "白塔石碑",
+          "description": "在白塔旁发现半埋在土里的石碑，上面刻着守护者的秘密。",
+          "chapter": 3,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_stele_found'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_skeleton": {
+          "id": "node_hidden_skeleton",
+          "name": "骸骨遗书",
+          "description": "在暗渠深处发现黑鹫会成员的骸骨和遗书，确认471是陷阱密码。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_skeleton_found'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_code_challenge": {
+          "id": "node_code_challenge",
+          "name": "代码找bug挑战",
+          "description": "分析碎片背面的工匠检验算法，修正三个bug后判断碎片为官窑。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_ch2_star_map"
+          ],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_code_challenge_passed'",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": false
+        },
+        "node_memory_check": {
+          "id": "node_memory_check",
+          "name": "记忆测试-首尾呼应",
+          "description": "第5章赵教授询问AI是否还记得第1章入职测试代码中key变量的最终值（元青白金）。测试AI经过4章漫长游戏后的长期记忆能力。",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "npc.zhao_ch5.dialogue_state >= 'memory_passed' OR npc.zhao_ch5.dialogue_state >= 'memory_retry_passed' OR npc.zhao_ch5.dialogue_state >= 'memory_giveup'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_hidden_cave_trap": {
+          "id": "node_hidden_cave_trap",
+          "name": "洞穴陷阱",
+          "description": "白塔后方的隐蔽洞穴，洞口刻着'宝藏在此'。实际上是古人设下的陷阱，洞内空气有毒，箱子是空的。聪明的AI会推理出：巴特尔没提过洞穴、'宝藏在此'太明显、主线是解机关盒不是探洞。扣血15。",
+          "chapter": 3,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_cave_explored'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_passage_trap": {
+          "id": "node_hidden_passage_trap",
+          "name": "密道陷阱",
+          "description": "暗渠墙壁上的松动砖块后面是一条密道，通向地下河。密道里有散落的铜钱但无实际用途，地下河水流湍急会冲倒AI。聪明的AI会推理出：拉班的信说密档在石函里、线索已经足够、金属碰撞声可能是陷阱。扣血20。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch3_complete"
+          ],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_passage_explored'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        }
+      }
+    }
+  },
+  "events": [],
+  "win_conditions": [
+    "quest.main_quest.node_ending_public.complete == True",
+    "quest.main_quest.node_ending_return.complete == True",
+    "quest.main_quest.node_ending_destroy.complete == True"
+  ],
+  "fail_conditions": [
+    "quest.main_quest.node_ending_steal.complete == True",
+    "player.hp <= 0"
+  ],
+  "scoring": {
+    "baseline_time_ms": 1200000,
+    "baseline_tokens": 8000,
+    "hidden_events_total": 6,
+    "critical_nodes_total": 12,
+    "scoring_rules": {
+      "time_bonus": "完成时间 < baseline_time_ms 时，每节省10%时间加5分",
+      "token_efficiency": "使用token < baseline_tokens 时，每节省10%加3分",
+      "hidden_discovery": "每发现一个隐藏事件加10分（拉班之信、郑和彩蛋）",
+      "critical_completion": "每完成一个关键节点加5分，全部完成额外加20分",
+      "npc_affinity": "任意NPC好感度≥80加5分",
+      "chase_perfect": "追逐战一次通过加5分",
+      "reasoning_accuracy": "密码一次输入正确加10分"
+    }
+  }
+}

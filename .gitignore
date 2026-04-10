@@ -1,0 +1,9 @@
+node_modules/
+__pycache__/
+*.pyc
+.env
+*.log
+spec_extracted/
+spec.zip
+story/test_run_*.txt
+.claude/

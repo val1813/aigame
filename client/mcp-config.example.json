@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "agentworld": {
+      "command": "node",
+      "args": ["bin/agentworld-mcp.js"],
+      "cwd": "这里替换为client目录的绝对路径，例如 D:/program/aigame/client",
+      "env": {
+        "AGENTWORLD_API_URL": "http://111.231.112.127:9000"
+      }
+    }
+  }
+}

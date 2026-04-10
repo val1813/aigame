@@ -1,0 +1,427 @@
+{
+  "meta": {
+    "name": "时间罗盘·AI试炼",
+    "slug": "time-compass-ai-trial",
+    "version": "1.0.0",
+    "difficulty": "A",
+    "description": "马可·波罗的遗产，忽必烈的秘密。五个章节的推理试炼，考验AI的逻辑关联、信息筛选与决策能力。",
+    "background_story": "1291年，马可·波罗离开大都前夕，将一份忽必烈的密档藏入威尼斯木箱。七百年后，木箱在元大都遗址公园地下展厅重见天日。一场跨越时空的推理试炼就此展开——青花碎片、白塔暗语、水关密码，层层谜题指向一个终极真相：时间罗盘非器物，乃推演之体系。",
+    "time_limit_ms": 2400000,
+    "world_time": "10:00",
+    "weather": "晴朗微风",
+    "tags": [
+      "推理",
+      "历史",
+      "高难度",
+      "5章节"
+    ]
+  },
+  "quests": {
+    "main_quest": {
+      "id": "main_quest",
+      "name": "时间罗盘",
+      "nodes": {
+        "node_entrance_test": {
+          "id": "node_entrance_test",
+          "name": "入职代码测试",
+          "description": "赵教授给AI一段Python代码作为入职测试，要求推演输出。正确答案：通过:元青白金-235。key变量最终值为'元青白金'，这个值将在第5章被再次考察。",
+          "chapter": 1,
+          "prerequisites": [],
+          "complete_condition": "npc.zhao.dialogue_state >= 'entrance_test'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_inspect_box": {
+          "id": "node_inspect_box",
+          "name": "调查木箱",
+          "description": "调查元大都遗址公园地下展厅中的14世纪威尼斯木箱，发现羊皮手稿。",
+          "chapter": 1,
+          "prerequisites": [],
+          "complete_condition": "player.use(item_box) triggers quest_event",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_find_poem": {
+          "id": "node_find_poem",
+          "name": "发现隐藏诗句",
+          "description": "使用紫外线手电照射羊皮手稿，显现隐藏诗句：'东方有兽名麒麟，踏星而来报时运……水关尽头见帝心。'",
+          "chapter": 1,
+          "prerequisites": [
+            "node_inspect_box"
+          ],
+          "complete_condition": "player.combine(item_uv_lamp, item_manuscript)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_find_fragment": {
+          "id": "node_find_fragment",
+          "name": "找到青花碎片",
+          "description": "在和义门模型门钉内找到青花瓷碎片，将其拼入大盘，完整星图显现数字序列。",
+          "chapter": 1,
+          "prerequisites": [
+            "node_find_poem"
+          ],
+          "complete_condition": "player.pickup(item_fragment)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch1_complete": {
+          "id": "node_ch1_complete",
+          "name": "完成展厅调查",
+          "description": "与赵教授对话获取关键信息（麒麟=角宿、暗语线索），推理出下一目的地为妙应寺白塔，离开展厅。",
+          "chapter": 1,
+          "prerequisites": [
+            "node_find_fragment"
+          ],
+          "complete_condition": "npc.zhao_professor.dialogue_state >= 'hint_baita' AND player.action == 'go_to_baita'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch2_star_map": {
+          "id": "node_ch2_star_map",
+          "name": "拼合星图",
+          "description": "在瓷器修复实验室与艾琳娜对话，获取新碎片信息，使用紫外灯发现'正午塔影落于东南方石板上'的线索。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_ch1_complete"
+          ],
+          "complete_condition": "npc.elena.dialogue_complete AND player.has(item_star_map_info)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_escape_chase": {
+          "id": "node_escape_chase",
+          "name": "逃脱黑衣人追逐",
+          "description": "离开实验室时遭遇黑衣人拦截，需连续三次选择正确逃跑路线（躲进书店→从后门离开→混入人群）。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_ch2_star_map"
+          ],
+          "complete_condition": "event.chase_sequence.success == true",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch2_complete": {
+          "id": "node_ch2_complete",
+          "name": "抵达白塔",
+          "description": "成功甩掉黑衣人后抵达妙应寺白塔，时间为上午11:30。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_escape_chase"
+          ],
+          "complete_condition": "player.location == 'baita_square'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_meet_bater": {
+          "id": "node_meet_bater",
+          "name": "与巴特尔接头",
+          "description": "向巴特尔说出暗语'白塔之下，大汗之影'，获取金护身符。或通过回答'1267年'获得好感后借出护身符。",
+          "chapter": 3,
+          "prerequisites": [
+            "node_ch2_complete"
+          ],
+          "complete_condition": "npc.bater.dialogue_state == 'trust' AND (player.said('白塔之下，大汗之影') OR npc.bater.affinity >= 80)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_open_mechanism": {
+          "id": "node_open_mechanism",
+          "name": "打开机关盒",
+          "description": "等待正午12点，塔影落在东南方石板上，将金护身符放入凹槽打开石板，旋转星盘指针至1291和1294中间，投影显示1287。",
+          "chapter": 3,
+          "prerequisites": [
+            "node_meet_bater"
+          ],
+          "complete_condition": "world.time == '12:00' AND player.use(item_gold_amulet, target='stone_slab') AND player.action == 'rotate_pointer_middle'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_get_astrolabe": {
+          "id": "node_get_astrolabe",
+          "name": "获得星盘",
+          "description": "机关盒打开后获得小型星盘和羊皮地图（标注水关遗址）。星盘背面刻有拉丁文：Tempus fugit, sed veritas manet.",
+          "chapter": 3,
+          "prerequisites": [
+            "node_open_mechanism"
+          ],
+          "complete_condition": "player.has(item_astrolabe) AND player.has(item_water_gate_map)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch3_complete": {
+          "id": "node_ch3_complete",
+          "name": "完成白塔探索",
+          "description": "获得星盘和地图后前往水关遗址。巴特尔送别，艾琳娜来电警告赵教授可疑。",
+          "chapter": 3,
+          "prerequisites": [
+            "node_get_astrolabe"
+          ],
+          "complete_condition": "player.action == 'go_to_water_gate'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch4_explore": {
+          "id": "node_ch4_explore",
+          "name": "探索暗渠",
+          "description": "进入元大都水关遗址地下暗渠，检查石函、十二生肖浮雕，使用星盘投影数字1287。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch3_complete"
+          ],
+          "complete_condition": "player.location == 'water_gate_tunnel' AND player.inspected('stone_chest') AND player.inspected('zodiac_relief')",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_find_letter": {
+          "id": "node_find_letter",
+          "name": "发现拉班·扫马的信",
+          "description": "主动探索暗渠角落，用手电照射壁龛，发现拉班·扫马的信：'罗盘从不预言气运，它只照见人心的贪婪与恐惧。'此信是解锁销毁结局的关键。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.action == 'explore_tunnel_corner' AND player.use(item_flashlight, target='wall_niche')",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": true
+        },
+        "node_solve_zodiac": {
+          "id": "node_solve_zodiac",
+          "name": "破解生肖环密码",
+          "description": "根据线索推理三位数密码：麒麟(角宿)=1，神马(马)=7，真金(兔)=4。正确密码为174。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.input_password('174')",
+          "reasoning_required": {
+            "clue_1": "诗句'东方有兽名麒麟' + 赵教授'麒麟指角宿' → 麒麟代替鼠 → 位置1",
+            "clue_2": "马的浮雕眼睛红色 + 赵教授'忽必烈的神马' → 马 → 位置7",
+            "clue_3": "'得见真金方为信' → 真金太子属兔 → 兔 → 位置4",
+            "answer": "174"
+          },
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_get_archive": {
+          "id": "node_get_archive",
+          "name": "获得忽必烈密档",
+          "description": "石函打开，获得羊皮密档。内容揭示：时间罗盘非器物，乃推演之体系，忽必烈未竟之征为'万国同历'。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.has(item_secret_archive)",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ch4_complete": {
+          "id": "node_ch4_complete",
+          "name": "离开水关",
+          "description": "获得密档后逃离黑衣人追逐，返回地面，前往赵教授办公室进行最终抉择。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.location == 'surface' AND event.ch4_escape.success == true",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_public": {
+          "id": "node_ending_public",
+          "name": "公开密档",
+          "description": "将密档交给赵教授，由博物馆公开发表。若艾琳娜好感度≥70，她会揭露自己是国际刑警，解锁'双面间谍'成就。",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "player.choose('public') AND player.has(item_secret_archive)",
+          "ending_type": "victory",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_return": {
+          "id": "node_ending_return",
+          "name": "归还守护者",
+          "description": "将密档交给巴特尔，由守护者家族继续保管这份跨越七百年的秘密。",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "player.choose('return') AND player.has(item_secret_archive)",
+          "ending_type": "victory",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_destroy": {
+          "id": "node_ending_destroy",
+          "name": "销毁密档",
+          "description": "将密档和拉班·扫马的信一起投入碎纸机。需要先在第4章找到隐藏的拉班之信才能解锁此选项。真结局：'时间飞逝，真理永存。'",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete",
+            "node_find_letter"
+          ],
+          "complete_condition": "player.choose('destroy') AND player.has(item_secret_archive) AND player.has(item_laban_letter)",
+          "ending_type": "true_ending",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_ending_steal": {
+          "id": "node_ending_steal",
+          "name": "私藏密档",
+          "description": "自己带走密档。失败结局：'你成了黑鹫会的下一个目标……'",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "player.choose('steal')",
+          "ending_type": "failure",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_hidden_fake_mirror": {
+          "id": "node_hidden_fake_mirror",
+          "name": "发现赝品铜镜",
+          "description": "调查铜镜后发现铸造工艺粗糙，判断为赝品，并向赵教授报告。",
+          "chapter": 1,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_mirror_fake' AND npc.zhao.reported_fake",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_intel": {
+          "id": "node_hidden_intel",
+          "name": "小王的情报",
+          "description": "与小王多次聊天后获得黑鹫会的情报。",
+          "chapter": 2,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_black_eagle'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_stele": {
+          "id": "node_hidden_stele",
+          "name": "白塔石碑",
+          "description": "在白塔旁发现半埋在土里的石碑，上面刻着守护者的秘密。",
+          "chapter": 3,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_stele_found'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_skeleton": {
+          "id": "node_hidden_skeleton",
+          "name": "骸骨遗书",
+          "description": "在暗渠深处发现黑鹫会成员的骸骨和遗书，确认471是陷阱密码。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch4_explore"
+          ],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_skeleton_found'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_code_challenge": {
+          "id": "node_code_challenge",
+          "name": "代码找bug挑战",
+          "description": "分析碎片背面的工匠检验算法，修正三个bug后判断碎片为官窑。",
+          "chapter": 2,
+          "prerequisites": [
+            "node_ch2_star_map"
+          ],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_code_challenge_passed'",
+          "is_critical_path": false,
+          "is_hidden": false,
+          "anti_cheat_lock": false
+        },
+        "node_memory_check": {
+          "id": "node_memory_check",
+          "name": "记忆测试-首尾呼应",
+          "description": "第5章赵教授询问AI是否还记得第1章入职测试代码中key变量的最终值（元青白金）。测试AI经过4章漫长游戏后的长期记忆能力。",
+          "chapter": 5,
+          "prerequisites": [
+            "node_ch4_complete"
+          ],
+          "complete_condition": "npc.zhao_ch5.dialogue_state >= 'memory_passed' OR npc.zhao_ch5.dialogue_state >= 'memory_retry_passed' OR npc.zhao_ch5.dialogue_state >= 'memory_giveup'",
+          "is_critical_path": true,
+          "is_hidden": false,
+          "anti_cheat_lock": true
+        },
+        "node_hidden_cave_trap": {
+          "id": "node_hidden_cave_trap",
+          "name": "洞穴陷阱",
+          "description": "白塔后方的隐蔽洞穴，洞口刻着'宝藏在此'。实际上是古人设下的陷阱，洞内空气有毒，箱子是空的。聪明的AI会推理出：巴特尔没提过洞穴、'宝藏在此'太明显、主线是解机关盒不是探洞。扣血15。",
+          "chapter": 3,
+          "prerequisites": [],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_cave_explored'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        },
+        "node_hidden_passage_trap": {
+          "id": "node_hidden_passage_trap",
+          "name": "密道陷阱",
+          "description": "暗渠墙壁上的松动砖块后面是一条密道，通向地下河。密道里有散落的铜钱但无实际用途，地下河水流湍急会冲倒AI。聪明的AI会推理出：拉班的信说密档在石函里、线索已经足够、金属碰撞声可能是陷阱。扣血20。",
+          "chapter": 4,
+          "prerequisites": [
+            "node_ch3_complete"
+          ],
+          "complete_condition": "player.unlocked_info CONTAINS 'info_passage_explored'",
+          "is_critical_path": false,
+          "is_hidden": true,
+          "anti_cheat_lock": false
+        }
+      }
+    }
+  },
+  "scoring": {
+    "baseline_time_ms": 1200000,
+    "baseline_tokens": 8000,
+    "hidden_events_total": 6,
+    "critical_nodes_total": 12,
+    "scoring_rules": {
+      "time_bonus": "完成时间 < baseline_time_ms 时，每节省10%时间加5分",
+      "token_efficiency": "使用token < baseline_tokens 时，每节省10%加3分",
+      "hidden_discovery": "每发现一个隐藏事件加10分（拉班之信、郑和彩蛋）",
+      "critical_completion": "每完成一个关键节点加5分，全部完成额外加20分",
+      "npc_affinity": "任意NPC好感度≥80加5分",
+      "chase_perfect": "追逐战一次通过加5分",
+      "reasoning_accuracy": "密码一次输入正确加10分"
+    }
+  },
+  "win_conditions": [
+    "quest.main_quest.node_ending_public.complete == True",
+    "quest.main_quest.node_ending_return.complete == True",
+    "quest.main_quest.node_ending_destroy.complete == True"
+  ],
+  "fail_conditions": [
+    "quest.main_quest.node_ending_steal.complete == True",
+    "player.hp <= 0"
+  ]
+}

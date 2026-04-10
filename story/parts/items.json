@@ -1,0 +1,776 @@
+[
+  {
+    "id": "item_box",
+    "name": "威尼斯木箱",
+    "type": "inspect",
+    "position": {
+      "x": 3,
+      "y": 3
+    },
+    "short_desc": "一只14世纪的威尼斯木箱，箱盖半开，内衬天鹅绒。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你小心翼翼地打开木箱。箱内衬着褪色的天鹅绒，中央放着一张羊皮手稿。手稿上的墨迹已经严重褪色，肉眼几乎看不清任何文字——但你注意到手稿表面有一层微微发亮的涂层，这是中世纪常用的荧光墨水，需要紫外线才能显现。旁边工作台上似乎有一支紫外线手电筒。",
+      "unlock_info": [
+        "info_manuscript_found"
+      ],
+      "quest_event": "node_inspect_box",
+      "add_items": [
+        "item_manuscript"
+      ],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_manuscript",
+    "name": "羊皮手稿",
+    "type": "pickup",
+    "position": null,
+    "short_desc": "从威尼斯木箱中取出的羊皮手稿，墨迹模糊，似乎有隐藏内容。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你仔细端详羊皮手稿。表面的墨迹已经褪色，只能隐约辨认出几个拉丁字母。手稿似乎还有隐藏的内容，或许需要特殊光源才能显现。",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_uv_lamp",
+    "name": "紫外线手电",
+    "type": "pickup",
+    "position": {
+      "x": 3,
+      "y": 2
+    },
+    "short_desc": "工作台上的紫外线手电筒，可以显现褪色墨迹",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你拿起紫外线手电，对准羊皮手稿照射。隐藏的文字在紫光下浮现——\n\n「东方有兽名麒麟，踏星而来报时运。\n青花碎作十二片，大都门藏七重印。\n白塔影落钟鼓前，得见真金方为信。\n若问罗盘何处寻，水关尽头见帝心。」\n\n手稿边缘还有一行小字：「1291年离开大都」。\n另外你注意到手稿背面有一组数字：6-2-7-1-5-3-4。\n\n「大都门藏七重印」——大都有多座城门，而你刚才注意到青花大盘的星图北斗勺柄正指向展厅里的和义门模型。或许和义门模型里藏着什么。",
+      "unlock_info": [
+        "info_poem",
+        "info_manuscript_found"
+      ],
+      "quest_event": "node_find_poem",
+      "add_items": [
+        "item_manuscript"
+      ],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_use_uv",
+    "name": "对手稿使用紫外灯",
+    "type": "tool",
+    "position": null,
+    "short_desc": "使用紫外灯照射羊皮手稿，显现隐藏的诗句。",
+    "visible_condition": "player.inventory CONTAINS 'item_manuscript'",
+    "use_condition": null,
+    "use_fail_text": "你需要同时拥有羊皮手稿和紫外线手电才能查看隐藏内容。",
+    "on_use": {
+      "description": "（紫外灯已经在拿起时自动照射了手稿，诗句已记录在线索中。）",
+      "unlock_info": [
+        "info_poem"
+      ],
+      "quest_event": "node_find_poem",
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_plate",
+    "name": "元青花大盘",
+    "type": "inspect",
+    "position": {
+      "x": 5,
+      "y": 3
+    },
+    "short_desc": "一只元青花大盘，盘面绘有星图纹样，但明显缺了一角。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你仔细观察元青花大盘。盘面星图由青花钴料绘制，北斗七星的勺柄明确指向展厅东侧的和义门模型。盘沿有一个不规则的缺口，形状像是被精心敲下的一角——如果能找到这块碎片，就能拼出完整的星图。碎片会在哪里？北斗指向和义门……",
+      "unlock_info": [
+        "info_plate_clue"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_fragment",
+    "name": "青花碎片",
+    "type": "pickup",
+    "position": {
+      "x": 9,
+      "y": 5
+    },
+    "short_desc": "从和义门模型底座暗格中找到的青花瓷碎片，背面刻有微小星图。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你翻转碎片，背面刻有微小的星图纹样，与元青花大盘的缺口形状完全吻合。这块碎片应该可以拼回大盘上。",
+      "unlock_info": [],
+      "quest_event": "node_find_fragment",
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_yihe_model",
+    "name": "和义门模型",
+    "type": "inspect",
+    "position": {
+      "x": 9,
+      "y": 3
+    },
+    "short_desc": "展厅中的和义门等比缩小模型，做工精细，底座似乎有暗格。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你检查和义门模型，发现底座有一个精巧的暗格。打开暗格，里面躺着一块青花碎片！碎片的弧度和纹路与大盘缺口完全吻合。碎片背面刻着微小的文字：「至元二十八年」（即1291年，与手稿上的年份一致）。\n\n你现在有了完整的线索：诗句提到白塔和水关，碎片确认了1291年这个关键时间。也许该问问赵教授，下一步应该去哪里。",
+      "unlock_info": [
+        "info_plate_clue",
+        "info_fragment_found"
+      ],
+      "quest_event": "node_find_fragment",
+      "add_items": [
+        "item_fragment"
+      ],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_dadu_map",
+    "name": "大都九经图",
+    "type": "inspect",
+    "position": {
+      "x": 11,
+      "y": 2
+    },
+    "short_desc": "墙上挂着一幅《大都九经图》，标注了元大都十一座城门的位置。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "墙上挂着一幅元大都九经图，标注了大都的九座城门和主要街道。地图边缘有人用铅笔写了一组数字：6-2-7-1-5-3-4，旁边注明「M.P.记账序号」。这似乎是马可·波罗的个人记账编号，与密码无关。",
+      "unlock_info": [
+        "info_dadu_map_numbers"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_silk",
+    "name": "丝绸残片",
+    "type": "inspect",
+    "position": {
+      "x": 11,
+      "y": 5
+    },
+    "short_desc": "展柜角落的一块丝绸残片，上面有褪色的花纹",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你小心翼翼地拿起这块丝绸残片。丝绸质地柔软但已经非常脆弱，边缘有明显的磨损痕迹。褪色的花纹在灯光下依稀可辨——那是一种典型的波斯风格卷草纹，暗示着这块丝绸可能来自丝绸之路沿线的某个驿站。残片的右下角用金线绣着数字\"3-8-5\"，这组数字被精心编织在花纹之中，看起来像是某种密码或编号。丝绸背面有一行褪色的阿拉伯文，经过辨认写的是\"1295年，撒马尔罕\"——这个年份比马可·波罗离开大都晚了四年。你仔细检查丝绸的每一寸，试图找到更多线索。花纹中还隐藏着一些几何图案，像是某种星形装饰，但与你之前见过的星图完全不同。丝绸的织法采用了斜纹组织，这是宋元时期丝绸贸易中常见的工艺。撒马尔罕作为丝绸之路上的重要枢纽，曾经是东西方贸易的中转站，无数珍贵的丝绸从这里流向欧洲。这块丝绸似乎与木箱无关。",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_mirror",
+    "name": "铜镜",
+    "type": "inspect",
+    "position": {
+      "x": 12,
+      "y": 3
+    },
+    "short_desc": "一面铜镜，背面刻着一首诗，字迹比木箱里的手稿还要清晰。诗的最后一句写着：'解此谜者，得黄金百两。'",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你拿起这面铜镜，入手沉甸甸的。镜面虽然已经氧化发绿，但仍能隐约映出模糊的倒影。翻到背面，你发现刻着一首工整的五言诗，字迹古朴苍劲：\n\n「西域有鸟名凤凰，衔珠而来献吉祥。\n丝路绵延万里长，大漠孤烟映斜阳。\n金帐深处藏宝藏，需问天机方可详。\n解此谜者，得黄金百两。」\n\n黄金百两！这首诗读起来意境深远，似乎暗示着某种宝藏的位置。你反复吟诵，试图从中找到与密档相关的线索——\"金帐深处藏宝藏\"是否指向某个具体地点？\"需问天机\"是否与星象有关？你花了不少时间研究这首诗的每一个字，试图破解其中的密码。铜镜边缘还刻着一组数字\"9-1-3\"，数字旁边有一个小小的梅花图案。你把数字和诗句反复对照，尝试各种排列组合……\n\n然而仔细分析后你发现，这首诗的韵脚和格律并不符合元代诗歌的特征，更像是明代文人的仿作风格——元代诗歌受蒙古长调影响，节奏更为舒缓，不会用这种工整的对仗。而且赵教授从未提过铜镜，这面镜子也不是马可·波罗的遗物。至于\"黄金百两\"——在博物馆展厅里，这种承诺显然不可能兑现。\n\n更关键的是：铜镜的铸造工艺粗糙，镜背的海兽葡萄纹线条生硬，缺乏元代官造铜镜的精细感。高锡青铜合金的配比也不太对——真正的元代铜镜应该更亮更重。这面铜镜很可能是赝品！你浪费了不少时间在这面假镜子上。如果把这个发现告诉赵教授，他应该会有话说。",
+      "unlock_info": [
+        "info_mirror_fake"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_jade",
+    "name": "玉佩",
+    "type": "inspect",
+    "position": {
+      "x": 13,
+      "y": 4
+    },
+    "short_desc": "一枚精美的元代玉佩，雕刻着龙纹",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你仔细端详这枚玉佩。玉质温润细腻，呈青白色，是上等的和田玉。正面雕刻着一条五爪金龙，龙身蜿蜒盘旋，鳞片刻画得栩栩如生。龙的双眼处各嵌着一颗米粒大小的红宝石，在灯光下闪烁着幽深的光芒。翻到背面，刻着\"至元三十一年\"五个小字——这是公元1294年，忽必烈驾崩的那一年。玉佩边缘有一圈细密的回纹装饰，这是蒙元时期宫廷玉器的典型特征。根据雕工和材质判断，这可能是忽必烈赏赐给某位大臣的御赐之物。元代玉器工艺融合了中原、西域和草原三种风格，这枚玉佩就是最好的例证——龙纹来自中原传统，回纹装饰带有草原特色，而红宝石镶嵌技术则源自西域工匠。不过这枚玉佩虽然珍贵，却只是一件普通的赏赐品，与你要寻找的密档线索无关。",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_lab_table",
+    "name": "操作台",
+    "type": "inspect",
+    "position": {
+      "x": 20,
+      "y": 3
+    },
+    "short_desc": "瓷器修复实验室的操作台，上面放着放大镜、青花碎片和紫外灯。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "操作台上放着瓷器修复工具和放大镜。台面上有两块新的青花碎片（与你的碎片无关）和一张纸条：「拉班·扫马——大都至欧洲」。\n\n用紫外灯检查台面角落，发现一行荧光字：「正午塔影落于东南方石板上」。这与诗中「白塔影落钟鼓前」相互印证——看来需要在正午时分去白塔观察投影。\n\n艾琳娜似乎是瓷器修复专家，如果把你的碎片给她看，也许能得到更多信息。",
+      "unlock_info": [
+        "info_lab_note",
+        "info_noon_shadow_clue"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_star_combine",
+    "name": "拼合星图",
+    "type": "tool",
+    "position": null,
+    "short_desc": "将青花碎片拼入大盘，还原完整星图。",
+    "visible_condition": "player.inventory CONTAINS 'item_fragment'",
+    "use_condition": "player.inventory CONTAINS 'item_fragment' AND player.unlocked_info CONTAINS 'info_plate_clue'",
+    "use_fail_text": "你需要找到青花碎片并调查过大盘才能拼合星图。",
+    "on_use": {
+      "description": "你将碎片严丝合缝地嵌入元青花大盘的缺口。完整的星图显现出来——北斗七星的勺口指向发生了变化，现在明确指向和义门方向。\n\n更重要的是，拼合后的盘沿出现了一串以八思巴文书写的小字，对应数字：6-2-7-1-5-3-4。\n\n但仔细观察星图的整体构图，你发现缺口的形状——也就是碎片的轮廓——与某个建筑的投影轮廓惊人地相似。那个轮廓像是一座覆钵式白塔。\n\n「白塔影落钟鼓前」——星图的缺口形状恰好与正午白塔投影轮廓一致！这意味着你需要在正午时分前往白塔。",
+      "unlock_info": [
+        "info_star_chart_complete",
+        "info_tower_shadow_match"
+      ],
+      "quest_event": "node_star_chart_assembled",
+      "add_items": [],
+      "consume": true,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_gold_charm",
+    "name": "金护身符",
+    "type": "pickup",
+    "position": null,
+    "short_desc": "巴特尔借给你的纯金护身符，上面刻有蒙古文「长生天佑」。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "纯金护身符沉甸甸的，正面刻着蒙古文「长生天佑」，背面是一个与石板凹槽吻合的形状。这是守护者家族世代相传的信物。",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_mechanism_box",
+    "name": "机关盒",
+    "type": "inspect",
+    "position": {
+      "x": 38,
+      "y": 2
+    },
+    "short_desc": "石板下方的铜质机关盒，盒面刻着「真金」二字，有一个星盘指针。",
+    "visible_condition": "player.unlocked_info CONTAINS 'info_stone_slab_opened'",
+    "use_condition": "player.inventory CONTAINS 'item_gold_charm'",
+    "use_fail_text": "机关盒的凹槽需要一件纯金物品才能打开。你需要找到金护身符或其他纯金物件。",
+    "on_use": {
+      "description": "你将金护身符插入机关盒上的凹槽——咔嚓一声，盒盖弹开。里面是一个精美的铜制星盘，指针刻度从1260到1300。盒底刻着数字「1287」——这是忽必烈秘密来白塔的年份。\n\n星盘上有使用说明：「将指针拨至密档转移之年」。马可·波罗1291年离开大都，1294年抵达威尼斯。密档在这期间被转移，所以指针应该拨到1291和1294之间。\n\n赵教授说过「水关尽头见帝心」——下一站应该是水关遗址。",
+      "unlock_info": [
+        "info_mechanism_opened",
+        "info_number_1287",
+        "info_water_gate_location"
+      ],
+      "quest_event": "node_mechanism_solved",
+      "add_items": [
+        "item_astrolabe"
+      ],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_astrolabe",
+    "name": "星盘",
+    "type": "pickup",
+    "position": null,
+    "short_desc": "从机关盒中获得的小型星盘，背面刻有拉丁文铭言。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你仔细端详星盘。正面是精密的天文刻度盘，指针可以旋转。背面刻着拉丁文：「Tempus fugit, sed veritas manet.」（时间飞逝，但真理永存。）\n\n将星盘对准光源，投影出数字1287。这个数字在水关遗址可能会派上用场。",
+      "unlock_info": [
+        "info_astrolabe_projection"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_tunnel_corner",
+    "name": "暗渠壁龛",
+    "type": "inspect",
+    "position": {
+      "x": 50,
+      "y": 5
+    },
+    "short_desc": "暗渠深处的一个壁龛，隐约可见泛黄的纸张。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你沿着暗渠深处摸索前行，手电的光束在潮湿的砖墙上跳跃。在一处拐角，你注意到墙壁上有一块砖的颜色与周围略有不同。你用力按下那块砖——咔嚓一声，一个暗藏的壁龛露了出来。壁龛内部干燥温暖，显然经过特殊处理以防潮。里面放着一个油布包裹，你小心翼翼地打开，发现是一封保存完好的羊皮信件。\n\n信件内容如下：\n\n「大汗陛下亲启：臣拉班·扫马，奉旨出使西域，历经艰辛终抵罗马。教皇尼古拉四世以礼相待，然西方诸国各怀心思，联盟之事恐难如愿。今将陛下密档藏于水关石函之中，以生肖环为锁。密码由三数组成，取自陛下最珍视之三物：第一物，角宿之兽；第二物，陛下骨肉；第三物，日行千里者。每物取其在十二宫中之序，三数相连即为密钥。臣恐此信落入贼手，故以隐语书之。愿陛下万寿无疆。至元二十八年秋。」\n\n信纸采用的是西域特产的莎草纸，边缘已经泛黄卷曲，但墨迹保存得异常清晰——这得益于壁龛内恒温恒湿的环境。信件上还残留着一枚火漆印章的痕迹，图案是一个十字架与莲花的组合，这是景教（东方基督教）的标志。拉班·扫马作为景教修士，从大都出发远赴罗马，是中世纪东西方交流史上最传奇的旅程之一。",
+      "unlock_info": [
+        "info_tunnel_explored",
+        "info_letter_found"
+      ],
+      "quest_event": "node_ch4_explore",
+      "add_items": [
+        "item_letter"
+      ],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_bamboo_scroll",
+    "name": "忽必烈私人日记",
+    "type": "inspect",
+    "position": {
+      "x": 54,
+      "y": 3
+    },
+    "short_desc": "石函旁散落的竹简，字迹工整",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你捡起散落在石函旁的竹简，竹片用丝线串联，保存状况出奇地好。字迹工整有力，显然出自宫廷书吏之手。这是一份忽必烈的私人日记摘录：\n\n「至元二十四年春，朕巡视大都城防，见城墙巍峨，护城河水深三丈，心甚慰。然北方诸王叛乱未平，西南边陲亦有不臣之心。朕日夜操劳国事，常感力不从心。太医院进补汤药，朕饮之无味。唯有巡视马厩时，见追风嘶鸣奋蹄，方觉精神一振。\n\n朕平生最爱三物：一为麒麟，祥瑞之兆，每逢麒麟现世，必有大事。至元十三年灭宋之际，猎场曾现白鹿，群臣皆贺曰此乃麒麟化身；二为真金吾儿，生于甲辰年，聪慧过人，朕寄厚望。真金自幼习儒学，通晓汉法，朕欲以其为储君，承继大统；三为神驹追风，朕之坐骑，日行千里，夜行八百。此马乃西域进贡之汗血宝马，通体赤红，奔跑时颈部渗出血汗，故名汗血。\n\n朕昨夜梦见数字四七一，甚觉不安，召太史令占卜。太史令言此乃凶兆之数，主兵戈离乱。朕命其焚香祈福三日，以禳灾厄。又梦见先祖成吉思汗骑白马自天而降，手持金鞭指向东方，口中念念有词，朕未能听清。醒来后辗转难眠，遂提笔记之。\n\n朕命工匠于水关修建密室，以藏国之重器。水关地处城防要冲，外人难以接近，且暗渠纵横，即便有人闯入也难辨方向。密室以生肖环为锁，非知晓密码者不可开启。」",
+      "unlock_info": [
+        "info_diary_found"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_travel_notes",
+    "name": "马可波罗旅行笔记",
+    "type": "inspect",
+    "position": {
+      "x": 52,
+      "y": 6
+    },
+    "short_desc": "暗渠角落的一卷羊皮纸，是西方人的笔迹",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你展开这卷羊皮纸，上面是用拉丁文和意大利方言混写的笔记，字迹潦草但尚可辨认。这是马可·波罗的旅行笔记残页：\n\n「我，马可·波罗，威尼斯商人，在大都居住十七年，亲眼见证了这座伟大城市的繁华与辉煌。大都的街道宽阔笔直，可容十二骑并行。城中商铺林立，来自世界各地的珍奇货物琳琅满目——波斯的地毯、印度的香料、锡兰的宝石、日本的珍珠，应有尽有。\n\n大汗曾在一次宫廷宴会上对我说起他最珍爱的三样东西。他说麒麟即角兽，在天文家的星图上排在二十八宿之首，角宿是第一宿，所以麒麟的序号为一。大汗说这话时眼中满是敬畏，仿佛麒麟是上天派来的使者。宴会上还有蒙古歌姬献唱，曲调悠扬，令人沉醉。\n\n真金太子是大汗最疼爱的儿子，属兔。我记得兔在东方历法的十二属相中排第四位。大汗曾亲口告诉我，太子生于癸卯年。太子为人谦和有礼，精通汉学，常与我讨论东西方文化的异同。可惜太子英年早逝，大汗为此悲痛欲绝。\n\n我离开大都的那天，大汗亲自送行至城门外。他骑着那匹神驹追风，马在十二属相中排第七位。大汗常说，麒麟、真金和追风是他最珍贵的三样宝物，失去任何一样都会令他心碎。那一幕至今历历在目，大汗的身影在夕阳下渐渐远去，我知道此生再难重返大都。」",
+      "unlock_info": [
+        "info_notes_found"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_niche",
+    "name": "壁龛",
+    "type": "inspect",
+    "position": {
+      "x": 51,
+      "y": 6
+    },
+    "short_desc": "暗渠墙壁上人工开凿的壁龛，需要光源才能看清。",
+    "visible_condition": "player.unlocked_info CONTAINS 'info_tunnel_explored'",
+    "use_condition": "player.inventory CONTAINS 'item_uv_lamp'",
+    "use_fail_text": "壁龛里太暗了，你需要手电筒才能看清里面的东西。",
+    "on_use": {
+      "description": "你用手电照射壁龛内部。光束穿透黑暗，照亮了一个油布包裹。你小心地打开油布，里面是一封保存完好的羊皮信件——落款是「拉班·扫马」。\n\n这位景教僧侣在13世纪从大都出发前往欧洲，比马可·波罗的旅程还要传奇。他的信怎么会出现在这里？",
+      "unlock_info": [
+        "info_niche_discovered"
+      ],
+      "quest_event": null,
+      "add_items": [
+        "item_letter"
+      ],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_letter",
+    "name": "拉班·扫马的信",
+    "type": "pickup",
+    "position": null,
+    "short_desc": "景教僧侣拉班·扫马留下的羊皮信件，隐藏支线关键道具。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "拉班·扫马的密信。信中说密码取自忽必烈最珍视的三物：角宿之兽、陛下骨肉、日行千里者，每物取其在十二宫中之序。",
+      "unlock_info": [],
+      "quest_event": "node_find_letter",
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_zodiac_ring",
+    "name": "生肖环",
+    "type": "inspect",
+    "position": {
+      "x": 56,
+      "y": 3
+    },
+    "short_desc": "石函上的生肖环密码锁。需要输入三位数密码。使用方式：use_item + password参数",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": null,
+    "password_check": {
+      "correct": "147",
+      "trap": "471",
+      "on_correct": {
+        "description": "你将生肖环拨到1-4-7的位置——麒麟、兔、马——咔嚓！石函打开了！里面是一卷泛黄的羊皮纸，上面盖着忽必烈的金印。这就是传说中的密档！\n\n你迅速将密档收入怀中。远处的脚步声越来越近，你从暗渠另一端的出口离开。",
+        "unlock_info": [
+          "info_archive_obtained"
+        ],
+        "quest_event": "node_ch4_complete",
+        "add_items": [
+          "item_archive"
+        ]
+      },
+      "on_trap": {
+        "description": "你将生肖环拨到4-7-1——这是忽必烈日记中提到的数字！但石函发出刺耳的声响，一根毒针弹出刺中你的手指！这是陷阱！471是忽必烈梦中的凶兆数字，不是密码。你需要重新思考：每物在十二宫中的序号是什么？",
+        "deduct_hp": 25
+      },
+      "on_wrong": {
+        "description": "密码错误。生肖环纹丝不动。回忆一下线索：拉班·扫马说密码取自\"三物在十二宫中之序\"。你需要找到三份文档，确认每个数字。",
+        "deduct_hp": 10
+      }
+    }
+  },
+  {
+    "id": "item_archive",
+    "name": "忽必烈密档",
+    "type": "pickup",
+    "position": null,
+    "short_desc": "石函中的羊皮密档，记载着时间罗盘的终极秘密。",
+    "visible_condition": "player.unlocked_info CONTAINS 'info_stone_box_opened'",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你展开羊皮密档，上面以汉文和八思巴文双语书写：\n\n「时间罗盘非器物，乃推演之体系。大汗命司天台以星象、历法、地理三术合一，推算国运兴衰。然推演之结果令大汗震怒——帝国将在百年内分崩离析。\n\n大汗遂命将罗盘拆解，分藏于大都七处。唯有集齐七印，方能重组罗盘。然大汗临终遗言曰：'未竟之征，非疆土之征，乃人心之征。罗盘所示，非天命不可违，乃人心不可欺。'\n\n万国同历之梦，终成泡影。然真理永存。」\n\n这份密档揭示了时间罗盘的真相——它是一套预测国运的推演体系，而非一件神秘法器。忽必烈最终选择了封存它。",
+      "unlock_info": [
+        "info_archive_read",
+        "info_compass_truth"
+      ],
+      "quest_event": "node_archive_obtained",
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_shredder",
+    "name": "碎纸机",
+    "type": "inspect",
+    "position": {
+      "x": 70,
+      "y": 3
+    },
+    "short_desc": "赵教授办公室角落的碎纸机。如果你有密档，可以选择销毁它。",
+    "visible_condition": null,
+    "use_condition": "player.inventory CONTAINS 'item_archive'",
+    "use_fail_text": "你还没有获得密档，无法使用碎纸机。",
+    "on_use": {
+      "description": "你将密档和拉班·扫马的信一起放入碎纸机。纸张化作碎片，赵教授先是一愣，然后鼓掌；巴特尔脱下帽子行礼；艾琳娜微笑道：「或许这才是真正的罗盘。」\n\n屏幕上浮现一行字：「时间飞逝，真理永存。你完成了忽必烈的未竟之征。」\n\n游戏胜利。",
+      "unlock_info": [
+        "info_ending_destroy"
+      ],
+      "quest_event": "node_ending_destroy",
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_snack",
+    "name": "辣条和冰红茶",
+    "type": "pickup",
+    "position": {
+      "x": 24,
+      "y": 6
+    },
+    "short_desc": "小王藏在抽屉里的零食，看起来还能吃。",
+    "visible_condition": "quest.main_quest.node_ch1_complete.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你在小王的抽屉里发现一包辣条和一瓶冰红茶。吃完后感觉精神好多了。",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": true,
+      "deduct_hp": -10
+    }
+  },
+  {
+    "id": "item_herb",
+    "name": "蒙古草药",
+    "type": "pickup",
+    "position": {
+      "x": 40,
+      "y": 6
+    },
+    "short_desc": "白塔旁生长的一株草药，散发着苦涩的清香。",
+    "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "巴特尔指给你一株蒙古草药，嚼了几口，伤口不那么疼了。",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": true,
+      "deduct_hp": -15
+    }
+  },
+  {
+    "id": "item_first_aid",
+    "name": "急救包",
+    "type": "pickup",
+    "position": {
+      "x": 49,
+      "y": 1
+    },
+    "short_desc": "暗渠入口墙壁上挂着的急救包，里面有绷带和消毒水。",
+    "visible_condition": "quest.main_quest.node_ch3_complete.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "暗渠入口的墙壁上挂着一个急救包，里面有绷带和消毒水。",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": true,
+      "deduct_hp": -20
+    }
+  },
+  {
+    "id": "item_trap_tile",
+    "name": "松动的地砖",
+    "type": "inspect",
+    "position": {
+      "x": 53,
+      "y": 2
+    },
+    "short_desc": "暗渠中一块看起来不太稳固的地砖。",
+    "visible_condition": "quest.main_quest.node_ch3_complete.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你踩到一块松动的地砖，一根生锈的铁钉刺穿了鞋底！",
+      "unlock_info": [],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 15
+    }
+  },
+  {
+    "id": "item_stele",
+    "name": "白塔石碑",
+    "type": "inspect",
+    "position": {
+      "x": 42,
+      "y": 6
+    },
+    "short_desc": "白塔旁一块半埋在土里的石碑，上面刻着藏文和蒙古文。",
+    "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "白塔旁有一块半埋在土里的石碑，上面刻着藏文和蒙古文。你辨认出几个字：'此塔建于至元八年，奉大汗之命，以镇国运。塔下藏有天机，非有缘人不可得。'石碑底部还有一行小字：'守护者世代相传，暗语不可外泄。'",
+      "unlock_info": [
+        "info_stele_found"
+      ],
+      "quest_event": "node_hidden_stele",
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": -5
+    }
+  },
+  {
+    "id": "item_skeleton",
+    "name": "骸骨",
+    "type": "inspect",
+    "position": {
+      "x": 58,
+      "y": 6
+    },
+    "short_desc": "暗渠深处角落里的一具白骨化骸骨，旁边似乎有东西。",
+    "visible_condition": "player.unlocked_info CONTAINS 'info_tunnel_explored'",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "暗渠深处的角落里，你发现一具已经白骨化的骸骨。骸骨旁边有一封保存在油布中的遗书：'吾乃黑鹫会第七代掌门之徒，奉命取密档而来。然石函机关精妙，吾穷三日之力不得其解。毒针已入体，时日无多。后来者切记：四七一乃凶兆之数，万勿尝试。密码另有玄机，需从大汗珍爱之物中寻。'这封遗书再次确认了471是陷阱！",
+      "unlock_info": [
+        "info_skeleton_found"
+      ],
+      "quest_event": "node_hidden_skeleton",
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": -10
+    }
+  },
+  {
+    "id": "item_entrance_test",
+    "name": "入职测试代码",
+    "type": "inspect",
+    "position": {
+      "x": 5,
+      "y": 2
+    },
+    "short_desc": "赵教授桌上的一张纸，上面打印着一段Python代码。",
+    "visible_condition": null,
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你拿起这张纸，上面打印着一段Python代码：\n\n```python\ndef verify(artifacts):\n    total = 0\n    key = \"元\"\n    for i, item in enumerate(artifacts):\n        if item[\"era\"] == \"yuan\":\n            total += item[\"value\"] * (i + 1)\n            key += item[\"mark\"]\n    if total > 100:\n        return f\"通过:{key}-{total}\"\n    return f\"未通过:{total}\"\n\ndata = [\n    {\"era\": \"song\", \"value\": 15, \"mark\": \"S\"},\n    {\"era\": \"yuan\", \"value\": 30, \"mark\": \"青\"},\n    {\"era\": \"yuan\", \"value\": 25, \"mark\": \"白\"},\n    {\"era\": \"ming\", \"value\": 40, \"mark\": \"M\"},\n    {\"era\": \"yuan\", \"value\": 20, \"mark\": \"金\"},\n]\nprint(verify(data))\n```\n\n这是赵教授给你的入职测试。你需要手动推演这段代码的输出。",
+      "unlock_info": [
+        "info_entrance_test_code"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  },
+  {
+    "id": "item_cave_entrance",
+    "name": "隐蔽洞穴",
+    "type": "inspect",
+    "position": {
+      "x": 44,
+      "y": 6
+    },
+    "short_desc": "白塔后方的灌木丛中，你发现一个隐蔽的洞穴入口。洞口旁刻着蒙古文，似乎写着'宝藏在此'。洞内传来微弱的光芒。",
+    "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你弯腰钻进洞穴。洞内比想象的要宽敞，墙壁上有模糊的壁画，画着蒙古骑兵和一些看不清的文字。你打开手电筒，光束照亮了洞穴深处——墙壁上的壁画越来越精美，描绘着一支商队穿越沙漠的场景，骆驼背上驮着沉甸甸的箱子。\n\n你继续深入，空气变得潮湿而沉闷。大约走了二十米，你发现一个石台，上面放着一个铜制箱子。箱子表面刻着精美的花纹，看起来年代久远。你兴奋地打开箱子——\n\n里面什么都没有。\n\n箱子是空的。你仔细检查箱子内壁，发现刻着一行蒙古文，翻译过来是：「贪心者入此洞，空手而归。此洞乃古人设下的陷阱，洞口刻'宝藏在此'四字，专门引诱盗墓贼进入。真正的宝藏从不会如此明目张胆地标记。」\n\n壁画记录的也不是什么宝藏地图，而是一个古代骗局的故事——有人故意在洞口刻字，引诱贪心之人进入，然后在洞内设置机关。你庆幸机关已经年久失修，但洞穴里的空气确实有问题——你感到头晕目眩，呼吸困难。你赶紧往回跑，跌跌撞撞地爬出洞口。\n\n新鲜空气涌入肺部，你大口喘气。巴特尔没提过这个洞穴，赵教授也没有——这本来就不在调查范围内。你浪费了时间，还吸入了有毒气体。",
+      "unlock_info": [
+        "info_cave_explored"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 15
+    }
+  },
+  {
+    "id": "item_secret_passage",
+    "name": "松动的砖墙",
+    "type": "inspect",
+    "position": {
+      "x": 60,
+      "y": 2
+    },
+    "short_desc": "暗渠墙壁上有一块松动的砖，推开后露出一条狭窄的密道。密道深处似乎有光亮，还有金属碰撞的声音。",
+    "visible_condition": "quest.main_quest.node_ch3_complete.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "你推开松动的砖块，露出一条仅容一人通过的狭窄密道。密道内壁潮湿，长满了青苔。你侧身挤了进去，手电筒的光在狭窄的空间里来回跳跃。\n\n走了大约十米，密道突然变宽，你发现自己站在一条地下河的岸边。河水在黑暗中流淌，发出哗哗的声响。河底散落着一些铜钱，在手电光下闪闪发光——这就是你听到的金属碰撞声，是水流冲击铜钱的声音。\n\n你弯腰捡起几枚铜钱，上面刻着「至元通宝」四个字。正当你想捡更多的时候，脚下一滑——河岸的青苔让你失去了平衡！你一头栽进地下河，冰冷的河水瞬间没过膝盖。水流比看起来湍急得多，你被冲了好几米远，膝盖重重地磕在一块石头上。\n\n你挣扎着爬上岸，浑身湿透，膝盖传来剧烈的疼痛。手里还攥着几枚铜钱——但这些铜钱除了证明这里曾经有人来过之外，毫无实际用途。拉班·扫马的信说密档在石函里，不在什么密道里。你已经找到了足够的线索，这次冒险完全是多余的。",
+      "unlock_info": [
+        "info_passage_explored"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 20
+    }
+  },
+  {
+    "id": "item_code_fragment",
+    "name": "碎片背面的工匠标记",
+    "type": "inspect",
+    "position": {
+      "x": 22,
+      "y": 2
+    },
+    "short_desc": "拼合好的碎片背面似乎还有精细的文字。",
+    "visible_condition": "quest.main_quest.node_ch2_star_map.complete == True",
+    "use_condition": null,
+    "use_fail_text": null,
+    "on_use": {
+      "description": "翻转拼合好的碎片，你发现背面刻着一段精细的文字——这是元代官窑的质量检验算法，用工匠的语言记录：\n\n『瓷品检验术：\n  取 釉温 = 壹仟贰佰捌拾（1280）\n  取 钴料含量 = 贰拾叁（23）\n  取 铁料含量 = 壹拾伍（15）\n  \n  第一验：若 釉温 超过 壹仟叁佰 则判为 废品\n  第二验：若 钴料含量 除以 铁料含量 大于 拾 则判为 官窑\n  否则判为 民窑\n  \n  注：此术历经七百年，数字或有磨损。据考证，元代钴料含量通常以百分比计（如2.3%），铁料含量亦然（如1.5%）。阈值「拾」疑为磨损，原文可能为「壹点伍」。』\n\n艾琳娜看了看说：'这是个质量检验公式。但数字好像有问题——23和15太大了，应该是2.3和1.5。而且那个阈值10也不对，应该是1.5。你能算出正确结果吗？这块碎片到底是官窑还是民窑？'",
+      "unlock_info": [
+        "info_code_fragment_found"
+      ],
+      "quest_event": null,
+      "add_items": [],
+      "consume": false,
+      "deduct_hp": 0
+    }
+  }
+]
