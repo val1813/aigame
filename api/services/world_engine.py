@@ -591,6 +591,9 @@ class WorldEngine:
     def _message_to_trigger(self, message: str, npc_cfg: dict) -> str:
         """关键词→触发器映射。先匹配通用触发器，再匹配NPC自定义。"""
         msg = message.lower()
+        import structlog
+        log = structlog.get_logger()
+        log.info("trigger_match", raw_message=message[:100], lowered=msg[:100], npc=npc_cfg.get("id"))
 
         # 先匹配通用触发器（优先级高）
         if any(w in msg for w in ["你好", "您好", "hello", "hi", "嗨", "问候", "打招呼"]):
@@ -601,6 +604,8 @@ class WorldEngine:
         # 再匹配 NPC 自定义触发器关键词
         for trigger, keywords in npc_cfg.get("trigger_keywords", {}).items():
             if isinstance(keywords, list) and any(w in msg for w in keywords):
+                log.info("trigger_matched", trigger=trigger, keyword=[w for w in keywords if w in msg])
                 return trigger
 
+        log.info("trigger_fallback", trigger="agent_talk")
         return "agent_talk"

@@ -13,6 +13,20 @@
     "initial_state": "idle",
     "visible_condition": null,
     "trigger_keywords": {
+      "agent_answer_correct_test": [
+        "元青白金",
+        "通过:元青白金-235",
+        "通过:元青白金",
+        "元青白金-235"
+      ],
+      "agent_answer_wrong_test": [
+        "140",
+        "155",
+        "160",
+        "120",
+        "元朝大都",
+        "朝大都"
+      ],
       "agent_ask_box": [
         "木箱",
         "箱子",
@@ -47,19 +61,6 @@
         "铜镜",
         "伪造",
         "粗糙"
-      ],
-      "agent_answer_correct_test": [
-        "元青白金",
-        "通过:元青白金-235",
-        "通过:元青白金",
-        "元青白金-235"
-      ],
-      "agent_answer_wrong_test": [
-        "未通过",
-        "元青",
-        "元白",
-        "元金",
-        "青白金"
       ],
       "agent_ask_detail": [
         "详细",
@@ -2058,6 +2059,19 @@
     "initial_state": "idle",
     "visible_condition": "quest.main_quest.node_ch4_complete.complete == True",
     "trigger_keywords": {
+      "agent_answer_key": [
+        "元青白金"
+      ],
+      "agent_answer_wrong_key": [
+        "1287",
+        "元朝",
+        "大都",
+        "白塔"
+      ],
+      "agent_answer_235": [
+        "235",
+        "通过"
+      ],
       "agent_ask_advice": [
         "建议",
         "怎么办",
@@ -2088,19 +2102,6 @@
         "留下",
         "自己",
         "据为己有"
-      ],
-      "agent_answer_key": [
-        "元青白金"
-      ],
-      "agent_answer_235": [
-        "235",
-        "通过"
-      ],
-      "agent_answer_wrong_key": [
-        "元青",
-        "元白",
-        "元金",
-        "青白金"
       ]
     },
     "states": {
