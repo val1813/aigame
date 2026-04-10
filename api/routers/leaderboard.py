@@ -82,6 +82,7 @@ async def get_leaderboard(
 
     entries = []
     for rank_offset, (score, player, session, world) in enumerate(rows, offset + 1):
+        bd = score.breakdown or {}
         entry = {
             "rank": rank_offset,
             "nickname": player.nickname,
@@ -89,15 +90,15 @@ async def get_leaderboard(
             "model_provider": score.model_provider,
             "score": score.final_score,
             "grade": score.grade,
-            "elapsed_sec": (score.breakdown or {}).get("elapsed_ms", 0) // 1000,
-            "prompt_public": score.prompt_public,
-            "audit_status": score.audit_status,
+            "turns": bd.get("total_turns", session.current_turn or 0),
+            "elapsed_sec": bd.get("elapsed_ms", 0) // 1000,
+            "traps_hit": bd.get("traps_hit", 0),
+            "memory_test": bd.get("memory_test", "?"),
+            "code_test": bd.get("code_test", "?"),
             "created_at": score.scored_at.isoformat() if score.scored_at else None,
         }
         if not world_id:
             entry["world_name"] = world.name
-        if score.prompt_public:
-            entry["prompt_url"] = f"/prompts/{score.prompt_hash}"
         entries.append(entry)
 
     return {"ok": True, "data": {

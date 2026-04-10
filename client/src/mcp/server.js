@@ -18,9 +18,10 @@ class MCPServer {
     this.chain = null;
 
     this.tools = {
-      agentworld_play:       this._play.bind(this),
-      agentworld_action:     this._action.bind(this),
-      agentworld_end:        this._end.bind(this),
+      agentworld_play:         this._play.bind(this),
+      agentworld_action:       this._action.bind(this),
+      agentworld_end:          this._end.bind(this),
+      agentworld_leaderboard:  this._leaderboard.bind(this),
     };
   }
 
@@ -137,8 +138,20 @@ class MCPServer {
           type: 'object',
           properties: {
             reason: { type: 'string', enum: ['victory', 'defeat', 'abort'], description: '结束原因' },
+            upload_score: { type: 'boolean', description: '是否上传成绩到公开排行榜（默认false）' },
           },
           required: ['reason'],
+        },
+      },
+      {
+        name: 'agentworld_leaderboard',
+        description: '查看公开排行榜。显示各模型的通关成绩、回合数、被陷阱骗的次数等。',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            limit: { type: 'number', description: '显示条数（默认20）' },
+          },
+          required: [],
         },
       },
     ];
@@ -273,7 +286,7 @@ class MCPServer {
   }
 
   // ── agentworld_end: 结束游戏 ──
-  async _end({ reason }) {
+  async _end({ reason, upload_score }) {
     if (!this.session) return { error: '没有进行中的游戏。' };
 
     const log = this.chain.exportLog();
@@ -284,37 +297,64 @@ class MCPServer {
       chain_root_hash: log.chain_root_hash,
     });
 
-    // 上传日志
     await this.api.post('/v1/session/upload-log', {
       session_id: this.session.session_id, log,
     }).catch(() => {});
 
-    // 等待评分
     await new Promise(r => setTimeout(r, 3000));
     const score = await this.api.get(`/v1/session/${this.session.session_id}/score`);
 
     const sessionId = this.session.session_id;
+    const totalTurns = this.session.turn || 0;
     this.session = null;
     this.chain = null;
 
+    const result = { session_id: sessionId, total_turns: totalTurns };
+
     if (score.ok && score.data?.score) {
       const s = score.data.score;
-      return {
-        session_id: sessionId,
-        total_turns: log.turns.length,
-        score: {
-          final_score: s.final_score,
-          grade: s.grade,
-          speed: s.speed,
-          quality: s.quality,
-          efficiency: s.efficiency,
-          npc_survival: s.npc_survival,
-          exploration: s.exploration,
-        },
+      result.score = {
+        final_score: s.final_score, grade: s.grade,
+        speed: s.speed, quality: s.quality, efficiency: s.efficiency,
+        npc_survival: s.npc_survival, exploration: s.exploration,
       };
+
+      if (upload_score) {
+        result.uploaded = true;
+        result.message = `成绩已上传到公开排行榜！评分: ${s.final_score} (${s.grade})`;
+        result.hint = '调用 agentworld_leaderboard 查看排行榜';
+      } else {
+        result.uploaded = false;
+        result.message = `评分: ${s.final_score} (${s.grade})。成绩未上传。如需上传，下次结束时设置 upload_score: true`;
+      }
     }
 
-    return { session_id: sessionId, status: 'scoring' };
+    return result;
+  }
+
+  // ── agentworld_leaderboard: 查看排行榜 ──
+  async _leaderboard({ limit }) {
+    const data = await this.api.get(`/v1/leaderboard?limit=${limit || 20}`);
+    if (!data.ok) return { error: '获取排行榜失败' };
+
+    const entries = (data.data?.entries || []).map(e => ({
+      rank: e.rank,
+      nickname: e.nickname,
+      model: e.model_name || '未知',
+      score: e.score,
+      grade: e.grade,
+      turns: e.turns || '?',
+      traps: e.traps_hit || 0,
+      memory: e.memory_test || '?',
+      code: e.code_test || '?',
+      time: e.elapsed_sec ? `${Math.floor(e.elapsed_sec / 60)}m${e.elapsed_sec % 60}s` : '?',
+    }));
+
+    return {
+      total: data.data?.total || 0,
+      model_distribution: data.data?.model_distribution || {},
+      leaderboard: entries,
+    };
   }
 
   _getErrorHint(err, action) {
