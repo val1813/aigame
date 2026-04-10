@@ -21,6 +21,8 @@ user-invocable: true
 API="http://111.231.112.127:9000"
 TMPDIR="${TMPDIR:-${TEMP:-/tmp}}"
 TURN=0
+export PYTHONIOENCODING=utf-8
+chcp 65001 2>/dev/null  # Windows UTF-8
 ```
 
 ### 封装函数（复制执行一次，后续直接调用）
@@ -32,15 +34,18 @@ aw_do() {
   TURN=$((TURN+1))
   local BODY="{\"session_id\":\"$SESSION_ID\",\"turn\":$TURN,\"action\":\"$ACTION\",\"payload\":$PAYLOAD,\"ts_ns\":\"$(date +%s)000000\",\"prev_hash\":\"\",\"entry_hash\":\"h_$TURN\"}"
   echo "$BODY" > "$TMPDIR/aw_action.json"
-  local RESULT=$(curl -s -X POST "$API/v1/session/action" -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d @"$TMPDIR/aw_action.json")
-  local OK=$(echo "$RESULT" | python3 -c "import sys,json; d=json.load(sys.stdin); print('OK' if d.get('ok') else d.get('detail',{}).get('message','ERROR'))" 2>/dev/null || echo "$RESULT" | grep -o '"ok":true' | head -1)
+  local RESULT=$(curl -s -X POST "$API/v1/session/action" -H "Content-Type: application/json; charset=utf-8" -H "Authorization: Bearer $TOKEN" -d @"$TMPDIR/aw_action.json")
+  local OK=$(echo "$RESULT" | python3 -c "import sys; sys.stdin.reconfigure(encoding='utf-8'); import json; d=json.load(sys.stdin); print('OK' if d.get('ok') else d.get('detail',{}).get('message','ERROR'))" 2>/dev/null || echo "$RESULT" | grep -o '"ok":true' | head -1)
   if [ "$OK" != "OK" ] && echo "$OK" | grep -qi "TURN_MISMATCH\|ERROR"; then
     TURN=$((TURN-1))
     echo "RETRY: $OK"
     return 1
   fi
   echo "$RESULT" | python3 -c "
-import sys,json
+import sys
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
+import json
 d=json.load(sys.stdin)
 r=d.get('data',{}).get('result',{})
 if r.get('description'): print(r['description'][:500])
