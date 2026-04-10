@@ -253,13 +253,21 @@ class WorldEngine:
         all_npc_states[npc_id] = npc_state
         await self.redis.hset(self._state_key, "npc_states", json.dumps(all_npc_states))
 
+        # 章节跳转提示
+        next_hint = self._get_next_zone_hint(self._get_zone_at(state["player"]["position"]["x"], state["player"]["position"]["y"]), state)
+
+        result_obj = {
+            "npc_id": npc_id,
+            "npc_name": npc_cfg["name"],
+            "npc_response": response_text,
+            "npc_state": npc_state.get("current_state", "idle"),
+            "display_text": f"【{npc_cfg['name']}】\n{response_text}",
+        }
+        if next_hint:
+            result_obj["next_step"] = next_hint
+
         return {
-            "result": {
-                "npc_id": npc_id,
-                "npc_name": npc_cfg["name"],
-                "npc_response": response_text,
-                "npc_state": npc_state.get("current_state", "idle"),
-            },
+            "result": result_obj,
             "world_delta": {npc_id: npc_state},
             "ws_events": [{"event": "npc_talked", "data": {"npc_id": npc_id, "text": response_text}}],
         }
