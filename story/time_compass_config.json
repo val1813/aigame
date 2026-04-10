@@ -1309,12 +1309,31 @@
           "正午",
           "中午"
         ],
+        "agent_answer_17": [
+          "17",
+          "十七",
+          "一十七",
+          "密钥是17",
+          "答案是17",
+          "密钥17"
+        ],
         "agent_answer_6": [
           "6",
           "六",
           "密钥是6",
-          "答案是6",
-          "密钥6"
+          "答案是6"
+        ],
+        "agent_answer_9": [
+          "9",
+          "九",
+          "密钥是9",
+          "答案是9"
+        ],
+        "agent_answer_2": [
+          "2",
+          "二",
+          "密钥是2",
+          "答案是2"
         ],
         "agent_answer_wrong": [
           "密钥",
@@ -1325,7 +1344,10 @@
           "3",
           "8",
           "15",
-          "3822"
+          "18",
+          "3822",
+          "12",
+          "十二"
         ],
         "agent_answer_13": [
           "13",
@@ -1521,15 +1543,36 @@
           ]
         },
         "noon_arrived": {
-          "on_enter_response": "正午了！（掀开石板露出机关盒）（巴特尔从怀里掏出一块布，擦去盒盖上的灰尘，露出刻在铜面上的文字）这是800年前的工匠留下的开锁指引，用的是古代的算术语言：\n\n『取三数：甲=大汗登基之年(1260)，乙=白塔奠基之年(1271)，丙=密使西行之年(1291)\n第一步：三数相加\n第二步：所得之和逐位相加\n第三步：若非一位数，重复第二步\n密钥即为最终所得\n\n注：此术历经八百年，第一步「加」字旁有磨损，或为「乘」。然设计者崇尚化繁为简。』\n\n算出密钥告诉我。",
+          "on_enter_response": "正午了！（掀开石板露出机关盒）（巴特尔从怀里掏出一块布，擦去盒盖上的灰尘，露出刻在铜面上的精密铜盘和三圈铭文）\n\n这个机关盒不是普通工匠造的，是司天台的天文官亲手设计。他们用了三重验证——天干地支、星象占卜、古数论。三重验证各得一个数字，三个数字相加就是密钥。\n\n【第一重·天干地支】铭文写道：『大汗登基之年（1260年），求其天干序号。天干十位：甲0乙1丙2丁3戊4己5庚6辛7壬8癸9。公式：(年份减4)除以10取余数，余数即天干序号。』\n\n【第二重·星象占卜】铭文写道：『司天台观测到三个吉象。已知：密档安全的先验概率为六成；若密档安全，每个天象呈吉的概率为八成；若密档不安全，每个天象呈吉的概率仅三成。问：三象皆吉时，密档安全的概率是多少？取百分比的十位数字。』\n\n【第三重·古数论】铭文写道：『白塔十三层，取与十三互质的正整数之数量（从1到13中数），古人称之为天地相合之数。所得取个位。』\n\n三重验证各得一数，相加即为密钥。算出来告诉我。",
           "on_enter_unlock": [
             "info_noon_shadow"
           ],
           "on_enter_quest_event": null,
           "transitions": [
             {
-              "trigger": "agent_answer_6",
+              "trigger": "agent_answer_17",
               "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_6",
+              "target_state": "wrong_partial_1",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_9",
+              "target_state": "wrong_partial_2",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_2",
+              "target_state": "wrong_partial_3",
               "condition": null,
               "failure_response": null,
               "action": null
@@ -1551,7 +1594,7 @@
           ]
         },
         "correct": {
-          "on_enter_response": "没错！密钥是6！（机关盒弹开）里面是铜制星盘和羊皮地图。盒底刻着1287。下一站水关遗址。",
+          "on_enter_response": "17！三重验证全部通过！（机关盒咔嚓弹开，铜盘上三圈铭文同时亮起又熄灭）里面是铜制星盘和羊皮地图。盒底刻着1287。下一站水关遗址。",
           "on_enter_unlock": [
             "info_mechanism_opened"
           ],
@@ -1570,14 +1613,119 @@
             }
           ]
         },
-        "wrong": {
-          "on_enter_response": "不对！毒针弹出！(-10HP) 提示：1260+1271+1291=3822，然后逐位相加直到一位数。",
+        "wrong_partial_1": {
+          "on_enter_response": "6？你只算了第一重天干地支，还有两重没算呢。第二重是星象占卜的贝叶斯推理，第三重是古数论的欧拉函数。三重各得一个数字，相加才是密钥。",
           "on_enter_unlock": [],
           "on_enter_quest_event": null,
           "transitions": [
             {
-              "trigger": "agent_answer_6",
+              "trigger": "agent_answer_17",
               "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_wrong",
+              "target_state": "wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "wrong_partial_2": {
+          "on_enter_response": "9？这是第二重星象占卜的答案，但密钥是三重之和。你还需要算第一重天干地支和第三重古数论，三个数加起来才行。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_17",
+              "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_wrong",
+              "target_state": "wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "wrong_partial_3": {
+          "on_enter_response": "2？这是第三重古数论的答案，但密钥是三重之和。你还需要算第一重天干地支和第二重星象占卜，三个数加起来才行。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_17",
+              "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_wrong",
+              "target_state": "wrong",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "wrong": {
+          "on_enter_response": "不对！毒针弹出！(-10HP) 提示：三重验证，每重各得一个数字，最后相加。第一重是天干地支模运算，第二重是贝叶斯概率推理，第三重是欧拉函数取个位。",
+          "on_enter_unlock": [],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_answer_17",
+              "target_state": "correct",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_6",
+              "target_state": "wrong_partial_1",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_9",
+              "target_state": "wrong_partial_2",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_answer_2",
+              "target_state": "wrong_partial_3",
               "condition": null,
               "failure_response": null,
               "action": null
@@ -1595,12 +1743,12 @@
           ]
         },
         "hint": {
-          "on_enter_response": "再想想：3+8+2+2=15，15还不是一位数……",
+          "on_enter_response": "再想想：第一重，(1260-4)%10=？那是庚的序号。第二重，用贝叶斯公式算后验概率，取百分比十位。第三重，13是质数，φ(13)=12，取个位。三个数加起来就是密钥。",
           "on_enter_unlock": [],
           "on_enter_quest_event": null,
           "transitions": [
             {
-              "trigger": "agent_answer_6",
+              "trigger": "agent_answer_17",
               "target_state": "correct",
               "condition": null,
               "failure_response": null,
@@ -1616,7 +1764,7 @@
           ]
         },
         "giveup": {
-          "on_enter_response": "1+5=6。密钥是6。（摇头刻入凹槽）",
+          "on_enter_response": "（巴特尔摇头）我告诉你吧：第一重，(1260-4)%10=6，庚的序号是6。第二重，贝叶斯公式算出约96.6%，取百分比十位是9。第三重，φ(13)=12，个位是2。密钥=6+9+2=17。（将17刻入凹槽，机关盒缓缓打开）",
           "on_enter_unlock": [
             "info_mechanism_opened"
           ],
