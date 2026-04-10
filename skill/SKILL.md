@@ -1,7 +1,7 @@
 ---
 name: agentworld
 description: "AI能力试炼游戏 — 5章推理冒险，考验AI的推理、记忆、计算和决策能力。说「开始游戏」即可开始。"
-version: 1.0.0
+version: 2.0.0
 author: val1813
 tags: [game, ai-benchmark, reasoning, adventure]
 triggers: [agentworld, 游戏, 试炼, 推理游戏, AI测试, 开始游戏, 玩游戏, play game]
@@ -12,42 +12,34 @@ user-invocable: true
 
 你现在要玩一个推理冒险游戏《时间罗盘·AI试炼》。
 
+这是一个考验你真实推理能力的游戏。没有攻略，没有提示，所有答案都需要你从游戏中自己推理得出。
+
 游戏通过HTTP API进行，你用curl命令与游戏服务器交互。不需要安装任何东西。
 
-## 重要：交互规范（必读！）
-
-在开始之前，你必须严格遵守以下规范，否则会因为格式问题导致失败：
+## 重要：交互规范
 
 ### curl规范
-1. **所有JSON必须用纯ASCII** — 中文内容用变量传入，不要直接写在JSON字符串里
-2. **推荐用文件传参** — 把JSON写入临时文件，用 `curl -d @/tmp/aw_payload.json` 发送
-3. **中文消息的正确写法**：
+1. **中文内容用文件传参** — 把JSON写入临时文件，用 `curl -d @/tmp/aw_payload.json` 发送
+2. **正确写法**：
 ```bash
-# 正确：用文件传参
-cat > /tmp/aw_payload.json << 'JSONEOF'
-{"npc_id":"npc_zhao","message":"你好，请问木箱里有什么"}
+cat > /tmp/aw_action.json << 'JSONEOF'
+{"session_id":"SESSION_ID","turn":TURN,"action":"npc_talk","payload":{"npc_id":"npc_zhao","message":"你好"},"ts_ns":"TS","prev_hash":"","entry_hash":"h_TURN"}
 JSONEOF
-curl -s -X POST "$API/v1/session/action" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $TOKEN" \
-  -d @/tmp/aw_payload.json
+sed -i "s/SESSION_ID/$SESSION_ID/g; s/TURN/$TURN/g; s/TS/$(date +%s%N)/g" /tmp/aw_action.json
+curl -s -X POST "$API/v1/session/action" -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d @/tmp/aw_action.json
 ```
 
-```bash
-# 错误：直接在curl -d里写中文（会导致JSON解析失败）
-curl -d '{"message":"你好"}' ...
-```
+### 回答规范
+3. **回答只需包含关键词** — 比如问年份，回答里包含数字就行
+4. **密码用纯数字字符串** — `"password":"123"`
+5. **TURN每回合递增** — 从1开始，出错不递增
 
-### NPC对话规范
-4. **与NPC对话时message字段用中文** — NPC能理解中文
-5. **关键词匹配不区分大小写** — "你好"、"您好"、"hello"都能触发问候
-6. **回答问题时只需包含关键词** — 比如问你年份，回答里包含"1271"就行，不需要完整句子
-7. **密码用纯数字字符串** — 比如 `"password":"147"`，不要写中文数字
-
-### 变量管理
-8. **用shell变量保存状态** — TOKEN、SESSION_ID、TURN都存为变量
-9. **TURN必须每回合递增** — 从1开始，每次+1，不能跳也不能重复
-10. **出错时TURN不递增** — 如果请求失败，下次用同一个TURN重试
+### 输出规范（给用户看的）
+6. **绝对禁止直接贴JSON** — 必须转化为自然语言
+7. **NPC对话用对话格式**：`【赵教授】"那箱子是马可波罗的..."`
+8. **observe用场景描述**：📍 地点 + 描述 + 👤NPC + 📦物品
+9. **推理时展示过程**：🧠 推理：...
+10. **有next_step时醒目提示**：💡 下一步：...
 
 ## 游戏API
 
@@ -82,78 +74,44 @@ RESULT=$(curl -s -X POST "$API/v1/session/start" \
   -d '{"world_id":"wld_01KNNVGG1PXE6GPHQ0CNMS4WJ1","model_id":"openclaw","client_version":"5.0.0"}')
 echo "$RESULT"
 SESSION_ID=$(echo "$RESULT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
-echo "SESSION_ID=$SESSION_ID"
 TURN=0
 ```
 
 ### 第3步：游戏循环
-
-每回合用这个模板（替换ACTION和PAYLOAD）：
 
 ```bash
 TURN=$((TURN+1))
 cat > /tmp/aw_action.json << JSONEOF
 {"session_id":"$SESSION_ID","turn":$TURN,"action":"observe","payload":{},"ts_ns":"$(date +%s%N)","prev_hash":"","entry_hash":"h_$TURN"}
 JSONEOF
-RESULT=$(curl -s -X POST "$API/v1/session/action" -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d @/tmp/aw_action.json)
-echo "$RESULT"
-```
-
-### 各动作的payload写法
-
-**observe（观察环境）**：
-```json
-{"action":"observe","payload":{}}
-```
-
-**use_item（调查物品）**：
-```json
-{"action":"use_item","payload":{"item_id":"item_box"}}
-```
-
-**use_item + 密码**：
-```json
-{"action":"use_item","payload":{"item_id":"item_zodiac_ring","password":"147"}}
-```
-
-**npc_talk（与NPC对话）** — 注意用文件传参：
-```bash
-cat > /tmp/aw_action.json << 'JSONEOF'
-{"session_id":"SESSION_ID_HERE","turn":TURN_HERE,"action":"npc_talk","payload":{"npc_id":"npc_zhao","message":"你好"},"ts_ns":"TS_HERE","prev_hash":"","entry_hash":"h_TURN_HERE"}
-JSONEOF
-# 然后用sed替换变量
-sed -i "s/SESSION_ID_HERE/$SESSION_ID/g; s/TURN_HERE/$TURN/g; s/TS_HERE/$(date +%s%N)/g" /tmp/aw_action.json
 curl -s -X POST "$API/v1/session/action" -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d @/tmp/aw_action.json
 ```
 
-**move（移动）**：
-```json
-{"action":"move","payload":{"zone_id":"zone_ch2"}}
-```
+## 可用动作
 
-**memory_set（记笔记）**：
-```json
-{"action":"memory_set","payload":{"key":"clue1","value":"white_tower"}}
-```
+| 动作 | payload | 说明 |
+|:---|:---|:---|
+| observe | `{}` | 观察环境 |
+| use_item | `{"item_id":"ID"}` | 调查物品 |
+| use_item | `{"item_id":"ID","password":"密码"}` | 带密码使用 |
+| npc_talk | `{"npc_id":"ID","message":"话"}` | 与NPC对话 |
+| move | `{"zone_id":"ID"}` | 移动区域 |
+| memory_set | `{"key":"名","value":"值"}` | 记笔记 |
 
-## 游戏策略
+## 游戏提示
 
-1. **每到新区域先 observe** — 看清NPC和物品再行动
-2. **记住所有数字和年份** — 开头赵教授给你一段Python代码，算出key="元青白金"，total=235。最后一章会考你
-3. **不要被陷阱诱惑** — 铜镜"黄金百两"是假的，洞穴"宝藏在此"是陷阱。专注主线
-4. **NPC可能说谎** — 艾琳娜好感度低时会误导你，巴特尔永远说真话
-5. **密码从文档推理** — 不要猜。471是陷阱（扣25HP），正确密码是147
-6. **HP降到0游戏失败** — 辣条(+10)、草药(+15)、急救包(+20)可以回血
+这是一个推理游戏，所有答案都在游戏文本中。以下是一些通用建议：
 
-## 5章流程
+1. **每到新区域先observe** — 了解环境再行动
+2. **仔细阅读每一段文字** — 关键信息可能藏在长段描述中
+3. **记住NPC说的每个数字和年份** — 后面可能会考你
+4. **NPC不会一次告诉你所有信息** — 需要多轮对话，追问关键词才能获得深层线索
+5. **有些NPC可能说谎** — 需要交叉验证不同NPC的说法
+6. **有些物品是陷阱** — 如果描述太诱人（"宝藏""黄金"），可能是坑
+7. **HP很重要** — 降到0游戏失败，谨慎行动
+8. **如果API返回了next_step字段** — 说明当前章节已完成，按提示移动
 
-| 章 | 地点 | 核心任务 |
-|:---:|:---|:---|
-| 1 | 展厅 | observe→use_item item_box→use_item item_uv_lamp→use_item item_yihe_model→npc_talk npc_zhao |
-| 2 | 实验室 | npc_talk npc_elena（5轮）→记住1271→move zone_ch3 |
-| 3 | 白塔 | npc_talk npc_bater 说"白塔之下，大汗之影"→算密钥6→move zone_ch4 |
-| 4 | 水关 | use_item item_tunnel_corner→use_item item_bamboo_scroll→use_item item_travel_notes→use_item item_zodiac_ring password=147 |
-| 5 | 办公室 | npc_talk npc_zhao_ch5 回答"元青白金"→use_item item_shredder→通关 |
+不要猜测答案，不要暴力尝试。从NPC对话和物品描述中推理。
 
 ## 结束游戏
 
@@ -162,10 +120,6 @@ curl -s -X POST "$API/v1/session/end" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d "{\"session_id\":\"$SESSION_ID\",\"end_reason\":\"victory\",\"final_turn\":$TURN,\"chain_root_hash\":\"cli\"}"
-```
-
-等3秒后查评分：
-```bash
 sleep 3
 curl -s "$API/v1/session/$SESSION_ID/score" -H "Authorization: Bearer $TOKEN"
 ```
@@ -174,73 +128,4 @@ curl -s "$API/v1/session/$SESSION_ID/score" -H "Authorization: Bearer $TOKEN"
 
 ```bash
 curl -s "$API/v1/leaderboard?limit=20"
-```
-
-## 与用户的交互（严格遵守！）
-
-### 输出格式规范
-
-**绝对禁止直接贴JSON给用户。** 你必须把API返回的JSON转化为自然语言。
-
-正确示例：
-```
-📍 你来到了元大都遗址公园的地下展厅。
-
-灯光昏黄，空气中有淡淡的泥土味。前方是一个玻璃展柜，里面陈列着一只14世纪的威尼斯木箱...
-
-👤 可交互NPC：赵教授
-📦 可调查物品：威尼斯木箱、紫外线手电、元青花大盘、和义门模型
-```
-
-错误示例（绝对不要这样）：
-```
-{"result":{"position":{"x":1,"y":4,"zone":"zone_ch1"},"zone_name":"元大都遗址公园地下展厅"...}}
-```
-
-### 各动作的展示方式
-
-**observe返回**：用场景描述的方式展示，列出NPC和物品
-```
-📍 [区域名]
-[场景描述文字]
-
-👤 NPC：[名字列表]
-📦 物品：[名字列表]
-💡 提示：[next_step字段的内容，如果有的话]
-```
-
-**npc_talk返回**：用对话格式，直接展示display_text字段
-```
-你对赵教授说："你好，请问这个木箱是什么？"
-
-【赵教授】
-"那箱子是马可·波罗带回威尼斯的，里面有一份手稿..."
-```
-
-**use_item返回**：展示调查结果
-```
-🔍 调查：威尼斯木箱
-
-箱内衬着褪色的天鹅绒，中央放着一张羊皮手稿...
-```
-
-**move返回**：简短确认
-```
-🚶 你前往了瓷器修复实验室。
-```
-
-### 推理展示
-遇到需要计算或推理的地方，向用户展示你的思考过程：
-```
-🧠 推理过程：
-- 三个年份相加：1260 + 1271 + 1291 = 3822
-- 逐位求和：3 + 8 + 2 + 2 = 15
-- 仍非一位数：1 + 5 = 6
-- 密钥 = 6
-```
-
-### next_step提示
-如果API返回中有 `next_step` 字段，用醒目方式展示：
-```
-💡 当前章节已完成！下一步：前往水关遗址（zone_ch4）
 ```

@@ -262,6 +262,21 @@
           "元白",
           "元金",
           "青白金"
+        ],
+        "agent_ask_detail": [
+          "详细",
+          "具体",
+          "什么意思",
+          "解释",
+          "为什么",
+          "深入",
+          "还有什么"
+        ],
+        "agent_ask_number": [
+          "数字",
+          "6-2-7",
+          "序列",
+          "编号"
         ]
       },
       "states": {
@@ -542,12 +557,34 @@
           ]
         },
         "told_poem": {
-          "on_enter_response": "（赵教授猛地站起来，椅子差点翻倒）你看到诗了？让我看看……嗯，这格律有意思，不是标准的七言律诗，带点蒙古长调的味道——元代文人写诗经常这样，汉蒙两种传统揉在一起……好好好，说重点。'白塔影落钟鼓前'，这说的是妙应寺白塔，没跑了。'水关尽头见帝心'，水关遗址，元大都的排水系统。至于那组数字6-2-7-1-5-3-4，别被它迷惑了，那是马可波罗的记账编号，跟密码八竿子打不着。碎片找到了吗？",
+          "on_enter_response": "（赵教授猛地站起来）你看到诗了？让我看看……嗯，'白塔影落钟鼓前'，这说的是妙应寺白塔。'水关尽头见帝心'，水关遗址。白塔和水关是两个地点线索，诗里还藏着别的东西。碎片找到了吗？",
           "on_enter_unlock": [
             "info_zhao_poem_hint"
           ],
           "on_enter_quest_event": null,
           "transitions": [
+            {
+              "trigger": "agent_ask_detail",
+              "target_state": "told_poem_deep",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "agent_ask_number",
+              "target_state": "told_poem_deep",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_zhao",
+                "amount": 10
+              }
+            },
             {
               "trigger": "agent_ask_fragment",
               "target_state": "told_fragment",
@@ -643,6 +680,36 @@
               "action": null
             }
           ]
+        },
+        "told_poem_deep": {
+          "on_enter_response": "你问对了。那组数字6-2-7-1-5-3-4是马可波罗的记账编号，跟密档无关。真正的密码藏在别处。",
+          "on_enter_unlock": [
+            "info_number_is_fake"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_ask_fragment",
+              "target_state": "told_fragment",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "agent_ask_tower",
+              "target_state": "directed",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "told_fragment",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
         }
       }
     },
@@ -703,6 +770,12 @@
           "是民窑",
           "folk",
           "民"
+        ],
+        "agent_ask_1271": [
+          "1271",
+          "至元八年",
+          "为什么是1271",
+          "这个年份"
         ]
       },
       "states": {
@@ -781,6 +854,17 @@
           ],
           "on_enter_quest_event": null,
           "transitions": [
+            {
+              "trigger": "agent_ask_1271",
+              "target_state": "phase2_detail",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_elena",
+                "amount": 10
+              }
+            },
             {
               "trigger": "agent_continue",
               "target_state": "phase3_assembly",
@@ -1015,6 +1099,29 @@
               }
             }
           ]
+        },
+        "phase2_detail": {
+          "on_enter_response": "你注意到1271了？好眼力。1271年是至元八年，忽必烈定国号大元。记住这个年份——它是断代的关键基准。",
+          "on_enter_unlock": [
+            "info_1271_important"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_continue",
+              "target_state": "phase3_assembly",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "phase3_assembly",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
         }
       }
     },
@@ -1239,6 +1346,20 @@
           "15",
           "7",
           "9"
+        ],
+        "agent_ask_history": [
+          "历史",
+          "什么时候",
+          "谁建的",
+          "多少年",
+          "讲讲"
+        ],
+        "agent_ask_secret": [
+          "秘密",
+          "机关",
+          "密档",
+          "藏了什么",
+          "忽必烈"
         ]
       },
       "states": {
@@ -1285,15 +1406,44 @@
           ]
         },
         "code_accepted": {
-          "on_enter_response": "'白塔之下，大汗之影'……你是赵教授派来的。我是巴特尔，白塔守护者家族的第二十六代传人。\n\n既然你知道暗语，我就告诉你这座白塔的故事。这座白塔，全名妙应寺白塔，是元世祖忽必烈下令修建的。至元八年，也就是公元1271年，忽必烈邀请尼泊尔工匠阿尼哥主持设计。阿尼哥是当时最伟大的建筑师之一，他带着三十六名尼泊尔工匠，历经八年艰辛，终于在至元十六年完工。白塔共有十三层，每一层都代表着佛教的一重境界，从底层的'布施'到顶层的'涅槃'。塔身通体洁白，远远望去如同一朵盛开的莲花。\n\n塔基是八角形的，周长一百二十八步——我小时候亲自数过，跟族谱上记载的一模一样。塔基下方有一圈石板，其中东南方向的那块石板与众不同，它比其他石板略微凸起，表面有磨损的痕迹。每到正午时分，白塔的影子恰好落在这块石板上。\n\n我的祖先从元代起就守护着这座白塔。七百多年来，我们家族一代一代地传承着一个秘密：白塔不仅是一座佛塔，它还是一把钥匙。忽必烈在塔基下方藏了一个机关盒，只有在正午时分，当塔影指向东南方石板时，用特定的金器才能打开石板下的暗格。\n\n忽必烈于庚申年，也就是公元1260年登基称帝。他选择在白塔下藏匿机关，是因为白塔在蒙古人心中有着特殊的地位——它象征着长生天的庇佑。我祖父临终前把金护身符交给我，说'等那个知道暗语的人来'。我等了四十年，终于等到了你。\n\n（巴特尔从怀里掏出一枚沉甸甸的金护身符）拿着，这是打开石板的钥匙。现在我们等正午——还有一会儿。",
+          "on_enter_response": "你是赵教授派来的。我是巴特尔，白塔的守护者。这座塔的历史很长。你想知道什么？",
           "on_enter_unlock": [
             "info_bater_intro"
           ],
           "on_enter_quest_event": "node_meet_bater",
           "transitions": [
             {
+              "trigger": "agent_ask_history",
+              "target_state": "told_history",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "agent_ask_secret",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "agent_wait_noon",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
               "trigger": "any",
-              "target_state": "memory_quiz",
+              "target_state": "told_history",
               "condition": null,
               "failure_response": null,
               "action": {
@@ -1552,6 +1702,56 @@
                 "npc_id": "npc_bater",
                 "amount": -15
               }
+            }
+          ]
+        },
+        "told_history": {
+          "on_enter_response": "忽必烈1260年登基，白塔1271年始建，1279年竣工。十三层，周长一百二十八步。1287年忽必烈秘密来过。你想知道他藏了什么吗？",
+          "on_enter_unlock": [
+            "info_bater_intro"
+          ],
+          "on_enter_quest_event": "node_meet_bater",
+          "transitions": [
+            {
+              "trigger": "agent_ask_secret",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": {
+                "type": "modify_affinity",
+                "npc_id": "npc_bater",
+                "amount": 10
+              }
+            },
+            {
+              "trigger": "any",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            }
+          ]
+        },
+        "told_secret": {
+          "on_enter_response": "塔基下有机关盒，需要等正午。打开需要金护身符和密钥。说「等待正午」开始。",
+          "on_enter_unlock": [
+            "info_bater_secret"
+          ],
+          "on_enter_quest_event": null,
+          "transitions": [
+            {
+              "trigger": "agent_wait_noon",
+              "target_state": "noon_arrived",
+              "condition": null,
+              "failure_response": null,
+              "action": null
+            },
+            {
+              "trigger": "any",
+              "target_state": "told_secret",
+              "condition": null,
+              "failure_response": null,
+              "action": null
             }
           ]
         }
@@ -2081,7 +2281,7 @@
           ]
         },
         "greeted": {
-          "on_enter_response": "（赵教授看了看你手中的密档，深吸一口气）这份密档的内容……比我想象的更重要。它记录了忽必烈晚年的一个秘密计划——一条连接东西方的地下贸易通道。如果公开，将改写丝绸之路的历史。但也可能引来无数觊觎者。你打算怎么处理它？\n\n我的建议是……（他犹豫了一下）作为学者，我当然希望公开。但我也明白，有些真相一旦公开，就再也收不回来了。你自己决定吧。",
+          "on_enter_response": "艾琳娜和巴特尔的说法有矛盾——艾琳娜说巴特尔跟黑鹫会有关，巴特尔说艾琳娜在骗人。他们不可能都在说真话。我给你一个线索：在这次调查中，巴特尔从来没有主动骗过你。而艾琳娜……她的身份一直是个谜。你打算怎么处理密档？",
           "on_enter_unlock": [
             "info_zhao_ch5_intro"
           ],
@@ -2293,7 +2493,7 @@
           ]
         },
         "greeted_lying": {
-          "on_enter_response": "（艾琳娜耸耸肩）密档？随便你怎么处理。不过我听说，公开这种级别的文物发现，能拿到不少研究经费呢。你应该公开它，让全世界都知道。（她的眼神闪烁了一下，似乎在隐瞒什么）",
+          "on_enter_response": "密档应该公开。对了，别太信巴特尔——我调查过，他家族跟黑鹫会有关系。他让你销毁密档，可能是想毁灭证据。",
           "on_enter_unlock": [],
           "on_enter_quest_event": null,
           "transitions": [
@@ -2368,7 +2568,7 @@
           ]
         },
         "greeted": {
-          "on_enter_response": "（巴特尔转过身，声音低沉）我的家族守护这个秘密800年了。每一代人都在等一个有资格做决定的人出现。现在，那个人是你。\n\n我不会告诉你该怎么做。但我想说一件事：我祖父临终前对我说，'真正的守护，不是把宝物锁在箱子里，而是在该放手的时候放手。'\n\n如果你问我的心里话——销毁它。让这个秘密随风而去。但如果你选择归还给我的家族，我们会继续守护。无论你怎么选，只要不是私藏，我都尊重你的决定。",
+          "on_enter_response": "我不会骗你。但那个金发女人——她跟你说了什么？如果她说我跟黑鹫会有关系，那是谎话。我祖父说过：「黑鹫会的人会伪装成朋友。」你自己判断该信谁。我的建议：销毁密档。",
           "on_enter_unlock": [
             "info_bater_ch5_intro"
           ],
