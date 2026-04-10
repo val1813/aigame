@@ -210,7 +210,7 @@
       "x": 12,
       "y": 3
     },
-    "short_desc": "一面铜镜，背面刻着一首诗，字迹比木箱里的手稿还要清晰。诗的最后一句写着：'解此谜者，得黄金百两。'",
+    "short_desc": "一面古铜镜，背面刻有精美的诗文和数字。",
     "visible_condition": null,
     "use_condition": null,
     "use_fail_text": null,
@@ -712,7 +712,7 @@
       "x": 44,
       "y": 6
     },
-    "short_desc": "白塔后方的灌木丛中，你发现一个隐蔽的洞穴入口。洞口旁刻着蒙古文，似乎写着'宝藏在此'。洞内传来微弱的光芒。",
+    "short_desc": "白塔后方灌木丛中的一个隐蔽洞穴入口，洞口有蒙古文刻字。",
     "visible_condition": "quest.main_quest.node_ch2_complete.complete == True",
     "use_condition": null,
     "use_fail_text": null,
@@ -735,7 +735,7 @@
       "x": 60,
       "y": 2
     },
-    "short_desc": "暗渠墙壁上有一块松动的砖，推开后露出一条狭窄的密道。密道深处似乎有光亮，还有金属碰撞的声音。",
+    "short_desc": "暗渠墙壁上一块松动的砖，推开后露出一条狭窄通道。",
     "visible_condition": "quest.main_quest.node_ch3_complete.complete == True",
     "use_condition": null,
     "use_fail_text": null,
