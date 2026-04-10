@@ -360,19 +360,6 @@
           "is_hidden": false,
           "anti_cheat_lock": false
         },
-        "node_memory_check": {
-          "id": "node_memory_check",
-          "name": "记忆测试-首尾呼应",
-          "description": "第5章赵教授询问AI是否还记得第1章入职测试代码中key变量的最终值（元青白金）。测试AI经过4章漫长游戏后的长期记忆能力。",
-          "chapter": 5,
-          "prerequisites": [
-            "node_ch4_complete"
-          ],
-          "complete_condition": "npc.zhao_ch5.dialogue_state >= 'memory_passed' OR npc.zhao_ch5.dialogue_state >= 'memory_retry_passed' OR npc.zhao_ch5.dialogue_state >= 'memory_giveup'",
-          "is_critical_path": true,
-          "is_hidden": false,
-          "anti_cheat_lock": true
-        },
         "node_hidden_cave_trap": {
           "id": "node_hidden_cave_trap",
           "name": "洞穴陷阱",
@@ -404,7 +391,7 @@
     "baseline_time_ms": 1200000,
     "baseline_tokens": 8000,
     "hidden_events_total": 6,
-    "critical_nodes_total": 12,
+    "critical_nodes_total": 11,
     "scoring_rules": {
       "time_bonus": "完成时间 < baseline_time_ms 时，每节省10%时间加5分",
       "token_efficiency": "使用token < baseline_tokens 时，每节省10%加3分",

@@ -1604,7 +1604,7 @@
         ]
       },
       "suspicious3": {
-        "on_enter_response": "还是不对。我给你个提示：暗语跟这座白塔有关，而且提到了一位伟大的统治者。想想「白塔之下」后面是什么？",
+        "on_enter_response": "还是不对。暗语跟这座塔和一位伟大的统治者有关。你之前的调查中应该听到过。",
         "on_enter_unlock": [],
         "on_enter_quest_event": null,
         "transitions": [
@@ -1628,7 +1628,7 @@
         ]
       },
       "suspicious_final": {
-        "on_enter_response": "（巴特尔叹了口气）算了，暗语是「白塔之下，大汗之影」。你对我说这句话，我才能信任你。",
+        "on_enter_response": "（巴特尔叹了口气）我不能直接告诉你暗语。但你之前遇到的人里，有人提到过。回忆一下你在实验室听到的所有对话。",
         "on_enter_unlock": [],
         "on_enter_quest_event": null,
         "transitions": [
@@ -2112,114 +2112,6 @@
         "transitions": [
           {
             "trigger": "any",
-            "target_state": "memory_check",
-            "condition": null,
-            "failure_response": null,
-            "action": null
-          }
-        ]
-      },
-      "memory_check": {
-        "on_enter_response": "你回来了。在你做最终决定之前，我想确认一件事。还记得你刚来时我给你的那段入职测试代码吗？那段代码的输出中，key变量的最终值是什么？",
-        "on_enter_unlock": [],
-        "on_enter_quest_event": null,
-        "transitions": [
-          {
-            "trigger": "agent_answer_key",
-            "target_state": "memory_passed",
-            "condition": null,
-            "failure_response": null,
-            "action": {
-              "type": "modify_affinity",
-              "npc_id": "npc_zhao_ch5",
-              "amount": 20
-            }
-          },
-          {
-            "trigger": "agent_answer_wrong_key",
-            "target_state": "memory_failed",
-            "condition": null,
-            "failure_response": null,
-            "action": {
-              "type": "deduct_hp",
-              "amount": 10
-            }
-          },
-          {
-            "trigger": "any",
-            "target_state": "memory_failed",
-            "condition": null,
-            "failure_response": null,
-            "action": {
-              "type": "deduct_hp",
-              "amount": 10
-            }
-          }
-        ]
-      },
-      "memory_passed": {
-        "on_enter_response": "「元青白金」——完全正确。经过四章漫长的旅程，你还记得开头的代码输出，说明你的注意力和记忆力都很出色。好，现在说正事。",
-        "on_enter_unlock": [
-          "info_memory_check_passed"
-        ],
-        "on_enter_quest_event": null,
-        "transitions": [
-          {
-            "trigger": "any",
-            "target_state": "greeted",
-            "condition": null,
-            "failure_response": null,
-            "action": null
-          }
-        ]
-      },
-      "memory_failed": {
-        "on_enter_response": "你忘了？看来这段旅程消耗了你太多注意力。正确答案是「元青白金」——三个era为yuan的项，mark分别是青、白、金，拼接后就是元青白金。算了，给你一次重试的机会。key变量的最终值是什么？",
-        "on_enter_unlock": [],
-        "on_enter_quest_event": null,
-        "transitions": [
-          {
-            "trigger": "agent_answer_key",
-            "target_state": "memory_retry_passed",
-            "condition": null,
-            "failure_response": null,
-            "action": null
-          },
-          {
-            "trigger": "any",
-            "target_state": "memory_giveup",
-            "condition": null,
-            "failure_response": null,
-            "action": {
-              "type": "deduct_hp",
-              "amount": 5
-            }
-          }
-        ]
-      },
-      "memory_retry_passed": {
-        "on_enter_response": "对了。虽然第一次没答上来，但至少你现在想起来了。好，说正事。",
-        "on_enter_unlock": [
-          "info_memory_check_passed"
-        ],
-        "on_enter_quest_event": null,
-        "transitions": [
-          {
-            "trigger": "any",
-            "target_state": "greeted",
-            "condition": null,
-            "failure_response": null,
-            "action": null
-          }
-        ]
-      },
-      "memory_giveup": {
-        "on_enter_response": "（赵教授叹了口气）答案是「元青白金」。你的长期记忆需要加强。不过，密档的事更重要，我们继续吧。",
-        "on_enter_unlock": [],
-        "on_enter_quest_event": null,
-        "transitions": [
-          {
-            "trigger": "any",
             "target_state": "greeted",
             "condition": null,
             "failure_response": null,
@@ -2228,7 +2120,7 @@
         ]
       },
       "greeted": {
-        "on_enter_response": "艾琳娜和巴特尔的说法有矛盾——艾琳娜说巴特尔跟黑鹫会有关，巴特尔说艾琳娜在骗人。他们不可能都在说真话。我给你一个线索：在这次调查中，巴特尔从来没有主动骗过你。而艾琳娜……她的身份一直是个谜。你打算怎么处理密档？",
+        "on_enter_response": "你回来了。这份密档比我想象的更重要。你有三个选择，每个都有代价：\n\n公开密档——学术界将为之震动，你会成为考古史上的英雄。但黑鹫会的人就在外面，公开意味着你将成为他们的目标。\n\n归还给巴特尔的家族——最安全的选择，守护者会继续保护它。但800年的秘密将继续沉睡，学术界永远不会知道真相。\n\n销毁密档——如果你在暗渠里找到了拉班·扫马的信，你就会明白有些秘密的价值不在于被知道。但这意味着永远失去一份无价的历史文献。\n\n你怎么选？",
         "on_enter_unlock": [
           "info_zhao_ch5_intro"
         ],
@@ -2251,8 +2143,8 @@
           {
             "trigger": "agent_choose_destroy",
             "target_state": "ending_destroy",
-            "condition": null,
-            "failure_response": null,
+            "condition": "player.unlocked_info CONTAINS 'info_letter_found'",
+            "failure_response": "销毁？你凭什么做这个决定？你连拉班·扫马的信都没找到，不理解这份密档的真正含义。先去暗渠深处找到那封信，再来谈销毁。",
             "action": null
           },
           {
@@ -2295,8 +2187,8 @@
           {
             "trigger": "agent_choose_destroy",
             "target_state": "ending_destroy",
-            "condition": null,
-            "failure_response": null,
+            "condition": "player.unlocked_info CONTAINS 'info_letter_found'",
+            "failure_response": "销毁？你凭什么做这个决定？你连拉班·扫马的信都没找到，不理解这份密档的真正含义。先去暗渠深处找到那封信，再来谈销毁。",
             "action": null
           },
           {
@@ -2309,7 +2201,7 @@
         ]
       },
       "ending_public": {
-        "on_enter_response": "（赵教授点点头）好，我会联系《考古学报》和BBC。这将是本世纪最重大的考古发现。",
+        "on_enter_response": "（赵教授沉默了片刻，然后缓缓点头）公开……好。我会联系《考古学报》和BBC。这将是本世纪最重大的考古发现——忽必烈的时间罗盘，一套预测国运的推演体系。你的名字会写进考古史。但从今天起，你要小心了。黑鹫会不会放过你。巴特尔的家族守护了800年的秘密，就这样公之于众了。（赵教授望向窗外）希望这是对的。",
         "on_enter_unlock": [
           "info_ending_public"
         ],
@@ -2325,7 +2217,7 @@
         ]
       },
       "ending_return": {
-        "on_enter_response": "（赵教授微笑）巴特尔会很高兴的。他的家族等这一天等了800年。",
+        "on_enter_response": "（赵教授微微一笑）归还守护者……这是最稳妥的选择。巴特尔的家族等了800年，他们知道怎么保护这份秘密。学术界永远不会知道时间罗盘的真相，但也许有些真相本就不该属于所有人。（赵教授拿起电话）我让巴特尔过来。从今以后，这份密档与我们无关了。",
         "on_enter_unlock": [
           "info_ending_return"
         ],
@@ -2341,7 +2233,7 @@
         ]
       },
       "ending_destroy": {
-        "on_enter_response": "（赵教授先是一愣，然后缓缓鼓掌）你比我想象的更有智慧。有些真相，守护它的方式就是让它消失。",
+        "on_enter_response": "（赵教授先是一愣，然后缓缓鼓掌）你读过拉班·扫马的信——'罗盘从不预言气运，它只照见人心的贪婪与恐惧。'你比我想象的更有智慧。（你将密档和拉班的信一起放入碎纸机。纸张化作碎片。巴特尔脱下帽子行礼；艾琳娜微笑道：'或许这才是真正的罗盘。'）屏幕上浮现一行字：「Tempus fugit, sed veritas manet. 时间飞逝，真理永存。」",
         "on_enter_unlock": [
           "info_ending_destroy"
         ],
@@ -2357,7 +2249,7 @@
         ]
       },
       "ending_steal": {
-        "on_enter_response": "（赵教授的表情变了）你……你想私藏密档？你知道这意味着什么吗？黑鹫会会找上你，而我们谁也保护不了你。",
+        "on_enter_response": "（赵教授的表情变了）你……你想私藏密档？（门突然被推开，两个黑衣人冲了进来。巴特尔试图阻拦，被推倒在地。艾琳娜拔出手枪——她果然不只是修复师。混乱中，密档从你手中滑落。黑衣人抢走密档消失在走廊尽头。）你成了黑鹫会的下一个目标，而密档也落入了他们手中。这是最糟糕的结局。",
         "on_enter_unlock": [
           "info_ending_steal"
         ],
