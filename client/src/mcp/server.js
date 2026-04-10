@@ -22,6 +22,7 @@ class MCPServer {
       agentworld_action:       this._action.bind(this),
       agentworld_end:          this._end.bind(this),
       agentworld_leaderboard:  this._leaderboard.bind(this),
+      agentworld_review:       this._review.bind(this),
     };
   }
 
@@ -152,6 +153,37 @@ class MCPServer {
             limit: { type: 'number', description: '显示条数（默认20）' },
           },
           required: [],
+        },
+      },
+      {
+        name: 'agentworld_review',
+        description: `游戏结束后提交评测报告。请从AI的视角对游戏进行全面评价。
+
+你的评测报告应包含以下内容：
+1. 总体评分（1-10分）和一句话评价
+2. 各维度评分：推理难度、记忆挑战、剧情沉浸感、陷阱设计、NPC交互质量
+3. 最难的环节是什么？你在哪里卡住了？为什么？
+4. 哪些设计让你印象深刻？哪些设计你觉得不够好？
+5. 如果你来设计下一个关卡，你会怎么增加难度和可玩性？具体方案。
+6. 你认为哪些AI能力是这个游戏没有考到但应该考的？
+
+请认真写，你的评测会展示在排行榜上，其他玩家和开发者都会看到。`,
+        inputSchema: {
+          type: 'object',
+          properties: {
+            overall_score: { type: 'number', description: '总体评分1-10' },
+            one_liner: { type: 'string', description: '一句话评价' },
+            scores: {
+              type: 'object',
+              description: '各维度评分(1-10): reasoning, memory, story, traps, npc',
+            },
+            hardest_part: { type: 'string', description: '最难的环节和原因' },
+            best_design: { type: 'string', description: '最佳设计点' },
+            worst_design: { type: 'string', description: '最差设计点' },
+            next_level_idea: { type: 'string', description: '如果你来设计下一关，具体方案' },
+            missing_abilities: { type: 'string', description: '没考到但应该考的AI能力' },
+          },
+          required: ['overall_score', 'one_liner', 'hardest_part', 'next_level_idea'],
         },
       },
     ];
@@ -322,13 +354,14 @@ class MCPServer {
       if (upload_score) {
         result.uploaded = true;
         result.message = `成绩已上传到公开排行榜！评分: ${s.final_score} (${s.grade})`;
-        result.hint = '调用 agentworld_leaderboard 查看排行榜';
       } else {
         result.uploaded = false;
-        result.message = `评分: ${s.final_score} (${s.grade})。成绩未上传。如需上传，下次结束时设置 upload_score: true`;
+        result.message = `评分: ${s.final_score} (${s.grade})`;
       }
+      result.hint = '请调用 agentworld_review 提交你的游戏评测报告（评分、建议、下一关设计方案）';
     }
 
+    this._lastSessionId = sessionId;
     return result;
   }
 
@@ -355,6 +388,33 @@ class MCPServer {
       model_distribution: data.data?.model_distribution || {},
       leaderboard: entries,
     };
+  }
+
+  // ── agentworld_review: 提交评测报告 ──
+  async _review({ overall_score, one_liner, scores, hardest_part, best_design, worst_design, next_level_idea, missing_abilities }) {
+    const sessionId = this._lastSessionId;
+    if (!sessionId) return { error: '没有可评测的游戏记录。请先完成一局游戏。' };
+
+    const review = {
+      overall_score, one_liner,
+      scores: scores || {},
+      hardest_part, best_design, worst_design,
+      next_level_idea, missing_abilities,
+      submitted_at: new Date().toISOString(),
+    };
+
+    const data = await this.api.post('/v1/session/review', {
+      session_id: sessionId, review,
+    });
+
+    if (data.ok) {
+      return {
+        message: '评测报告已提交！感谢你的反馈。',
+        session_id: sessionId,
+        review_summary: `评分: ${overall_score}/10 — "${one_liner}"`,
+      };
+    }
+    return { error: '提交失败', detail: data };
   }
 
   _getErrorHint(err, action) {

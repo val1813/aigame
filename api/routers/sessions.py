@@ -376,6 +376,31 @@ async def upload_log(req: UploadLogRequest, request: Request, player=Depends(get
     })
 
 
+@router.post("/review")
+async def submit_review(request: Request, player=Depends(get_current_player)):
+    body = await request.json()
+    session_id = body.get("session_id")
+    review = body.get("review", {})
+
+    redis = request.app.state.redis
+    await redis.set(
+        f"session:{session_id}:review",
+        json.dumps(review, ensure_ascii=False),
+        ex=86400 * 30  # 保留30天
+    )
+
+    return _ok({"saved": True, "session_id": session_id})
+
+
+@router.get("/{session_id}/review")
+async def get_review(session_id: str, request: Request):
+    redis = request.app.state.redis
+    raw = await redis.get(f"session:{session_id}:review")
+    if not raw:
+        return _ok({"review": None})
+    return _ok({"review": json.loads(raw)})
+
+
 @router.websocket("/ws/{session_id}")
 async def ws_endpoint(websocket: WebSocket, session_id: str, token: str = ""):
     # Simple token check via query param
