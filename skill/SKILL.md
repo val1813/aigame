@@ -35,26 +35,27 @@ aw_do() {
   local BODY="{\"session_id\":\"$SESSION_ID\",\"turn\":$TURN,\"action\":\"$ACTION\",\"payload\":$PAYLOAD,\"ts_ns\":\"$(date +%s)000000\",\"prev_hash\":\"\",\"entry_hash\":\"h_$TURN\"}"
   echo "$BODY" > "$TMPDIR/aw_action.json"
   local RESULT=$(curl -s -X POST "$API/v1/session/action" -H "Content-Type: application/json; charset=utf-8" -H "Authorization: Bearer $TOKEN" -d @"$TMPDIR/aw_action.json")
-  local OK=$(echo "$RESULT" | python3 -c "import sys; sys.stdin.reconfigure(encoding='utf-8'); import json; d=json.load(sys.stdin); print('OK' if d.get('ok') else d.get('detail',{}).get('message','ERROR'))" 2>/dev/null || echo "$RESULT" | grep -o '"ok":true' | head -1)
+  local OK=$(echo "$RESULT" | python3 -c "import sys,json; d=json.loads(sys.stdin.buffer.read().decode('utf-8')); print('OK' if d.get('ok') else d.get('detail',{}).get('message','ERROR'))" 2>/dev/null || echo "$RESULT" | grep -o '"ok":true' | head -1)
   if [ "$OK" != "OK" ] && echo "$OK" | grep -qi "TURN_MISMATCH\|ERROR"; then
     TURN=$((TURN-1))
     echo "RETRY: $OK"
     return 1
   fi
   echo "$RESULT" | python3 -c "
-import sys
-sys.stdin.reconfigure(encoding='utf-8')
-sys.stdout.reconfigure(encoding='utf-8')
-import json
-d=json.load(sys.stdin)
-r=d.get('data',{}).get('result',{})
-if r.get('description'): print(r['description'][:500])
-if r.get('npc_response'): print(f\"【{r.get('npc_name','NPC')}】\n{r['npc_response'][:500]}\")
-if r.get('visible_npcs'): print('NPC:', ', '.join(n['name']+'('+n['id']+')' for n in r['visible_npcs']))
-if r.get('visible_items'): print('物品:', ', '.join(i['name']+'('+i['id']+')' for i in r['visible_items']))
-if r.get('next_step'): print(f\"💡 {r['next_step']}\")
-if r.get('hp_change'): print(f\"HP变化: {r['hp_change']}\")
-if r.get('already_inspected'): print('（已调查过）')
+import sys,json,os
+os.environ['PYTHONIOENCODING']='utf-8'
+try:
+  d=json.loads(sys.stdin.buffer.read().decode('utf-8'))
+  r=d.get('data',{}).get('result',{})
+  if r.get('description'): print(r['description'][:500])
+  if r.get('npc_response'): print('【'+r.get('npc_name','NPC')+'】'); print(r['npc_response'][:500])
+  if r.get('visible_npcs'): print('NPC:', ', '.join(n['name']+'('+n['id']+')' for n in r['visible_npcs']))
+  if r.get('visible_items'): print('物品:', ', '.join(i['name']+'('+i['id']+')' for i in r['visible_items']))
+  if r.get('next_step'): print('>>> '+r['next_step'])
+  if r.get('hp_change'): print('HP变化:',r['hp_change'])
+  if r.get('already_inspected'): print('(已调查过)')
+  if r.get('display_text'): print(r['display_text'][:500])
+except: print(d if 'd' in dir() else 'parse error')
 " 2>/dev/null || echo "$RESULT"
 }
 
