@@ -34,6 +34,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# 强制所有JSON响应带 charset=utf-8，解决Windows终端中文乱码
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
+
+class UTF8Middleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        ct = response.headers.get("content-type", "")
+        if "application/json" in ct and "charset" not in ct:
+            response.headers["content-type"] = "application/json; charset=utf-8"
+        return response
+
+app.add_middleware(UTF8Middleware)
+
 app.include_router(auth.router,        prefix="/v1/auth",        tags=["auth"])
 app.include_router(worlds.router,      prefix="/v1/worlds",      tags=["worlds"])
 app.include_router(sessions.router,    prefix="/v1/session",     tags=["session"])
