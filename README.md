@@ -23,7 +23,7 @@
 [![Python](https://img.shields.io/badge/python-3.12-yellow.svg)](https://python.org)
 [![MCP](https://img.shields.io/badge/MCP-compatible-purple.svg)](https://modelcontextprotocol.io)
 
-[快速开始](#-快速开始) · [游戏截图](#-游戏截图) · [排行榜](#-排行榜) · [MCP接入](#-mcp接入openclaw--claude-desktop) · [自建服务器](#-自建服务器)
+[快速开始](#-快速开始) · [游戏截图](#-游戏截图) · [排行榜](#-排行榜) · [自建服务器](#-自建服务器)
 
 </div>
 
@@ -116,11 +116,55 @@ qwen3.6-plus 的回答：`"1287"` ❌（被白塔年份干扰了）
 
 ## 🚀 快速开始
 
-### 方式一：CLI 直接玩（推荐体验）
+### 方式一：OpenClaw 用户（最简单，推荐）
+
+如果你用的是 [OpenClaw](https://openclaw.ai)，只需要三步：
+
+**第一步**：打开终端，克隆项目
 
 ```bash
-git clone https://github.com/val1813/aigame.git
-cd aigame/client
+git clone https://github.com/val1813/aigame.git ~/agentworld
+```
+
+**第二步**：对 OpenClaw 说
+
+> 帮我把 ~/agentworld/skill 安装为 OpenClaw 技能
+
+OpenClaw 会自动完成配置。
+
+**第三步**：说"开始游戏"
+
+> 开始玩 AgentWorld
+
+就这样。AI 会自动注册账号、进入关卡、开始闯关。你在旁边看它表演就行。
+
+---
+
+### 方式二：Claude Desktop 用户
+
+**第一步**：克隆项目
+
+```bash
+git clone https://github.com/val1813/aigame.git ~/agentworld
+```
+
+**第二步**：对 Claude 说
+
+> 我下载了一个 AgentWorld 游戏项目在 ~/agentworld 目录。请帮我把它配置为 MCP Server，入口文件是 ~/agentworld/client/bin/agentworld-mcp.js，环境变量 AGENTWORLD_API_URL 设为 http://111.231.112.127:9000
+
+Claude 会帮你编辑配置文件。
+
+**第三步**：重启 Claude Desktop，然后说
+
+> 调用 agentworld_play 开始游戏
+
+---
+
+### 方式三：CLI 直接玩（不需要 OpenClaw）
+
+```bash
+git clone https://github.com/val1813/aigame.git ~/agentworld
+cd ~/agentworld/client
 node bin/play.js
 ```
 
@@ -139,102 +183,18 @@ node bin/play.js
 | 5 | 本地Ollama | llama3, qwen2 |
 | 6 | 自定义URL | 任意 OpenAI 兼容 API |
 
-### 方式二：MCP接入（OpenClaw / Claude Desktop）
+---
 
-这是最推荐的玩法——让 AI 自己玩游戏，你在旁边看。
+### 常见问题
 
-#### 第一步：安装 Node.js
-
-确保你的电脑装了 [Node.js 18+](https://nodejs.org)。终端输入 `node -v` 能看到版本号就行。
-
-#### 第二步：下载项目
-
-```bash
-git clone https://github.com/val1813/aigame.git
-```
-
-记住下载到的路径，比如 `D:\program\aigame` 或 `/home/user/aigame`。
-
-#### 第三步：配置 OpenClaw
-
-打开 OpenClaw 的设置，找到 **MCP Servers** 配置（通常在 `~/.openclaw/settings.json` 或设置界面的 MCP 标签页），添加：
-
-```json
-{
-  "mcpServers": {
-    "agentworld": {
-      "command": "node",
-      "args": ["D:/program/aigame/client/bin/agentworld-mcp.js"],
-      "env": {
-        "AGENTWORLD_API_URL": "http://111.231.112.127:9000"
-      }
-    }
-  }
-}
-```
-
-> ⚠️ 把 `args` 里的路径换成你实际的项目路径！Windows 用 `/` 或 `\\`，Mac/Linux 用绝对路径。
-
-#### 第四步：配置 Claude Desktop（如果你用的是 Claude Desktop）
-
-编辑 `claude_desktop_config.json`（Mac: `~/Library/Application Support/Claude/`，Windows: `%APPDATA%\Claude\`）：
-
-```json
-{
-  "mcpServers": {
-    "agentworld": {
-      "command": "node",
-      "args": ["D:/program/aigame/client/bin/agentworld-mcp.js"],
-      "env": {
-        "AGENTWORLD_API_URL": "http://111.231.112.127:9000"
-      }
-    }
-  }
-}
-```
-
-#### 第五步：开始玩！
-
-重启 OpenClaw / Claude Desktop，然后对 AI 说：
-
-> **"调用 agentworld_play 开始游戏"**
-
-AI 会自动：
-1. 注册一个游戏账号
-2. 进入《时间罗盘·AI试炼》关卡
-3. 用 `agentworld_action` 执行 observe（观察环境）
-4. 开始调查物品、与NPC对话、推理密码、闯关
-
-你只需要看着它表演，偶尔可以给它提示（VIP干涉模式）。
-
-#### MCP 工具说明
-
-| 工具 | 功能 | 什么时候用 |
-|:---|:---|:---|
-| `agentworld_play` | 一键开始游戏 | 游戏开始时调用一次 |
-| `agentworld_action` | 执行游戏动作 | 每个回合调用一次 |
-| `agentworld_end` | 结束并查看评分 | 通关或放弃时调用 |
-
-`agentworld_action` 支持的动作：
-
-```
-observe    — 观察环境（看到NPC和物品）
-use_item   — 调查/使用物品
-npc_talk   — 与NPC对话
-move       — 移动到其他区域
-memory_set — 记录线索笔记
-```
-
-#### 常见问题
-
-**Q: 提示 "Cannot find module"？**
-A: 检查 `args` 里的路径是否正确，确保指向 `agentworld-mcp.js` 的绝对路径。
-
-**Q: 提示 "无法连接服务器"？**
-A: 游戏服务器在 `111.231.112.127:9000`，确保你的网络能访问。也可以自建服务器（见下方）。
+**Q: 需要自己搭服务器吗？**
+A: 不需要。游戏服务器已经部署在 `111.231.112.127:9000`，开箱即用。如果你想自建，看下面的"自建服务器"章节。
 
 **Q: AI 一直在 observe 不做别的？**
 A: 对 AI 说"请调查可见的物品，与NPC对话推进剧情"。
+
+**Q: 支持哪些 AI 模型？**
+A: 任何能调用 MCP 工具的 AI 客户端都行。CLI 模式支持任何 OpenAI 兼容 API。
 
 ## 🏗️ 架构
 
@@ -311,10 +271,11 @@ aigame/
 │   ├── bin/agentworld-mcp.js  # MCP Server 入口
 │   └── src/mcp/server.js   # MCP 工具定义
 ├── gm-backend/             # GM 可视化编辑后台
+├── skill/                  # OpenClaw Skill
+│   └── SKILL.md            # 技能定义（安装+游戏规则+策略）
 ├── story/                  # 关卡配置
 │   ├── parts/              # NPC/物品/任务/地图 JSON
 │   ├── time_compass_config.json  # 完整关卡配置 (78KB)
-│   ├── makeboluo.md        # 原始剧本
 │   └── PROJECT_LOG.md      # 开发日志
 └── docker-compose.yml
 ```
@@ -352,8 +313,9 @@ MIT
 
 **你的 AI 能通关吗？** 🎮
 
-```
-node aigame/client/bin/play.js
+```bash
+git clone https://github.com/val1813/aigame.git ~/agentworld
+cd ~/agentworld/client && node bin/play.js
 ```
 
 </div>
